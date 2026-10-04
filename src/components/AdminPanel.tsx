@@ -570,76 +570,208 @@ export default function AdminPanel() {
 
         {/* SETTINGS TAB */}
         {tab === 'settings' && (
-          <form onSubmit={saveSettings} className="admin-card grid md:grid-cols-2 gap-5">
-            <Field label="Brand Name">
-              <input
-                className="admin-input"
-                value={settings.brand_name}
-                onChange={(e) => setSettings({ ...settings, brand_name: e.target.value })}
-              />
-            </Field>
-            <Field label="Contact Email">
-              <input
-                className="admin-input"
-                type="email"
-                value={settings.contact_email}
-                onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
-              />
-            </Field>
-            <Field label="Hero Title">
-              <textarea
-                className="admin-input min-h-24"
-                value={settings.hero_title}
-                onChange={(e) => setSettings({ ...settings, hero_title: e.target.value })}
-              />
-            </Field>
-            <Field label="Hero Badge Text">
-              <input
-                className="admin-input"
-                value={settings.hero_badge_text || ''}
-                onChange={(e) => setSettings({ ...settings, hero_badge_text: e.target.value })}
-                placeholder="e.g. 100% Commission-Free Platform"
-              />
-            </Field>
-            <Field label="Hero Description">
-              <textarea
-                className="admin-input min-h-24"
-                value={settings.hero_description}
-                onChange={(e) => setSettings({ ...settings, hero_description: e.target.value })}
-              />
-            </Field>
-            <Field label="Hero Image URL">
-              <input
-                className="admin-input"
-                value={settings.hero_image_url || ''}
-                onChange={(e) => setSettings({ ...settings, hero_image_url: e.target.value })}
-                placeholder="https://..."
-              />
-            </Field>
-            <Field label="Contact Phone">
-              <input
-                className="admin-input"
-                value={settings.contact_phone}
-                onChange={(e) => setSettings({ ...settings, contact_phone: e.target.value })}
-              />
-            </Field>
-            <Field label="Office Location">
-              <input
-                className="admin-input"
-                value={settings.location}
-                onChange={(e) => setSettings({ ...settings, location: e.target.value })}
-              />
-            </Field>
-            <Field label="Footer Description">
-              <textarea
-                className="admin-input min-h-24"
-                value={settings.footer_description}
-                onChange={(e) => setSettings({ ...settings, footer_description: e.target.value })}
-              />
-            </Field>
-            <div className="md:col-span-2 pt-2">
+          <form onSubmit={saveSettings} className="admin-card space-y-8">
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                1. Brand & General Contact Information
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Brand Name">
+                  <input
+                    className="admin-input"
+                    value={settings.brand_name}
+                    onChange={(e) => setSettings({ ...settings, brand_name: e.target.value })}
+                  />
+                </Field>
+                <Field label="Contact Email">
+                  <input
+                    className="admin-input"
+                    type="email"
+                    value={settings.contact_email}
+                    onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
+                  />
+                </Field>
+                <Field label="Contact Phone / WhatsApp">
+                  <input
+                    className="admin-input"
+                    value={settings.contact_phone}
+                    onChange={(e) => setSettings({ ...settings, contact_phone: e.target.value })}
+                  />
+                </Field>
+                <Field label="Office Location / Address">
+                  <input
+                    className="admin-input"
+                    value={settings.location}
+                    onChange={(e) => setSettings({ ...settings, location: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                2. Hero Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Hero Badge Text">
+                  <input
+                    className="admin-input"
+                    value={settings.hero_badge_text || ''}
+                    onChange={(e) => setSettings({ ...settings, hero_badge_text: e.target.value })}
+                  />
+                </Field>
+                <Field label="Hero Image URL">
+                  <input
+                    className="admin-input"
+                    value={settings.hero_image_url || ''}
+                    onChange={(e) => setSettings({ ...settings, hero_image_url: e.target.value })}
+                    placeholder="https://..."
+                  />
+                </Field>
+                <Field label="Hero Main Title" className="md:col-span-2">
+                  <textarea
+                    className="admin-input min-h-20"
+                    value={settings.hero_title}
+                    onChange={(e) => setSettings({ ...settings, hero_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="Hero Description" className="md:col-span-2">
+                  <textarea
+                    className="admin-input min-h-24"
+                    value={settings.hero_description}
+                    onChange={(e) => setSettings({ ...settings, hero_description: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                3. Features Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Features Title">
+                  <input
+                    className="admin-input"
+                    value={settings.features_title || ''}
+                    onChange={(e) => setSettings({ ...settings, features_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="Features Subtitle">
+                  <input
+                    className="admin-input"
+                    value={settings.features_subtitle || ''}
+                    onChange={(e) => setSettings({ ...settings, features_subtitle: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                4. How It Works Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="How It Works Title">
+                  <input
+                    className="admin-input"
+                    value={settings.how_it_works_title || ''}
+                    onChange={(e) => setSettings({ ...settings, how_it_works_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="How It Works Subtitle">
+                  <input
+                    className="admin-input"
+                    value={settings.how_it_works_subtitle || ''}
+                    onChange={(e) => setSettings({ ...settings, how_it_works_subtitle: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                5. Tutors Directory Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Directory Section Title">
+                  <input
+                    className="admin-input"
+                    value={settings.directory_title || ''}
+                    onChange={(e) => setSettings({ ...settings, directory_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="Directory Section Subtitle">
+                  <input
+                    className="admin-input"
+                    value={settings.directory_subtitle || ''}
+                    onChange={(e) => setSettings({ ...settings, directory_subtitle: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                6. Testimonials Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Testimonials Title">
+                  <input
+                    className="admin-input"
+                    value={settings.testimonials_title || ''}
+                    onChange={(e) => setSettings({ ...settings, testimonials_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="Testimonials Subtitle">
+                  <input
+                    className="admin-input"
+                    value={settings.testimonials_subtitle || ''}
+                    onChange={(e) => setSettings({ ...settings, testimonials_subtitle: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                7. Call to Action (CTA) & Footer Section
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="CTA Badge Text">
+                  <input
+                    className="admin-input"
+                    value={settings.cta_badge_text || ''}
+                    onChange={(e) => setSettings({ ...settings, cta_badge_text: e.target.value })}
+                  />
+                </Field>
+                <Field label="CTA Title">
+                  <input
+                    className="admin-input"
+                    value={settings.cta_title || ''}
+                    onChange={(e) => setSettings({ ...settings, cta_title: e.target.value })}
+                  />
+                </Field>
+                <Field label="CTA Description" className="md:col-span-2">
+                  <textarea
+                    className="admin-input min-h-20"
+                    value={settings.cta_description || ''}
+                    onChange={(e) => setSettings({ ...settings, cta_description: e.target.value })}
+                  />
+                </Field>
+                <Field label="Footer Description" className="md:col-span-2">
+                  <textarea
+                    className="admin-input min-h-20"
+                    value={settings.footer_description}
+                    onChange={(e) => setSettings({ ...settings, footer_description: e.target.value })}
+                  />
+                </Field>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-ink-100">
               <button disabled={saving} className="admin-button" type="submit">
-                <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Website Settings'}
+                <Save className="w-5 h-5" /> {saving ? 'Saving Website Settings...' : 'Save All Website Settings'}
               </button>
             </div>
           </form>
