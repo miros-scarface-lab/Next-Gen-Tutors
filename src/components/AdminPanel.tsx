@@ -34,8 +34,21 @@ const defaultSettings: SiteSettings = {
   hero_title: 'Find Your Perfect Tutor Anytime, Anywhere',
   hero_description:
     'Find the right tutor with confidence. Connect with verified, experienced tutors and start learning with purpose.',
+  hero_badge_text: '100% Commission-Free Platform',
+  hero_image_url: 'https://images.pexels.com/photos/5311406/pexels-photo-5311406.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  features_title: 'Why Choose Next Gen Tutors',
+  features_subtitle: 'Built to connect students and qualified tutors seamlessly.',
+  how_it_works_title: 'How Next Gen Tutors Works',
+  how_it_works_subtitle: 'Four simple steps to get started.',
+  directory_title: 'Tutors and tuition opportunities',
+  directory_subtitle: 'Explore verified expert tutors and current learning opportunities.',
+  testimonials_title: 'Loved by Students, Parents & Tutors',
+  testimonials_subtitle: 'Read real feedback from our community.',
+  cta_title: 'Find your perfect tutor or tuition in minutes',
+  cta_description: 'Find tutors and tuitions directly — fast and simple, 100% commission free.',
+  cta_badge_text: 'Available on Web & Mobile',
   contact_email: 'hello@nextgentutors.com',
-  contact_phone: '+880 1000 000000',
+  contact_phone: '+880 1318126412',
   location: 'Dhaka, Bangladesh',
   footer_description: 'Connect with expert tutors who will help you achieve your academic goals.',
   updated_at: '',
@@ -154,12 +167,13 @@ export default function AdminPanel() {
     }
   };
 
-  const save = async (action: () => PromiseLike<{ error: unknown }>, success: string) => {
+  const save = async (action: () => PromiseLike<{ error: any }>, success: string) => {
     setSaving(true);
     const result = await action();
     setSaving(false);
     if (result.error) {
-      showNotification('Failed to save change. Please try again.');
+      const errMsg = result.error.message || result.error.details || JSON.stringify(result.error);
+      showNotification(`Error: ${errMsg}`);
       return false;
     }
     showNotification(success);
@@ -574,11 +588,27 @@ export default function AdminPanel() {
                 onChange={(e) => setSettings({ ...settings, hero_title: e.target.value })}
               />
             </Field>
+            <Field label="Hero Badge Text">
+              <input
+                className="admin-input"
+                value={settings.hero_badge_text || ''}
+                onChange={(e) => setSettings({ ...settings, hero_badge_text: e.target.value })}
+                placeholder="e.g. 100% Commission-Free Platform"
+              />
+            </Field>
             <Field label="Hero Description">
               <textarea
                 className="admin-input min-h-24"
                 value={settings.hero_description}
                 onChange={(e) => setSettings({ ...settings, hero_description: e.target.value })}
+              />
+            </Field>
+            <Field label="Hero Image URL">
+              <input
+                className="admin-input"
+                value={settings.hero_image_url || ''}
+                onChange={(e) => setSettings({ ...settings, hero_image_url: e.target.value })}
+                placeholder="https://..."
               />
             </Field>
             <Field label="Contact Phone">

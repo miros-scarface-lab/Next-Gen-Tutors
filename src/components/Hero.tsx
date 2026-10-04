@@ -3,9 +3,11 @@ import { Search, Star, Users, ShieldCheck, ArrowRight, Sparkles } from 'lucide-r
 type HeroProps = {
   title?: string;
   description?: string;
+  badgeText?: string;
+  imageUrl?: string;
 };
 
-export default function Hero({ title, description }: HeroProps) {
+export default function Hero({ title, description, badgeText, imageUrl }: HeroProps) {
   return (
     <section id="home" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
       {/* Background */}
@@ -20,7 +22,7 @@ export default function Hero({ title, description }: HeroProps) {
           <div className="text-center lg:text-left animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-primary-50 border border-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               <Sparkles className="w-4 h-4" />
-              100% Commission-Free Platform
+              {badgeText || '100% Commission-Free Platform'}
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink-900 leading-[1.1] tracking-tight text-balance">
@@ -33,7 +35,7 @@ export default function Hero({ title, description }: HeroProps) {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
-                href="#features"
+                href="#tutors"
                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold px-7 py-3.5 rounded-full shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 transition-all hover:scale-105 group"
               >
                 Find a Tutor
@@ -70,7 +72,7 @@ export default function Hero({ title, description }: HeroProps) {
               {/* Main image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-ink-900/20 ring-1 ring-ink-900/5">
                 <img
-                  src="https://images.pexels.com/photos/5311406/pexels-photo-5311406.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                  src={imageUrl || 'https://images.pexels.com/photos/5311406/pexels-photo-5311406.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'}
                   alt="Tutor helping a student study"
                   className="w-full h-[420px] lg:h-[500px] object-cover"
                 />
