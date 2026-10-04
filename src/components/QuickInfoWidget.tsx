@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MessageSquare, X, Bot, User, Phone, CheckCircle2, RotateCcw, Sparkles } from 'lucide-react';
 
 interface QuickQuestion {
@@ -39,7 +39,7 @@ const defaultQuestions: QuickQuestion[] = [
   {
     id: '5',
     question: '💰 আপনাদের টিউশন ফি কত?',
-    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন। ',
+    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন。',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20টিউশন%20ফি%20সম্পর্কে%20জানতে%20চাই।',
     actionText: 'WhatsApp-এ ফি জানুন'
   },
@@ -78,6 +78,13 @@ export default function QuickInfoWidget() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isOpen]);
 
   const handleSelectQuestion = (q: QuickQuestion) => {
     const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -222,6 +229,7 @@ export default function QuickInfoWidget() {
                 )}
               </div>
             ))}
+            <div ref={chatEndRef} />
           </div>
 
           {/* Quick Question Buttons Selector */}
