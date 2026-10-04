@@ -13,6 +13,9 @@ export type SiteSettings = {
 export type Tutor = {
   id: string;
   name: string;
+  department?: string;
+  student_level?: string;
+  whatsapp_number?: string;
   headline: string;
   bio: string;
   subjects: string[];

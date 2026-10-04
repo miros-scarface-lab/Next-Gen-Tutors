@@ -51,6 +51,9 @@ const avatarPresets = [
 
 const emptyTutor: TutorForm = {
   name: '',
+  department: '',
+  student_level: '',
+  whatsapp_number: '01318126412',
   headline: '',
   bio: '',
   subjects: [],
@@ -255,6 +258,9 @@ export default function AdminPanel() {
     setEditingId(item.id);
     setTutorForm({
       name: item.name,
+      department: item.department || '',
+      student_level: item.student_level || '',
+      whatsapp_number: item.whatsapp_number || '01318126412',
       headline: item.headline,
       bio: item.bio,
       subjects: item.subjects,
@@ -628,6 +634,33 @@ export default function AdminPanel() {
                   />
                 </Field>
 
+                <Field label="Department / Institution">
+                  <input
+                    className="admin-input"
+                    value={tutorForm.department || ''}
+                    onChange={(e) => setTutorForm({ ...tutorForm, department: e.target.value })}
+                    placeholder="e.g. EEE, Islamic University of Technology (IUT)"
+                  />
+                </Field>
+
+                <Field label="Student Status / Year">
+                  <input
+                    className="admin-input"
+                    value={tutorForm.student_level || ''}
+                    onChange={(e) => setTutorForm({ ...tutorForm, student_level: e.target.value })}
+                    placeholder="e.g. 4th Year Student / Graduate"
+                  />
+                </Field>
+
+                <Field label="WhatsApp Phone Number">
+                  <input
+                    className="admin-input"
+                    value={tutorForm.whatsapp_number || ''}
+                    onChange={(e) => setTutorForm({ ...tutorForm, whatsapp_number: e.target.value })}
+                    placeholder="e.g. 01318126412"
+                  />
+                </Field>
+
                 <Field label="Headline">
                   <input
                     className="admin-input"
@@ -637,7 +670,7 @@ export default function AdminPanel() {
                   />
                 </Field>
 
-                <Field label="Subjects (comma separated)">
+                <Field label="Services Offered / Subjects (comma separated)">
                   <input
                     className="admin-input"
                     value={tutorForm.subjects.join(', ')}
