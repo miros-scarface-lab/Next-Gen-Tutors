@@ -7,12 +7,12 @@
     scroll-behavior: smooth;
   }
   body {
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Noto Sans Bengali', 'Anek Bangla', 'Montserrat', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Mozilla Headline', 'Space Grotesk', system-ui, sans-serif;
+    font-family: 'Anek Bangla', 'Noto Sans Bengali', 'Montserrat', system-ui, sans-serif;
     line-height: 1.2;
   }
 }

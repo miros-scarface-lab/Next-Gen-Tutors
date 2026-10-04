@@ -1,8 +1,26 @@
 import { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Bot, User, Phone, CheckCircle2, RotateCcw, Sparkles } from 'lucide-react';
+import {
+  MessageSquare,
+  X,
+  Bot,
+  User,
+  Phone,
+  CheckCircle2,
+  RotateCcw,
+  Sparkles,
+  Building2,
+  MapPin,
+  PhoneCall,
+  Clock,
+  Banknote,
+  GraduationCap,
+  BookOpen,
+  Lock
+} from 'lucide-react';
 
 interface QuickQuestion {
   id: string;
+  icon: typeof Building2;
   question: string;
   answer: string;
   actionUrl?: string;
@@ -12,17 +30,20 @@ interface QuickQuestion {
 const defaultQuestions: QuickQuestion[] = [
   {
     id: '1',
-    question: '🏢 আপনাদের প্রতিষ্ঠানের নাম কী?',
+    icon: Building2,
+    question: 'আপনারদের প্রতিষ্ঠানের নাম কী?',
     answer: 'Next Gen Tutors',
   },
   {
     id: '2',
-    question: '📍 আপনাদের ঠিকানা কোথায়?',
+    icon: MapPin,
+    question: 'আপনারদের ঠিকানা কোথায়?',
     answer: 'Pirojpur, Chittagong, Bangladesh',
   },
   {
     id: '3',
-    question: '📞 আপনাদের সাথে যোগাযোগের মাধ্যমগুলো কী কী?',
+    icon: PhoneCall,
+    question: 'আপনারদের সাথে যোগাযোগের মাধ্যমগুলো কী কী?',
     answer: `আমাদের সাথে যোগাযোগের মাধ্যমসমূহ:
 • WhatsApp: 01318126412
 • Call: 01626881259, 01744854853
@@ -33,26 +54,30 @@ const defaultQuestions: QuickQuestion[] = [
   },
   {
     id: '4',
-    question: '⏱️ টিউটর পেতে কেমন সময় লাগতে পারে?',
+    icon: Clock,
+    question: 'টিউটর পেতে কেমন সময় লাগতে পারে?',
     answer: 'আপনার চাহিদা অনুযায়ী উপযুক্ত টিউটর খুঁজে পাওয়ার পর দ্রুত যোগাযোগ করা হবে।',
   },
   {
     id: '5',
-    question: '💰 আপনাদের টিউশন ফি কত?',
-    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন。',
+    icon: Banknote,
+    question: 'আপনারদের টিউশন ফি কত?',
+    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন।',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20টিউশন%20ফি%20সম্পর্কে%20জানতে%20চাই।',
     actionText: 'WhatsApp-এ ফি জানুন'
   },
   {
     id: '6',
-    question: '👨‍🏫 টিউশন করাতে চাইলে কী করতে হবে?',
-    answer: 'আপনার নাম, শিক্ষাগত যোগ্যতা, অভিজ্ঞতা, বিষয় ও অবস্থান জানিয়ে CV/বিস্তারিত তথ্য  পাঠান।',
+    icon: GraduationCap,
+    question: 'টিউশন করাতে চাইলে কী করতে হবে?',
+    answer: 'আপনার নাম, শিক্ষাগত যোগ্যতা, অভিজ্ঞতা, বিষয় ও অবস্থান জানিয়ে CV/বিস্তারিত তথ্য পাঠান।',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20আমি%20টিউশন%20করাতে%20চাই।',
     actionText: 'CV পাঠান WhatsApp-এ'
   },
   {
     id: '7',
-    question: '📚 টিউটর খুঁজলে কী কী তথ্য দিতে হবে?',
+    icon: BookOpen,
+    question: 'টিউটর খুঁজলে কী কী তথ্য দিতে হবে?',
     answer: 'আপনার শ্রেণি, বিষয়, এলাকা ও পছন্দের সময় জানাবেন।',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20আমার%20একজন%20টিউটর%20প্রয়োজন।',
     actionText: 'টিউটর রিকোয়েস্ট পাঠান'
@@ -74,7 +99,7 @@ export default function QuickInfoWidget() {
     {
       id: 'welcome',
       sender: 'bot',
-      text: '👋 আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+      text: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -115,7 +140,7 @@ export default function QuickInfoWidget() {
       {
         id: 'welcome',
         sender: 'bot',
-        text: '👋 আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+        text: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -250,24 +275,30 @@ export default function QuickInfoWidget() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              {defaultQuestions.map((q) => (
-                <button
-                  key={q.id}
-                  onClick={() => handleSelectQuestion(q)}
-                  className="text-left w-full text-xs font-semibold px-3 py-2.5 rounded-xl bg-ink-50 hover:bg-primary-50 text-ink-800 hover:text-primary-700 border border-ink-100 hover:border-primary-200 transition-all flex items-center justify-between group"
-                >
-                  <span>{q.question}</span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2" />
-                </button>
-              ))}
+              {defaultQuestions.map((q) => {
+                const IconComponent = q.icon;
+                return (
+                  <button
+                    key={q.id}
+                    onClick={() => handleSelectQuestion(q)}
+                    className="text-left w-full text-xs font-semibold px-3 py-2.5 rounded-xl bg-ink-50 hover:bg-primary-50 text-ink-800 hover:text-primary-700 border border-ink-100 hover:border-primary-200 transition-all flex items-center justify-between group"
+                  >
+                    <div className="flex items-center gap-2">
+                      <IconComponent className="w-4 h-4 text-primary-600 shrink-0" />
+                      <span>{q.question}</span>
+                    </div>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0 ml-2" />
+                  </button>
+                );
+              })}
             </div>
           </div>
 
           {/* Custom Message Disabled Notice Bar */}
           <div className="bg-slate-100 p-2.5 text-center border-t border-ink-100 flex items-center justify-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-amber-500" />
+            <Lock className="w-3.5 h-3.5 text-amber-600" />
             <span className="text-[11px] font-semibold text-ink-600">
-              🔒 কাস্টম টাইপিং নিষ্ক্রিয় করা আছে। উত্তর পেতে উপরের যেকোনো প্রশ্নে ট্যাপ করুন।
+              কাস্টম টাইপিং নিষ্ক্রিয় করা আছে। উত্তর পেতে উপরের যেকোনো প্রশ্নে ট্যাপ করুন।
             </span>
           </div>
         </div>
