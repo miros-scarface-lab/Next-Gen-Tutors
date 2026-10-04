@@ -8,6 +8,7 @@ import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import Directory from '@/components/Directory';
 import AdminPanel from '@/components/AdminPanel';
+import QuickInfoWidget from '@/components/QuickInfoWidget';
 import { useCmsData } from '@/hooks/useCmsData';
 
 function App() {
@@ -29,7 +30,6 @@ function App() {
         <HowItWorks title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
         <Directory
           tutors={data.tutors}
-          tuitionPosts={data.tuitionPosts}
           title={settings?.directory_title}
           subtitle={settings?.directory_subtitle}
         />
@@ -52,6 +52,7 @@ function App() {
         phone={settings?.contact_phone}
         location={settings?.location}
       />
+      <QuickInfoWidget />
     </div>
   );
 }
