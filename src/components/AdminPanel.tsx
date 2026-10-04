@@ -9,6 +9,7 @@ import {
   LogOut,
   Plus,
   RefreshCw,
+  Save,
   Search,
   Shield,
   ShieldCheck,
@@ -456,12 +457,16 @@ export default function AdminPanel() {
 
         {/* Global Toast Notification */}
         {notice && (
-          <div className="mb-6 rounded-2xl bg-success-50 border border-success-200 text-success-800 px-5 py-3.5 text-sm font-semibold flex items-center justify-between shadow-sm animate-fade-in">
+          <div className={`mb-6 rounded-2xl px-5 py-3.5 text-sm font-semibold flex items-center justify-between shadow-sm animate-fade-in ${
+            notice.startsWith('Error')
+              ? 'bg-error-50 border border-error-200 text-error-800'
+              : 'bg-success-50 border border-success-200 text-success-800'
+          }`}>
             <div className="flex items-center gap-2.5">
-              <Check className="w-5 h-5 text-success-600" />
+              <Check className={`w-5 h-5 ${notice.startsWith('Error') ? 'text-error-600' : 'text-success-600'}`} />
               <span>{notice}</span>
             </div>
-            <button onClick={() => setNotice('')} className="text-success-600 hover:text-success-900">
+            <button onClick={() => setNotice('')} className={`${notice.startsWith('Error') ? 'text-error-600 hover:text-error-900' : 'text-success-600 hover:text-success-900'}`}>
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -648,6 +653,7 @@ export default function AdminPanel() {
             onSearchChange={setSearchQuery}
             onSubmit={saveTutor}
             submitLabel={editingId ? 'Update Tutor Profile' : 'Add Tutor Profile'}
+            saving={saving}
             onCancel={() => {
               setEditingId(null);
               setTutorForm(emptyTutor);
@@ -859,6 +865,7 @@ export default function AdminPanel() {
             onSearchChange={setSearchQuery}
             onSubmit={saveTuition}
             submitLabel={editingId ? 'Update Tuition Post' : 'Post New Tuition'}
+            saving={saving}
             onCancel={() => {
               setEditingId(null);
               setTuitionForm(emptyTuition);
@@ -993,6 +1000,7 @@ export default function AdminPanel() {
             onSearchChange={setSearchQuery}
             onSubmit={saveTestimonial}
             submitLabel={editingId ? 'Update Review' : 'Add New Review'}
+            saving={saving}
             onCancel={() => {
               setEditingId(null);
               setTestimonialForm(emptyTestimonial);
@@ -1136,6 +1144,7 @@ function ContentManager({
   onSubmit,
   onCancel,
   submitLabel,
+  saving,
 }: {
   title: string;
   form: React.ReactNode;
@@ -1145,6 +1154,7 @@ function ContentManager({
   onSubmit: (event: FormEvent) => void;
   onCancel: () => void;
   submitLabel: string;
+  saving?: boolean;
 }) {
   return (
     <div className="space-y-8">
@@ -1160,8 +1170,8 @@ function ContentManager({
         {form}
 
         <div className="flex gap-3 pt-2">
-          <button className="admin-button" type="submit">
-            <Save className="w-4 h-4" /> {submitLabel}
+          <button disabled={saving} className="admin-button" type="submit">
+            <Save className="w-4 h-4" /> {saving ? 'Saving...' : submitLabel}
           </button>
           <button type="button" onClick={onCancel} className="admin-secondary">
             <X className="w-4 h-4" /> Cancel
