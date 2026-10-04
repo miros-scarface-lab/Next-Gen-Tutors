@@ -33,8 +33,7 @@ function messageForError() {
 export default function AdminPanel() {
   const [sessionReady, setSessionReady] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [authMode, setAuthMode] = useState<AuthMode>('sign-in');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [tab, setTab] = useState<AdminTab>('settings');
@@ -83,15 +82,12 @@ export default function AdminPanel() {
   const handleAuth = async (event: FormEvent) => {
     event.preventDefault();
     setAuthError('');
-    const result = authMode === 'sign-in'
-      ? await supabase.auth.signInWithPassword({ email, password })
-      : await supabase.auth.signUp({ email, password });
+    const inputVal = username.trim();
+    const loginEmail = inputVal.includes('@') ? inputVal : `${inputVal}@nextgentutors.com`;
+    const result = await supabase.auth.signInWithPassword({ email: loginEmail, password });
     if (result.error) {
-      setAuthError(authMode === 'sign-in' ? 'The email or password was not accepted.' : 'We could not create that account. Please check your details.');
+      setAuthError('Invalid username or password.');
       return;
-    }
-    if (authMode === 'sign-up') {
-      setAuthError('Account created. An administrator must approve this account before it can access the panel.');
     }
   };
 
@@ -156,15 +152,14 @@ export default function AdminPanel() {
         <div className="w-full max-w-md bg-white rounded-3xl border border-ink-100 shadow-xl p-8">
           <a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 mb-8"><ArrowLeft className="w-4 h-4" /> Back to website</a>
           <div className="w-14 h-14 rounded-2xl bg-primary-50 text-primary-600 flex items-center justify-center mb-5"><Shield className="w-7 h-7" /></div>
-          <h1 className="text-3xl font-bold text-ink-900">Private admin panel</h1>
-          <p className="mt-3 text-ink-600">Sign in with an approved administrator account to manage every public detail.</p>
+          <h1 className="text-3xl font-bold text-ink-900">Admin Login</h1>
+          <p className="mt-3 text-ink-600">Sign in with your administrator credentials to manage website content.</p>
           <form onSubmit={handleAuth} className="mt-7 space-y-4">
-            <input required type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email address" className="admin-input" />
+            <input required type="text" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="Username" className="admin-input" />
             <input required minLength={6} type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" className="admin-input" />
             {authError && <p className="rounded-xl bg-error-50 px-4 py-3 text-sm text-error-700">{authError}</p>}
-            <button className="w-full admin-button" type="submit">{authMode === 'sign-in' ? 'Sign in' : 'Create account'}</button>
+            <button className="w-full admin-button" type="submit">Sign in</button>
           </form>
-          <button onClick={() => { setAuthMode(authMode === 'sign-in' ? 'sign-up' : 'sign-in'); setAuthError(''); }} className="w-full mt-4 text-sm font-semibold text-primary-600">{authMode === 'sign-in' ? 'Need an account? Create one' : 'Already have an account? Sign in'}</button>
         </div>
       </div>
     );
