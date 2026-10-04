@@ -26,20 +26,20 @@ export default function CTA({ title, description, badgeText }: CTAProps) {
             <div>
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
                 <Smartphone className="w-4 h-4" />
-                {badgeText || 'Available on Web & Mobile'}
+                {badgeText || 'ওয়েব ও মোবাইলে সহজলভ্য'}
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight text-balance">
-                {title || 'Find your perfect tutor or tuition in minutes'}
+                {title || 'কয়েক মিনিটেই আপনার পছন্দের টিউটর খুঁজে নিন'}
               </h2>
 
               <p className="mt-5 text-lg text-primary-100 leading-relaxed">
                 {description ||
-                  'Find tutors and tuitions directly — fast and simple, 100% commission free. Connect students and tutors instantly with Next Gen Tutors.'}
+                  'সরাসরি টিউটরের সাথে কথা বলুন — দ্রুত, সহজ এবং ১০০% কমিশন মুক্ত। Next Gen Tutors-এর সাথেই যুক্ত থাকুন।'}
               </p>
 
               <div className="mt-7 space-y-3">
-                {['No media fee, ever', 'Direct contact with tutors', 'Verified and trusted profiles'].map((item) => (
+                {['কোনো মিডিয়া ফি বা হিডেন চার্জ নেই', 'টিউটরের সাথে সরাসরি যোগাযোগের সুবিধা', 'যাচাইকৃত ও ১০০% নির্ভরযোগ্য প্রোফাইল'].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-success-400 flex-shrink-0" />
                     <span className="text-white/90 font-medium text-[15px]">{item}</span>
@@ -49,17 +49,19 @@ export default function CTA({ title, description, badgeText }: CTAProps) {
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 hover:bg-primary-50 font-bold px-7 py-3.5 rounded-full shadow-xl transition-all hover:scale-105 group"
+                  href="https://wa.me/8801318126412"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-7 py-3.5 rounded-full shadow-xl transition-all hover:scale-105 group"
                 >
-                  Get Started Free
+                  দ্রুত যোগাযোগ করুন (WhatsApp)
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="#features"
                   className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold px-7 py-3.5 rounded-full transition-all"
                 >
-                  Learn More
+                  বিস্তারিত জানুন
                 </a>
               </div>
             </div>

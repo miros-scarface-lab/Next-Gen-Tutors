@@ -10,127 +10,126 @@ import {
 export const features = [
   {
     icon: Search,
-    title: 'Browse Tuition Jobs',
+    title: 'দক্ষ ও যাচাইকৃত টিউটর',
     description:
-      'Find students matching your expertise, location, and schedule preferences instantly.',
-  },
-  {
-    icon: Bell,
-    title: 'Instant Notifications',
-    description:
-      'Get notified about new tuition jobs that match your profile in real time.',
+      'বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও ঢাকা মেডিকেল সহ শীর্ষ প্রতিষ্ঠানের অভিজ্ঞ শিক্ষক।',
   },
   {
     icon: MessageSquare,
-    title: 'Direct Messages',
+    title: 'তাৎক্ষণিক মেসেজ ও কল',
     description:
-      'Connect with students and parents directly through our in-app chat system.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Grow Your Career',
-    description:
-      'Build your reputation with reviews and ratings from satisfied students.',
+      'কোনো মাধ্যম বা মিডিয়া ছাড়াই অভিভাবক ও টিউটরদের মধ্যে সরাসরি যোগাযোগের সুবিধা।',
   },
   {
     icon: BadgeCheck,
-    title: 'Verified Profiles',
+    title: '১০০% ফ্রি সেবা',
     description:
-      'Build trust with identity verification and credential badges on your profile.',
+      'কোনো মিডিয়া ফি বা হিডেন চার্জ নেই। অভিভাবক ও শিক্ষক উভয়ের জন্যই ১০০% কমিশন ফ্রি।',
+  },
+  {
+    icon: TrendingUp,
+    title: 'ক্যারিয়ার উন্নত করুন',
+    description:
+      'শিক্ষার্থীদের রিভিউ ও রেটিংয়ের মাধ্যমে আপনার টিউটরিং প্রোফাইলকে সমৃদ্ধ করুন।',
+  },
+  {
+    icon: Bell,
+    title: 'যাচাইকৃত প্রোফাইল',
+    description:
+      'জাতীয় পরিচয়পত্র ও অ্যাকাডেমিক সনদপত্র যাচাইয়ের মাধ্যমে শতভাগ নিরাপদ।',
   },
   {
     icon: GraduationCap,
-    title: 'Top-Quality Tutors',
+    title: 'সেরা টিউটর ডিরেক্টরি',
     description:
-      'Access tutors from prestigious institutions ready to help you succeed.',
+      'আপনার পছন্দ অনুযায়ী বিষয়, শ্রেণি ও লোকেশনভিত্তিক টিউটর খুঁজে নিন।',
   },
 ];
 
 export const steps = [
   {
     number: '01',
-    title: 'Find Your Tutor',
+    title: 'টিউটর খুঁজুন',
     description:
-      'Search by subject, location, and availability. Browse profiles, read reviews, and compare rates.',
+      'বিষয়, এলাকা ও শ্রেণি অনুযায়ী সেরা টিউটর সার্চ করুন এবং প্রোফাইল দেখুন।',
   },
   {
     number: '02',
-    title: 'Send Direct Offer',
+    title: 'সরাসরি যোগাযোগ',
     description:
-      'Send a direct offer to your preferred tutor or post a tuition to receive applications from tutors.',
+      'WhatsApp বা ফোন কলের মাধ্যমে টিউটরের সাথে সরাসরি কথা বলুন।',
   },
   {
     number: '03',
-    title: 'Confirm Tutor',
+    title: 'টিউটর নিশ্চিত করুন',
     description:
-      'Confirm your chosen tutor directly or request their phone number to discuss further.',
+      'সম্মতি সাপেক্ষে সরাসরি টিউটর নির্ধারণ করুন, কোনো কমিশন ছাড়াই।',
   },
   {
     number: '04',
-    title: 'See Results',
+    title: 'সেরা ফলাফল অর্জন',
     description:
-      'Track your progress, improve your grades, and achieve your academic goals with expert guidance.',
+      'অভিজ্ঞ টিউটরের দিকনির্দেশনায় পড়াশোনায় কাঙ্ক্ষিত সফলতা অর্জন করুন।',
   },
 ];
 
 export const testimonials = [
   {
     quote:
-      'Complete free media fee and good salary payment from guardian. Almost 1 year tuition with Next Gen Tutors, got students, Alhamdulillah. Highly trusted media.',
-    name: 'Istiak Rahman Shourov',
-    title: '4th Year, EEE',
-    org: 'Islamic University of Technology (IUT)',
+      'কোনো মিডিয়া ফি নেই এবং সরাসরি অভিভাবকের সাথে যোগাযোগের সুযোগ রয়েছে। Next Gen Tutors-এর মাধ্যমে অত্যন্ত বিশ্বস্ত ও চমৎকার অভিজ্ঞতা হয়েছে।',
+    name: 'ইশতিয়াক রহমান শৌভিক',
+    title: '৪র্থ বর্ষ, ইইই',
+    org: 'আইইউটি (IUT)',
   },
   {
     quote:
-      'Next Gen Tutors is doing excellent work in finding qualified tutors from BUET or other prestigious institutes. They are responding very fast and ensuring helpful attitude to students.',
-    name: 'Ataur Rahman',
-    title: 'FCPS, FRCP, FACP',
-    org: 'Associate Professor (Medicine)',
+      'বুয়েট ও অন্যান্য শীর্ষ প্রতিষ্ঠানের মানসম্মত টিউটর খুঁজে পাওয়ার জন্য এটি চমৎকার প্ল্যাটফর্ম। সার্ভিস অত্যন্ত দ্রুত ও আন্তরিক।',
+    name: 'ড. আতাউর রহমান',
+    title: 'এফসিপিএস, এফআরসিপি',
+    org: 'সহযোগী অধ্যাপক (মেডিসিন)',
   },
   {
     quote:
-      'Thank you. Very satisfied! Found a tuition without paying media fee. Highly recommend this page.',
-    name: 'Abrar Hamim',
-    title: '3rd Year, Disaster Science',
-    org: 'Dhaka University',
+      'কোনো মিডিয়া ফি না দিয়ে টিউটর পেয়েছি, আলহামদুলিল্লাহ। অত্যন্ত বিশ্বস্ত সেবা, সবাইকে দেখার জন্য রিকমেন্ড করছি।',
+    name: 'আবরার হামিম',
+    title: '৩য় বর্ষ, ডিজেস্টার সাইন্স',
+    org: 'ঢাকা বিশ্ববিদ্যালয়',
   },
   {
     quote:
-      'I found a tuition through them and Alhamdulillah they don\u2019t charge any media fee and their behavior is also very good. I highly recommend them for finding any tuition.',
-    name: 'Mahmud Nahid',
-    title: '2nd Year, EEE',
-    org: 'IUT',
+      'এখানে কোনো হিডেন ফি নেই এবং কর্তৃপক্ষের আচরণ অনেক ভালো। টিউটর খুঁজে পাওয়ার জন্য সেরা একটি প্ল্যাটফর্ম।',
+    name: 'মাহমুদ নাহিদ',
+    title: '২য় বর্ষ, ইইই',
+    org: 'আইইউটি',
   },
   {
     quote:
-      'The tutor recommended by Next Gen Tutors for my son is very sincere and friendly. Best wishes and prayers for Next Gen Tutors.',
-    name: 'Alauddin Sarker',
-    title: 'Publication Officer',
-    org: 'Bishwo Shahitto Kendro',
+      'Next Gen Tutors থেকে আমার ছেলের জন্য যে টিউটর দেওয়া হয়েছিল, উনি খুবই আন্তরিক ও দায়িত্বশীল। অনেক শুভকামনা।',
+    name: 'আলাউদ্দিন সরকার',
+    title: 'প্রকাশনা কর্মকর্তা',
+    org: 'বিশ্বসাহিত্য কেন্দ্র',
   },
   {
     quote:
-      'Providing tuition without media fee \u2014 this is the first media I\u2019ve seen do this. They are doing great work.',
-    name: 'Rasel Mahmud',
-    title: '3rd Year, EEE',
-    org: 'BUET',
+      'কোনো কমিশন ছাড়া সম্পূর্ণ বিনামূল্যে টিউশন সার্ভিস দেওয়া — এটিই প্রথম দেখলাম। দারুণ উদ্যোগ!',
+    name: 'রাসেল মাহমুদ',
+    title: '৩য় বর্ষ, ইইই',
+    org: 'বুয়েট (BUET)',
   },
 ];
 
 export const stats = [
-  { value: '50K+', label: 'Registered Tutors' },
-  { value: '100K+', label: 'Students Matched' },
-  { value: '500+', label: 'Subjects Covered' },
-  { value: '64', label: 'Districts Nationwide' },
+  { value: '৫০,০০০+', label: 'নিবন্ধিত টিউটর' },
+  { value: '১,০০,০০০+', label: 'সফল শিক্ষাদান' },
+  { value: '৫০০+', label: 'বিষয় অন্তর্ভুক্ত' },
+  { value: '৬৪', label: 'জেলা দেশব্যাপী' },
 ];
 
 export const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Tutors', href: '#tutors' },
-  { label: 'Features', href: '#features' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Reviews', href: '#testimonials' },
-  { label: 'About', href: '#about' },
+  { label: 'হোম', href: '#home' },
+  { label: 'টিউটরবৃন্দ', href: '#tutors' },
+  { label: 'বৈশিষ্ট্যসমূহ', href: '#features' },
+  { label: 'কীভাবে কাজ করে', href: '#how-it-works' },
+  { label: 'রিভিউ', href: '#testimonials' },
+  { label: 'আমাদের কথা', href: '#about' },
 ];
-

@@ -48,10 +48,12 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="#cta"
-            className="text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 px-5 py-2.5 rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all hover:scale-105"
+            href="https://wa.me/8801318126412"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-bold text-white bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 px-5 py-2.5 rounded-full shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-600/40 transition-all hover:scale-105"
           >
-            Get Started
+            দ্রুত যোগাযোগ (WhatsApp)
           </a>
         </div>
 
@@ -79,8 +81,13 @@ export default function Navbar() {
               </li>
             ))}
             <li className="pt-3">
-              <a href="#cta" className="block text-center text-sm font-bold text-white bg-primary-600 px-4 py-2.5 rounded-full">
-                Get Started
+              <a
+                href="https://wa.me/8801318126412"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center text-sm font-bold text-white bg-emerald-600 px-4 py-2.5 rounded-full"
+              >
+                দ্রুত যোগাযোগ (WhatsApp)
               </a>
             </li>
           </ul>

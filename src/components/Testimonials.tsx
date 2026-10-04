@@ -19,13 +19,13 @@ export default function Testimonials({ items, title, subtitle }: TestimonialsPro
         {/* Heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            Community Stories
+            অভিভাবক ও শিক্ষার্থীদের মতামত
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
-            {title || 'What Our Community Says'}
+            {title || 'আমাদের প্ল্যাটফর্ম সম্পর্কে অনুভূতি'}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            {subtitle || "Don't just take our word for it. Here's what our users have to say about their experience with Next Gen Tutors."}
+            {subtitle || 'Next Gen Tutors ব্যবহারকারী সম্মানিত অভিভাবক, শিক্ষার্থী ও শিক্ষকদের অভিজ্ঞতা ও মতামত জেনে নিন।'}
           </p>
         </div>
 

@@ -15,19 +15,19 @@ export default function Features({ title, subtitle }: FeaturesProps) {
         {/* Section heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            Platform Features
+            প্ল্যাটফর্মের বৈশিষ্ট্যসমূহ
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
             {title || (
               <>
-                Everything Tutors Need.{' '}
-                <span className="gradient-text">Nothing They Don&apos;t.</span>
+                টিউটর ও অভিভাবকদের জন্য{' '}
+                <span className="gradient-text">প্রয়োজনীয় সবকিছু</span>
               </>
             )}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
             {subtitle ||
-              'A complete platform to help you find students, manage your schedule, and scale your tutoring career.'}
+              'সরাসরি যোগাযোগ ও ভেরিফাইড টিউটর খোঁজার সবচেয়ে সহজ এবং নির্ভরযোগ্য মাধ্যম।'}
           </p>
         </div>
 

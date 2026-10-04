@@ -22,30 +22,32 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
           <div className="text-center lg:text-left animate-fade-in-up">
             <div className="inline-flex items-center gap-2 bg-primary-50 border border-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
               <Sparkles className="w-4 h-4" />
-              {badgeText || '100% Commission-Free Platform'}
+              {badgeText || '১০০% কমিশন-মুক্ত প্ল্যাটফর্ম'}
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink-900 leading-[1.1] tracking-tight text-balance">
-              {title ? title : <>Find Your Perfect Tutor <span className="gradient-text">Anytime, Anywhere</span></>}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink-900 leading-[1.15] tracking-tight text-balance">
+              {title ? title : <>আপনার সন্তানের জন্য সেরা ও অভিজ্ঞ <span className="gradient-text">টিউটর খুঁজুন</span></>}
             </h1>
 
             <p className="mt-6 text-lg text-ink-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              {description ?? 'Find the right tutor with confidence. We connect you with verified, experienced tutors across the country. Contact your tutor directly — no middleman, no commission.'}
+              {description ?? 'বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি সহ শীর্ষ বিশ্ববিদ্যালয়ের অভিজ্ঞ ও বিশ্বস্ত টিউটরদের সাথে সরাসরি যোগাযোগ করুন। কোনো মধ্যস্বত্বভোগী বা কমিশন ছাড়াই।'}
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
-                href="#tutors"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold px-7 py-3.5 rounded-full shadow-xl shadow-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/40 transition-all hover:scale-105 group"
+                href="https://wa.me/8801318126412"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold px-7 py-3.5 rounded-full shadow-xl shadow-emerald-600/30 hover:shadow-2xl hover:shadow-emerald-600/40 transition-all hover:scale-105 group"
               >
-                Find a Tutor
+                দ্রুত যোগাযোগ (WhatsApp)
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="#how-it-works"
+                href="#tutors"
                 className="inline-flex items-center justify-center gap-2 bg-white border border-ink-200 hover:border-primary-300 text-ink-700 hover:text-primary-600 font-bold px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all"
               >
-                How It Works
+                টিউটরবৃন্দ দেখুন
               </a>
             </div>
 
@@ -53,15 +55,15 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
             <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
               <div className="flex items-center gap-2 text-ink-600">
                 <ShieldCheck className="w-5 h-5 text-success-500" />
-                <span className="text-sm font-semibold">Verified Tutors</span>
+                <span className="text-sm font-semibold">যাচাইকৃত টিউটর</span>
               </div>
               <div className="flex items-center gap-2 text-ink-600">
                 <Star className="w-5 h-5 text-warning-400 fill-warning-400" />
-                <span className="text-sm font-semibold">Rated 4.9/5</span>
+                <span className="text-sm font-semibold">রেটিং ৪.৯/৫</span>
               </div>
               <div className="flex items-center gap-2 text-ink-600">
                 <Users className="w-5 h-5 text-primary-500" />
-                <span className="text-sm font-semibold">50K+ Tutors</span>
+                <span className="text-sm font-semibold">৫০,০০০+ টিউটর</span>
               </div>
             </div>
           </div>
@@ -85,8 +87,8 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
                   <ShieldCheck className="w-5.5 h-5.5 text-success-500" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-ink-500">Tutor Verified</p>
-                  <p className="text-sm font-bold text-ink-900">ID Confirmed</p>
+                  <p className="text-xs font-semibold text-ink-500">টিউটর ভেরিফাইড</p>
+                  <p className="text-sm font-bold text-ink-900">আইডি নিশ্চিত</p>
                 </div>
               </div>
 
@@ -97,8 +99,8 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
                     <Star key={i} className="w-4 h-4 text-warning-400 fill-warning-400" />
                   ))}
                 </div>
-                <p className="text-xs font-semibold text-ink-500">1,200+ Reviews</p>
-                <p className="text-sm font-bold text-ink-900">Top Rated Tutors</p>
+                <p className="text-xs font-semibold text-ink-500">১,২০০+ রিভিউ</p>
+                <p className="text-sm font-bold text-ink-900">শীর্ষ টিউটরবৃন্দ</p>
               </div>
 
               {/* Floating card: Search */}
@@ -107,8 +109,8 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
                   <Search className="w-4.5 h-4.5 text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-ink-500">Searching...</p>
-                  <p className="text-sm font-bold text-ink-900">Math, Physics</p>
+                  <p className="text-xs font-semibold text-ink-500">খোঁজা হচ্ছে...</p>
+                  <p className="text-sm font-bold text-ink-900">গণিত, পদার্থবিজ্ঞান</p>
                 </div>
               </div>
             </div>

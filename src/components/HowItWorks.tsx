@@ -26,13 +26,13 @@ export default function HowItWorks({ title, subtitle }: HowItWorksProps) {
         {/* Heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            Simple Process
+            সহজ প্রক্রিয়া
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
-            {title || 'How to Find Your Tutor'}
+            {title || 'কীভাবে আপনার টিউটর খুঁজে পাবেন'}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            {subtitle || 'Finding a tutor has never been this easy. Follow these four simple steps to connect with the right tutor today.'}
+            {subtitle || 'টিউটর খোঁজা এখন অত্যন্ত সহজ। মাত্র ৪টি সহজ ধাপ অনুসরণ করে আপনার পছন্দের টিউটরের সাথে যুক্ত হন।'}
           </p>
         </div>
 

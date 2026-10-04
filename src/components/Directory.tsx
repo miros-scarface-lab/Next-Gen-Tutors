@@ -16,12 +16,12 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
     <section id="tutors" className="py-20 lg:py-28 bg-ink-50">
       <div className="container-max">
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
-          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">Find Your Match</span>
+          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">পছন্দের টিউটর খুঁজুন</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight">
-            {title || 'Our Verified Expert Tutors'}
+            {title || 'আমাদের যাচাইকৃত সেরা টিউটরবৃন্দ'}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            {subtitle || 'Explore top verified expert tutors managed by Next Gen Tutors.'}
+            {subtitle || 'Next Gen Tutors-এর সেরা ও অভিজ্ঞ যাচাইকৃত টিউটরদের সাথে সরাসরি যোগাযোগ করুন।'}
           </p>
         </div>
 
@@ -29,11 +29,11 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
           <div>
             <div className="flex items-center justify-between gap-4 mb-8">
               <div>
-                <h3 className="text-2xl font-bold text-ink-900">Featured Tutors</h3>
-                <p className="text-sm text-ink-500 mt-1">Directly connect with top verified tutors</p>
+                <h3 className="text-2xl font-bold text-ink-900">ফিচার্ড টিউটরবৃন্দ</h3>
+                <p className="text-sm text-ink-500 mt-1">সেরা ভেরিফাইড টিউটরদের সাথে সরাসরি যোগাযোগ করুন</p>
               </div>
               <span className="text-sm font-bold bg-primary-50 text-primary-700 px-3.5 py-1.5 rounded-full">
-                {tutors.length} Available
+                {tutors.length} জন উপলব্ধ
               </span>
             </div>
 
@@ -42,7 +42,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                 const rawPhone = tutor.whatsapp_number || '01318126412';
                 const cleanPhone = rawPhone.replace(/\D/g, '').replace(/^0/, '880');
                 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-                  `Hello! I saw ${tutor.name}'s profile on Next Gen Tutors website and would like to contact regarding tuition.`
+                  `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
                 )}`;
 
                 return (
@@ -75,7 +75,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         {tutor.is_verified && (
                           <div className="absolute top-4 right-4 bg-success-500 text-white px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 text-xs font-bold">
                             <ShieldCheck className="w-4 h-4" />
-                            <span>Verified</span>
+                            <span>যাচাইকৃত</span>
                           </div>
                         )}
                       </div>
@@ -88,13 +88,13 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         {/* Department / Institution */}
                         <p className="text-sm font-bold text-primary-600 mt-1 flex items-center gap-1.5">
                           <GraduationCap className="w-4 h-4" />
-                          {tutor.department || tutor.headline || 'General Instructor'}
+                          {tutor.department || tutor.headline || 'সাধারণ ইনস্ট্রাক্টর'}
                         </p>
 
                         {/* Student / Level */}
                         {tutor.student_level && (
                           <p className="text-xs font-semibold text-ink-500 mt-1">
-                            Student Status: {tutor.student_level}
+                            শিক্ষার্থীর অবস্থান: {tutor.student_level}
                           </p>
                         )}
 
@@ -103,7 +103,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
 
                         {/* Services Offered / Subjects */}
                         <div className="mt-4">
-                          <p className="text-xs font-bold text-ink-400 uppercase tracking-wider mb-2">Services Offered:</p>
+                          <p className="text-xs font-bold text-ink-400 uppercase tracking-wider mb-2">যেসব বিষয়ে পড়ানো হয়:</p>
                           <div className="flex flex-wrap gap-1.5">
                             {tutor.subjects.map((subject) => (
                               <span
@@ -119,7 +119,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         {/* Location */}
                         <div className="mt-4 pt-4 border-t border-ink-100 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
                           <MapPin className="w-4 h-4 text-primary-500" />
-                          <span>{tutor.location || 'Dhaka, Bangladesh'}</span>
+                          <span>{tutor.location || 'ঢাকা, বাংলাদেশ'}</span>
                         </div>
                       </div>
                     </div>
@@ -133,7 +133,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         className="w-full inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/30 transition-all hover:scale-[1.02]"
                       >
                         <MessageCircle className="w-5 h-5" />
-                        <span>Send Message (WhatsApp)</span>
+                        <span>মেসেজ দিন (WhatsApp)</span>
                       </a>
                     </div>
                   </article>
