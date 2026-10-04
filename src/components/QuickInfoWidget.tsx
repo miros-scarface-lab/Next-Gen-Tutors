@@ -39,21 +39,21 @@ const defaultQuestions: QuickQuestion[] = [
   {
     id: '5',
     question: '💰 আপনাদের টিউশন ফি কত?',
-    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন। WhatsApp: 01318126412',
+    answer: 'টিউশন ফি শ্রেণি, বিষয়, পড়ানোর স্থান ও সময়ের ওপর নির্ভর করে। বিস্তারিত জানতে যোগাযোগ করুন। ',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20টিউশন%20ফি%20সম্পর্কে%20জানতে%20চাই।',
     actionText: 'WhatsApp-এ ফি জানুন'
   },
   {
     id: '6',
     question: '👨‍🏫 টিউশন করাতে চাইলে কী করতে হবে?',
-    answer: 'আপনার নাম, শিক্ষাগত যোগ্যতা, অভিজ্ঞতা, বিষয় ও অবস্থান জানিয়ে CV/বিস্তারিত তথ্য (WhatsApp: 01318126412) পাঠান।',
+    answer: 'আপনার নাম, শিক্ষাগত যোগ্যতা, অভিজ্ঞতা, বিষয় ও অবস্থান জানিয়ে CV/বিস্তারিত তথ্য  পাঠান।',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20আমি%20টিউশন%20করাতে%20চাই।',
     actionText: 'CV পাঠান WhatsApp-এ'
   },
   {
     id: '7',
     question: '📚 টিউটর খুঁজলে কী কী তথ্য দিতে হবে?',
-    answer: 'আপনার শ্রেণি, বিষয়, এলাকা ও পছন্দের সময় জানাবেন। (WhatsApp: 01318126412)',
+    answer: 'আপনার শ্রেণি, বিষয়, এলাকা ও পছন্দের সময় জানাবেন।',
     actionUrl: 'https://wa.me/8801318126412?text=হ্যালো!%20আমার%20একজন%20টিউটর%20প্রয়োজন।',
     actionText: 'টিউটর রিকোয়েস্ট পাঠান'
   }
@@ -81,7 +81,7 @@ export default function QuickInfoWidget() {
 
   const handleSelectQuestion = (q: QuickQuestion) => {
     const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
+
     // Add user question message
     const userMsg: ChatMessage = {
       id: `u-${Date.now()}`,
@@ -189,14 +189,13 @@ export default function QuickInfoWidget() {
                 )}
 
                 <div
-                  className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
-                    msg.sender === 'user'
+                  className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${msg.sender === 'user'
                       ? 'bg-primary-600 text-white rounded-br-none shadow-md font-semibold'
                       : 'bg-white text-ink-900 rounded-bl-none border border-ink-100 shadow-sm'
-                  }`}
+                    }`}
                 >
                   <p>{msg.text}</p>
-                  
+
                   {msg.actionUrl && (
                     <div className="mt-3 pt-2.5 border-t border-ink-100">
                       <a
