@@ -127,8 +127,10 @@ export const stats = [
 
 export const navLinks = [
   { label: 'Home', href: '#home' },
+  { label: 'Tutors', href: '#tutors' },
   { label: 'Features', href: '#features' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Reviews', href: '#testimonials' },
   { label: 'About', href: '#about' },
 ];
+

@@ -12,7 +12,7 @@ export default function Directory({ tutors, tuitionPosts }: DirectoryProps) {
   if (!tutors.length && !tuitionPosts.length) return null;
 
   return (
-    <section className="py-20 lg:py-28 bg-ink-50">
+    <section id="tutors" className="py-20 lg:py-28 bg-ink-50">
       <div className="container-max">
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">Find Your Match</span>

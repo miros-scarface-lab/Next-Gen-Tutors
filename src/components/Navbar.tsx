@@ -48,12 +48,6 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="#"
-            className="text-sm font-semibold text-ink-700 hover:text-primary-600 px-4 py-2.5 transition-colors"
-          >
-            Sign In
-          </a>
-          <a
             href="#cta"
             className="text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 px-5 py-2.5 rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all hover:scale-105"
           >
@@ -84,11 +78,8 @@ export default function Navbar() {
                 </a>
               </li>
             ))}
-            <li className="pt-3 flex gap-3">
-              <a href="#" className="flex-1 text-center text-sm font-bold text-primary-600 border border-primary-200 px-4 py-2.5 rounded-full">
-                Sign In
-              </a>
-              <a href="#cta" className="flex-1 text-center text-sm font-bold text-white bg-primary-600 px-4 py-2.5 rounded-full">
+            <li className="pt-3">
+              <a href="#cta" className="block text-center text-sm font-bold text-white bg-primary-600 px-4 py-2.5 rounded-full">
                 Get Started
               </a>
             </li>
