@@ -1,7 +1,12 @@
 import { features } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
 
-export default function Features() {
+type FeaturesProps = {
+  title?: string;
+  subtitle?: string;
+};
+
+export default function Features({ title, subtitle }: FeaturesProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -13,12 +18,16 @@ export default function Features() {
             Platform Features
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
-            Everything Tutors Need.{' '}
-            <span className="gradient-text">Nothing They Don&apos;t.</span>
+            {title || (
+              <>
+                Everything Tutors Need.{' '}
+                <span className="gradient-text">Nothing They Don&apos;t.</span>
+              </>
+            )}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            A complete platform to help you find students, manage your schedule,
-            and scale your tutoring career.
+            {subtitle ||
+              'A complete platform to help you find students, manage your schedule, and scale your tutoring career.'}
           </p>
         </div>
 

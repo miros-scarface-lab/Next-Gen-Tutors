@@ -1,7 +1,13 @@
 import { ArrowRight, CheckCircle2, Smartphone } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 
-export default function CTA() {
+type CTAProps = {
+  title?: string;
+  description?: string;
+  badgeText?: string;
+};
+
+export default function CTA({ title, description, badgeText }: CTAProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -20,16 +26,16 @@ export default function CTA() {
             <div>
               <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
                 <Smartphone className="w-4 h-4" />
-                Available on Web & Mobile
+                {badgeText || 'Available on Web & Mobile'}
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-[1.15] tracking-tight text-balance">
-                Find your perfect tutor or tuition in minutes
+                {title || 'Find your perfect tutor or tuition in minutes'}
               </h2>
 
               <p className="mt-5 text-lg text-primary-100 leading-relaxed">
-                Find tutors and tuitions directly — fast and simple, 100% commission
-                free. Connect students and tutors instantly with Next Gen Tutors.
+                {description ||
+                  'Find tutors and tuitions directly — fast and simple, 100% commission free. Connect students and tutors instantly with Next Gen Tutors.'}
               </p>
 
               <div className="mt-7 space-y-3">

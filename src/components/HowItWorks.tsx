@@ -8,7 +8,12 @@ const stepImages = [
   'https://images.pexels.com/photos/31290544/pexels-photo-31290544.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
 ];
 
-export default function HowItWorks() {
+type HowItWorksProps = {
+  title?: string;
+  subtitle?: string;
+};
+
+export default function HowItWorks({ title, subtitle }: HowItWorksProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -24,11 +29,10 @@ export default function HowItWorks() {
             Simple Process
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
-            How to Find Your Tutor
+            {title || 'How to Find Your Tutor'}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            Finding a tutor has never been this easy. Follow these four simple steps
-            to connect with the right tutor today.
+            {subtitle || 'Finding a tutor has never been this easy. Follow these four simple steps to connect with the right tutor today.'}
           </p>
         </div>
 

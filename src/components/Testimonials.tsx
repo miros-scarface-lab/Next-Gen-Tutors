@@ -3,9 +3,13 @@ import { testimonials as fallbackTestimonials } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
 import type { TestimonialRecord } from '@/types/cms';
 
-type TestimonialsProps = { items?: TestimonialRecord[] };
+type TestimonialsProps = {
+  items?: TestimonialRecord[];
+  title?: string;
+  subtitle?: string;
+};
 
-export default function Testimonials({ items }: TestimonialsProps) {
+export default function Testimonials({ items, title, subtitle }: TestimonialsProps) {
   const displayedTestimonials = items?.length ? items : fallbackTestimonials.map((item, index) => ({ ...item, id: String(index), organization: item.org, sort_order: index, is_published: true, created_at: '', updated_at: '' }));
   const { ref, visible } = useReveal<HTMLDivElement>();
 
@@ -18,11 +22,10 @@ export default function Testimonials({ items }: TestimonialsProps) {
             Community Stories
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
-            What Our Community Says
+            {title || 'What Our Community Says'}
           </h2>
           <p className="mt-5 text-lg text-ink-600 leading-relaxed">
-            Don&apos;t just take our word for it. Here&apos;s what our users have to say
-            about their experience with Next Gen Tutors.
+            {subtitle || "Don't just take our word for it. Here's what our users have to say about their experience with Next Gen Tutors."}
           </p>
         </div>
 

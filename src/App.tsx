@@ -19,13 +19,31 @@ function App() {
     <div className="min-h-screen bg-white overflow-x-hidden">
       <Navbar />
       <main>
-        <Hero title={settings?.hero_title} description={settings?.hero_description} />
-        <Features />
-        <HowItWorks />
-        <Directory tutors={data.tutors} tuitionPosts={data.tuitionPosts} />
-        <Testimonials items={data.testimonials} />
+        <Hero
+          title={settings?.hero_title}
+          description={settings?.hero_description}
+          badgeText={settings?.hero_badge_text}
+          imageUrl={settings?.hero_image_url}
+        />
+        <Features title={settings?.features_title} subtitle={settings?.features_subtitle} />
+        <HowItWorks title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
+        <Directory
+          tutors={data.tutors}
+          tuitionPosts={data.tuitionPosts}
+          title={settings?.directory_title}
+          subtitle={settings?.directory_subtitle}
+        />
+        <Testimonials
+          items={data.testimonials}
+          title={settings?.testimonials_title}
+          subtitle={settings?.testimonials_subtitle}
+        />
         <Stats />
-        <CTA />
+        <CTA
+          title={settings?.cta_title}
+          description={settings?.cta_description}
+          badgeText={settings?.cta_badge_text}
+        />
       </main>
       <Footer
         brandName={settings?.brand_name}
