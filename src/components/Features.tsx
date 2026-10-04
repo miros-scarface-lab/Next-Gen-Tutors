@@ -1,0 +1,60 @@
+import { features } from '@/data/content';
+import { useReveal } from '@/hooks/useReveal';
+
+export default function Features() {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+
+  return (
+    <section id="features" className="py-20 lg:py-28 bg-white relative">
+      <div className="container-max">
+        {/* Section heading */}
+        <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
+          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
+            Platform Features
+          </span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
+            Everything Tutors Need.{' '}
+            <span className="gradient-text">Nothing They Don&apos;t.</span>
+          </h2>
+          <p className="mt-5 text-lg text-ink-600 leading-relaxed">
+            A complete platform to help you find students, manage your schedule,
+            and scale your tutoring career.
+          </p>
+        </div>
+
+        {/* Feature grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {features.map((feature, i) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={feature.title}
+                className="group relative bg-white border border-ink-100 rounded-2xl p-7 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? 'translateY(0)' : 'translateY(30px)',
+                  transition: `all 0.6s ease-out ${i * 0.1}s`,
+                }}
+              >
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center mb-5 group-hover:from-primary-500 group-hover:to-primary-700 transition-all duration-300">
+                  <Icon className="w-7 h-7 text-primary-600 group-hover:text-white transition-colors" strokeWidth={2} />
+                </div>
+
+                <h3 className="text-xl font-bold text-ink-900 mb-2.5">
+                  {feature.title}
+                </h3>
+                <p className="text-ink-600 leading-relaxed text-[15px]">
+                  {feature.description}
+                </p>
+
+                {/* Decorative corner */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary-50/0 group-hover:bg-primary-50/50 rounded-bl-full rounded-tr-2xl transition-all duration-300 -z-10" />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
