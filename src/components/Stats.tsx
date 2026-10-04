@@ -26,10 +26,10 @@ export default function Stats() {
       <div className="container-max relative">
         <div ref={ref} className={`text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight text-balance">
-            Trusted by Millions
+            Trusted
           </h2>
           <p className="mt-5 text-lg text-primary-100 leading-relaxed max-w-2xl mx-auto">
-            Connecting with millions of qualified tutors across the country,
+            Connecting with hundreds of qualified tutors across the city,
             without any third party media.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function Stats() {
               <p className="text-primary-100 leading-relaxed text-base lg:text-lg">
                 From bustling cities to quiet towns, our network of tutors spans
                 every district. Wherever you are, a qualified tutor is just a
-                search away. Join the largest tuition community in the country.
+                search away. Join the most qualified tuition community in Pirojpur.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 {['Dhaka', 'Chittagong', 'Rajshahi', 'Khulna', 'Sylhet', 'Barishal', 'Rangpur', 'Mymensingh'].map((city) => (
