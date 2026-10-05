@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import type { CmsData, SiteSettings, TestimonialRecord, TuitionPost, Tutor } from '@/types/cms';
+import type { CmsData, SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord } from '@/types/cms';
 
 const emptyData: CmsData = {
   settings: null,
   tutors: [],
   tuitionPosts: [],
   testimonials: [],
+  quickQuestions: [],
 };
 
 export function useCmsData() {
@@ -16,19 +17,21 @@ export function useCmsData() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [settingsResult, tutorsResult, tuitionResult, testimonialsResult] = await Promise.all([
+      const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult] = await Promise.all([
         supabase.from('site_settings').select('*').maybeSingle<SiteSettings>(),
         supabase.from('tutors').select('*').order('is_featured', { ascending: false }).order('created_at', { ascending: false }),
         supabase.from('tuition_posts').select('*').eq('is_active', true).order('created_at', { ascending: false }),
         supabase.from('testimonials').select('*').eq('is_published', true).order('sort_order', { ascending: true }),
+        supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
       ]);
 
-      if (!settingsResult.error && !tutorsResult.error && !tuitionResult.error && !testimonialsResult.error) {
+      if (!settingsResult.error && !tutorsResult.error && !tuitionResult.error && !testimonialsResult.error && !questionsResult.error) {
         setData({
           settings: settingsResult.data,
           tutors: (tutorsResult.data ?? []) as Tutor[],
           tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
           testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
+          quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
         });
       }
     } catch (error) {
@@ -44,3 +47,4 @@ export function useCmsData() {
 
   return { data, loading, reload: load };
 }
+

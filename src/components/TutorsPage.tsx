@@ -98,25 +98,6 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
               বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেলসহ দেশের শীর্ষ প্রতিষ্ঠানের টিউটরদের সাথে কোনো কমিশন ছাড়াই সরাসরি যোগাযোগ করুন।
             </p>
 
-            {/* Live Search Bar inside Banner */}
-            <div className="mt-8 max-w-xl mx-auto relative">
-              <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="টিউটরের নাম, বিশ্ববিদ্যালয়, বিষয় বা লোকেশন লিখে সার্চ করুন..."
-                className="w-full bg-white text-ink-900 placeholder-slate-400 font-medium pl-12 pr-10 py-4 rounded-2xl shadow-xl focus:outline-none focus:ring-4 focus:ring-primary-400 text-sm sm:text-base transition-all"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
           </div>
         </section>
 
@@ -148,11 +129,6 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                 ? `${departments.find((d) => d.id === selectedDept)?.label} (${filteredTutors.length})`
                 : `সকল টিউটর (${filteredTutors.length})`}
             </h2>
-            {searchQuery && (
-              <p className="text-xs font-medium text-slate-500">
-                "{searchQuery}" এর ফলাফলে {filteredTutors.length} জন পাওয়া গেছে
-              </p>
-            )}
           </div>
 
           {/* Tutors Grid */}
@@ -275,7 +251,6 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
               </p>
               <button
                 onClick={() => {
-                  setSearchQuery('');
                   setSelectedDept('all');
                 }}
                 className="mt-6 inline-flex items-center gap-2 bg-primary-600 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow hover:bg-primary-700 transition-colors"

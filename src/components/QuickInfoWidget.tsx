@@ -15,9 +15,12 @@ import {
   Banknote,
   GraduationCap,
   BookOpen,
-  Lock
+  Lock,
+  MessageCircle,
+  HelpCircle
 } from 'lucide-react';
-import type { SiteSettings } from '@/types/cms';
+import * as Icons from 'lucide-react';
+import type { SiteSettings, QuickQuestionRecord } from '@/types/cms';
 
 interface QuickQuestion {
   id: string;
@@ -94,7 +97,7 @@ interface ChatMessage {
   time: string;
 }
 
-export default function QuickInfoWidget({ settings }: { settings?: SiteSettings | null }) {
+export default function QuickInfoWidget({ settings, questions }: { settings?: SiteSettings | null; questions?: QuickQuestionRecord[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -105,6 +108,18 @@ export default function QuickInfoWidget({ settings }: { settings?: SiteSettings 
     }
   ]);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  const activeQuestions: QuickQuestion[] = questions && questions.length > 0
+    ? questions.map((q) => ({
+        id: q.id,
+        // @ts-ignore - dynamic access
+        icon: Icons[q.icon_name] || HelpCircle,
+        question: q.question,
+        answer: q.answer,
+        actionUrl: q.action_url,
+        actionText: q.action_text,
+      }))
+    : defaultQuestions;
 
   useEffect(() => {
     if (isOpen) {
@@ -150,7 +165,7 @@ export default function QuickInfoWidget({ settings }: { settings?: SiteSettings 
   return (
     <>
       {/* Floating Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+      <div className="fixed bottom-6 right-6 z-50 flex flex-row items-center gap-3">
         {!isOpen && (
           <div className="bg-ink-900 text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-xl border border-ink-700 animate-bounce flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-warning-400" />
@@ -276,7 +291,7 @@ export default function QuickInfoWidget({ settings }: { settings?: SiteSettings 
             </div>
 
             <div className="flex flex-col gap-1.5">
-              {defaultQuestions.map((q) => {
+              {activeQuestions.map((q) => {
                 const IconComponent = q.icon;
                 return (
                   <button

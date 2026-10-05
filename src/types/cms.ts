@@ -68,9 +68,23 @@ export type TestimonialRecord = {
   updated_at: string;
 };
 
+export type QuickQuestionRecord = {
+  id: string;
+  icon_name: string;
+  question: string;
+  answer: string;
+  action_url?: string;
+  action_text?: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export type CmsData = {
   settings: SiteSettings | null;
   tutors: Tutor[];
   tuitionPosts: TuitionPost[];
   testimonials: TestimonialRecord[];
+  quickQuestions: QuickQuestionRecord[];
 };
+

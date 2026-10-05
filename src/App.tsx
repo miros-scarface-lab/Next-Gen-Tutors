@@ -72,7 +72,7 @@ function App() {
         phone={settings?.contact_phone}
         location={settings?.location}
       />
-      <QuickInfoWidget settings={data.settings} />
+      <QuickInfoWidget settings={data.settings} questions={data.quickQuestions} />
     </div>
   );
 }

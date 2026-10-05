@@ -23,13 +23,23 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor } from '@/types/cms';
+import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord } from '@/types/cms';
 
-type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials';
+type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials' | 'faqs';
 
 type TutorForm = Omit<Tutor, 'id' | 'created_at' | 'updated_at'>;
 type TuitionForm = Omit<TuitionPost, 'id' | 'created_at' | 'updated_at'>;
 type TestimonialForm = Omit<TestimonialRecord, 'id' | 'created_at' | 'updated_at'>;
+type QuickQuestionForm = Omit<QuickQuestionRecord, 'id' | 'created_at' | 'updated_at'>;
+
+const emptyQuickQuestion: QuickQuestionForm = {
+  icon_name: 'MessageCircle',
+  question: '',
+  answer: '',
+  action_url: '',
+  action_text: '',
+  sort_order: 0,
+};
 
 const defaultSettings: SiteSettings = {
   singleton: true,
@@ -110,10 +120,12 @@ export default function AdminPanel() {
   const [tutors, setTutors] = useState<Tutor[]>([]);
   const [tuitionPosts, setTuitionPosts] = useState<TuitionPost[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialRecord[]>([]);
+  const [quickQuestions, setQuickQuestions] = useState<QuickQuestionRecord[]>([]);
 
   const [tutorForm, setTutorForm] = useState<TutorForm>(emptyTutor);
   const [tuitionForm, setTuitionForm] = useState<TuitionForm>(emptyTuition);
   const [testimonialForm, setTestimonialForm] = useState<TestimonialForm>(emptyTestimonial);
+  const [questionForm, setQuestionForm] = useState<QuickQuestionForm>(emptyQuickQuestion);
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [notice, setNotice] = useState('');
@@ -122,16 +134,18 @@ export default function AdminPanel() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadCms = useCallback(async () => {
-    const [settingsResult, tutorsResult, tuitionResult, testimonialsResult] = await Promise.all([
+    const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult] = await Promise.all([
       supabase.from('site_settings').select('*').maybeSingle(),
       supabase.from('tutors').select('*').order('created_at', { ascending: false }),
       supabase.from('tuition_posts').select('*').order('created_at', { ascending: false }),
       supabase.from('testimonials').select('*').order('sort_order', { ascending: true }),
+      supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
     ]);
     if (settingsResult.data) setSettings(settingsResult.data as SiteSettings);
     if (tutorsResult.data) setTutors(tutorsResult.data as Tutor[]);
     if (tuitionResult.data) setTuitionPosts(tuitionResult.data as TuitionPost[]);
     if (testimonialsResult.data) setTestimonials(testimonialsResult.data as TestimonialRecord[]);
+    if (questionsResult.data) setQuickQuestions(questionsResult.data as QuickQuestionRecord[]);
   }, []);
 
   const checkSession = useCallback(async () => {
@@ -223,6 +237,17 @@ export default function AdminPanel() {
       : await save(() => supabase.from('testimonials').insert(testimonialForm), 'New testimonial added.');
     if (result) {
       setTestimonialForm(emptyTestimonial);
+      setEditingId(null);
+    }
+  };
+
+  const saveQuestion = async (event: FormEvent) => {
+    event.preventDefault();
+    const result = editingId
+      ? await save(() => supabase.from('quick_questions').update(questionForm).eq('id', editingId), 'Question updated.')
+      : await save(() => supabase.from('quick_questions').insert(questionForm), 'New question added.');
+    if (result) {
+      setQuestionForm(emptyQuickQuestion);
       setEditingId(null);
     }
   };
@@ -469,6 +494,7 @@ export default function AdminPanel() {
     { id: 'tutors', label: 'Tutors', badge: tutors.length },
     { id: 'tuition', label: 'Tuition Posts', badge: tuitionPosts.length },
     { id: 'testimonials', label: 'Testimonials', badge: testimonials.length },
+    { id: 'faqs', label: 'Quick FAQs', badge: quickQuestions.length },
   ];
 
   const filteredTutors = tutors.filter(
@@ -1437,6 +1463,116 @@ export default function AdminPanel() {
 
                   <button
                     onClick={() => void remove('testimonials', item.id)}
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-error-600 hover:bg-error-50"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          />
+        )}
+        {tab === 'faqs' && (
+          <ContentManager
+            title="Quick FAQ"
+            saving={saving}
+            submitLabel={editingId ? 'Update FAQ' : 'Add New FAQ'}
+            onCancel={() => {
+              setEditingId(null);
+              setQuestionForm(emptyQuickQuestion);
+            }}
+            onSubmit={saveQuestion}
+            form={
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div className="sm:col-span-2">
+                  <Field label="Question">
+                    <input
+                      required
+                      type="text"
+                      className="admin-input"
+                      value={questionForm.question}
+                      onChange={(e) => setQuestionForm({ ...questionForm, question: e.target.value })}
+                      placeholder="e.g. আপনাদের সার্ভিস চার্জ কত?"
+                    />
+                  </Field>
+                </div>
+                <div className="sm:col-span-2">
+                  <Field label="Answer">
+                    <textarea
+                      required
+                      className="admin-input min-h-[80px]"
+                      value={questionForm.answer}
+                      onChange={(e) => setQuestionForm({ ...questionForm, answer: e.target.value })}
+                      placeholder="Answer text..."
+                    />
+                  </Field>
+                </div>
+                <Field label="Icon Name (Lucide)">
+                  <input
+                    required
+                    type="text"
+                    className="admin-input"
+                    value={questionForm.icon_name}
+                    onChange={(e) => setQuestionForm({ ...questionForm, icon_name: e.target.value })}
+                    placeholder="e.g. HelpCircle, BookOpen, MessageCircle"
+                  />
+                </Field>
+                <Field label="Sort Order">
+                  <input
+                    type="number"
+                    className="admin-input"
+                    value={questionForm.sort_order}
+                    onChange={(e) => setQuestionForm({ ...questionForm, sort_order: parseInt(e.target.value) || 0 })}
+                  />
+                </Field>
+                <Field label="Action Text (Optional)">
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={questionForm.action_text || ''}
+                    onChange={(e) => setQuestionForm({ ...questionForm, action_text: e.target.value })}
+                    placeholder="e.g. WhatsApp-এ মেসেজ দিন"
+                  />
+                </Field>
+                <Field label="Action URL (Optional)">
+                  <input
+                    type="url"
+                    className="admin-input"
+                    value={questionForm.action_url || ''}
+                    onChange={(e) => setQuestionForm({ ...questionForm, action_url: e.target.value })}
+                    placeholder="https://..."
+                  />
+                </Field>
+              </div>
+            }
+            list={quickQuestions.map((item) => (
+              <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-ink-900 truncate flex items-center gap-2">
+                    {item.question} <span className="text-[10px] bg-ink-100 text-ink-500 px-1.5 py-0.5 rounded">Order: {item.sort_order}</span>
+                  </h3>
+                  <p className="text-xs text-ink-500 truncate mt-0.5">{item.answer}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={() => {
+                      setEditingId(item.id);
+                      setQuestionForm({
+                        icon_name: item.icon_name,
+                        question: item.question,
+                        answer: item.answer,
+                        action_url: item.action_url || '',
+                        action_text: item.action_text || '',
+                        sort_order: item.sort_order,
+                      });
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="admin-secondary text-xs"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => void remove('quick_questions', item.id)}
                     className="w-9 h-9 rounded-xl flex items-center justify-center text-error-600 hover:bg-error-50"
                   >
                     <Trash2 className="w-4 h-4" />
