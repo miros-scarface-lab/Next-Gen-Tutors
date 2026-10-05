@@ -1,5 +1,6 @@
 import { Facebook, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { navLinks } from '@/data/content';
+import { navigate } from '@/App';
 
 type FooterProps = {
   brandName?: string;
@@ -39,7 +40,7 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="#home" className="flex items-center gap-3 mb-4">
+            <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="flex items-center gap-3 mb-4">
               <img
                 src="/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"
                 alt="Next Gen Tutors"
@@ -83,6 +84,12 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      if (link.href.startsWith('/')) {
+                        e.preventDefault();
+                        navigate(link.href);
+                      }
+                    }}
                     className="text-sm text-ink-400 hover:text-primary-400 transition-colors"
                   >
                     {link.label}

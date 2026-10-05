@@ -154,6 +154,25 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                 );
               })}
             </div>
+
+            {/* Bottom Banner to Separate Tutors Page */}
+            <div className="mt-14 text-center bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-primary-800/80">
+              <h4 className="text-2xl sm:text-3xl font-extrabold">সকল টিউটরদের আলাদা পেজে দেখুন</h4>
+              <p className="mt-3 text-primary-200 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেলসহ সমস্ত বিষয়ের সকল টিউটরদের প্রোফাইল দেখতে এবং লাইভ ফিল্টার করতে আলাদা টিউটর পেজে প্রবেশ করুন।
+              </p>
+              <a
+                href="/tutors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/tutors');
+                }}
+                className="mt-6 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
+              >
+                <span>আলাদা টিউটর পেজে যান</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         )}
       </div>
