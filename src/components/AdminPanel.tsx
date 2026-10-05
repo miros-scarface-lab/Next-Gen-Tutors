@@ -19,6 +19,8 @@ import {
   Users,
   X,
   Zap,
+  Upload,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor } from '@/types/cms';
@@ -116,6 +118,7 @@ export default function AdminPanel() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [notice, setNotice] = useState('');
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadCms = useCallback(async () => {
@@ -227,6 +230,106 @@ export default function AdminPanel() {
   const remove = async (table: string, id: string) => {
     if (!window.confirm('Are you sure you want to delete this record?')) return;
     await save(() => supabase.from(table).delete().eq('id', id), 'Record removed successfully.');
+  };
+
+  const deleteTutor = async (tutor: Tutor) => {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete tutor "${tutor.name}"? This will permanently remove their profile picture as well.`
+      )
+    )
+      return;
+
+    setSaving(true);
+    try {
+      // 1. Delete image from Supabase storage if uploaded there
+      if (tutor.avatar_url && tutor.avatar_url.includes('tutor-avatars')) {
+        const parts = tutor.avatar_url.split('/tutor-avatars/');
+        if (parts.length > 1) {
+          const filePath = parts[1].split('?')[0];
+          await supabase.storage.from('tutor-avatars').remove([filePath]);
+        }
+      }
+
+      // 2. Delete tutor from database
+      const result = await save(
+        () => supabase.from('tutors').delete().eq('id', tutor.id),
+        `Tutor "${tutor.name}" and profile picture removed successfully.`
+      );
+
+      if (result && editingId === tutor.id) {
+        setEditingId(null);
+        setTutorForm(emptyTutor);
+      }
+    } catch (err: any) {
+      showNotification(`Error deleting tutor: ${err.message || err}`);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const fileExt = file.name.split('.').pop() || 'jpg';
+      const fileName = `tutor_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+
+      // 1. Attempt upload to Supabase storage bucket 'tutor-avatars'
+      const { data, error } = await supabase.storage.from('tutor-avatars').upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+
+      if (!error && data) {
+        const { data: publicUrlData } = supabase.storage.from('tutor-avatars').getPublicUrl(fileName);
+        setTutorForm((prev) => ({ ...prev, avatar_url: publicUrlData.publicUrl }));
+        showNotification('Direct image uploaded & stored in storage bucket!');
+      } else {
+        console.warn('Storage bucket upload notice, falling back to data URL:', error);
+        // 2. Fallback: Compress and read as base64 Data URL
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target?.result as string;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 600;
+            const MAX_HEIGHT = 600;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+            setTutorForm((prev) => ({ ...prev, avatar_url: dataUrl }));
+            showNotification('Image uploaded and processed successfully!');
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (err: any) {
+      showNotification(`Upload error: ${err.message || err}`);
+    } finally {
+      setUploadingImage(false);
+      event.target.value = '';
+    }
   };
 
   // Instant inline quick-toggles
@@ -861,23 +964,66 @@ export default function AdminPanel() {
                   />
                 </Field>
 
-                <div className="md:col-span-2 space-y-2">
-                  <Field label="Profile Image URL">
-                    <input
-                      className="admin-input"
-                      value={tutorForm.avatar_url}
-                      onChange={(e) => setTutorForm({ ...tutorForm, avatar_url: e.target.value })}
-                      placeholder="https://..."
-                    />
+                <div className="md:col-span-2 space-y-3 bg-ink-50 p-4 rounded-2xl border border-ink-100">
+                  <Field label="Tutor Profile Picture (Upload Direct Image)">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-1">
+                      {/* Current Preview */}
+                      <div className="relative w-20 h-20 rounded-2xl bg-white border-2 border-ink-200 overflow-hidden shrink-0 flex items-center justify-center shadow-sm">
+                        {tutorForm.avatar_url ? (
+                          <img src={tutorForm.avatar_url} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                          <ImageIcon className="w-8 h-8 text-ink-300" />
+                        )}
+                      </div>
+
+                      <div className="flex-1 space-y-2.5 w-full">
+                        {/* File Upload Button */}
+                        <div className="flex flex-wrap items-center gap-3">
+                          <label className="cursor-pointer inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-95">
+                            <Upload className="w-4 h-4" />
+                            <span>{uploadingImage ? 'Uploading Image...' : 'Upload Image from Device'}</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleFileUpload}
+                              disabled={uploadingImage}
+                              className="hidden"
+                            />
+                          </label>
+
+                          {tutorForm.avatar_url && (
+                            <button
+                              type="button"
+                              onClick={() => setTutorForm((prev) => ({ ...prev, avatar_url: '' }))}
+                              className="text-xs text-error-600 hover:text-error-700 font-bold hover:underline"
+                            >
+                              Remove Picture
+                            </button>
+                          )}
+                        </div>
+
+                        <p className="text-[11px] text-ink-500 font-medium">
+                          Select an image file from your device. When saved, picture is stored and deleted when tutor is deleted.
+                        </p>
+
+                        <input
+                          className="admin-input text-xs"
+                          value={tutorForm.avatar_url}
+                          onChange={(e) => setTutorForm({ ...tutorForm, avatar_url: e.target.value })}
+                          placeholder="Or paste external image URL (https://...)"
+                        />
+                      </div>
+                    </div>
                   </Field>
-                  <div className="flex flex-wrap items-center gap-2 pt-1">
+
+                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-ink-200/60">
                     <span className="text-xs font-bold text-ink-500">Quick Presets:</span>
                     {avatarPresets.map((preset) => (
                       <button
                         key={preset.name}
                         type="button"
                         onClick={() => setTutorForm({ ...tutorForm, avatar_url: preset.url })}
-                        className="text-xs bg-ink-100 hover:bg-primary-100 hover:text-primary-700 px-2.5 py-1 rounded-md font-medium transition-colors"
+                        className="text-xs bg-white hover:bg-primary-100 hover:text-primary-700 border border-ink-200 px-2.5 py-1 rounded-md font-medium transition-colors"
                       >
                         {preset.name}
                       </button>
@@ -978,8 +1124,9 @@ export default function AdminPanel() {
                   </button>
 
                   <button
-                    onClick={() => void remove('tutors', item.id)}
-                    className="w-9 h-9 rounded-xl flex items-center justify-center text-error-600 hover:bg-error-50"
+                    onClick={() => void deleteTutor(item)}
+                    title="Delete tutor and profile picture"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-error-600 hover:bg-error-50 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>

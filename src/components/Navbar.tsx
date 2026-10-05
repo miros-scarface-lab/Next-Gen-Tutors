@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navLinks } from '@/data/content';
+import { navigate } from '@/App';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -12,6 +13,14 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/')) {
+      e.preventDefault();
+      navigate(href);
+      setMobileOpen(false);
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -21,7 +30,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-max flex items-center justify-between py-4">
-        <a href="#home" className="flex items-center gap-3 group">
+        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3 group">
           <img
             src="/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"
             alt="Next Gen Tutors"
@@ -37,6 +46,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-sm font-semibold text-ink-600 hover:text-primary-600 transition-colors relative group"
               >
                 {link.label}
@@ -73,7 +83,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="block py-3 px-2 text-base font-semibold text-ink-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                 >
                   {link.label}

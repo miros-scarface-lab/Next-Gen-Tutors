@@ -127,7 +127,7 @@ export const stats = [
 
 export const navLinks = [
   { label: 'হোম', href: '#home' },
-  { label: 'টিউটরবৃন্দ', href: '#tutors' },
+  { label: 'টিউটরবৃন্দ', href: '/tutors' },
   { label: 'বৈশিষ্ট্যসমূহ', href: '#features' },
   { label: 'কীভাবে কাজ করে', href: '#how-it-works' },
   { label: 'রিভিউ', href: '#testimonials' },

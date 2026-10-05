@@ -1,6 +1,7 @@
-import { MapPin, MessageCircle, GraduationCap, ShieldCheck, Star } from 'lucide-react';
+import { MapPin, MessageCircle, GraduationCap, ShieldCheck, Star, ArrowRight } from 'lucide-react';
 import type { Tutor } from '@/types/cms';
 import { useReveal } from '@/hooks/useReveal';
+import { navigate } from '@/App';
 
 type DirectoryProps = {
   tutors: Tutor[];
@@ -27,14 +28,27 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
 
         {tutors.length > 0 && (
           <div>
-            <div className="flex items-center justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
               <div>
                 <h3 className="text-2xl font-bold text-ink-900">ফিচার্ড টিউটরবৃন্দ</h3>
                 <p className="text-sm text-ink-500 mt-1">সেরা ভেরিফাইড টিউটরদের সাথে সরাসরি যোগাযোগ করুন</p>
               </div>
-              <span className="text-sm font-bold bg-primary-50 text-primary-700 px-3.5 py-1.5 rounded-full">
-                {tutors.length} জন উপলব্ধ
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold bg-primary-50 text-primary-700 px-3 py-1.5 rounded-full">
+                  {tutors.length} জন উপলব্ধ
+                </span>
+                <a
+                  href="/tutors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/tutors');
+                  }}
+                  className="inline-flex items-center gap-1.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs px-4 py-2 rounded-full shadow transition-all hover:scale-105"
+                >
+                  <span>সকল টিউটর দেখুন</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

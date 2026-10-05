@@ -1,4 +1,5 @@
 import { Search, Star, Users, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
+import { navigate } from '@/App';
 
 type HeroProps = {
   title?: string;
@@ -44,7 +45,11 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="#tutors"
+                href="/tutors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/tutors');
+                }}
                 className="inline-flex items-center justify-center gap-2 bg-white border border-ink-200 hover:border-primary-300 text-ink-700 hover:text-primary-600 font-bold px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all"
               >
                 টিউটরবৃন্দ দেখুন

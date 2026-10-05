@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
@@ -8,12 +9,31 @@ import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import Directory from '@/components/Directory';
 import AdminPanel from '@/components/AdminPanel';
+import TutorsPage from '@/components/TutorsPage';
 import QuickInfoWidget from '@/components/QuickInfoWidget';
 import { useCmsData } from '@/hooks/useCmsData';
 
+export function navigate(url: string) {
+  window.history.pushState({}, '', url);
+  window.dispatchEvent(new Event('popstate'));
+}
+
 function App() {
   const { data } = useCmsData();
-  if (window.location.pathname === '/admin') return <AdminPanel />;
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  if (currentPath === '/admin') return <AdminPanel />;
+  if (currentPath === '/tutors') return <TutorsPage tutors={data.tutors} brandName={data.settings?.brand_name} />;
+
   const settings = data.settings;
 
   return (
