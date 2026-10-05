@@ -165,7 +165,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
   return (
     <>
       {/* Floating Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-row items-center gap-3">
+      <div className="fixed bottom-6 left-6 z-50 flex flex-row-reverse items-center gap-3">
         {!isOpen && (
           <div className="bg-ink-900 text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-xl border border-ink-700 animate-bounce flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-warning-400" />
@@ -190,7 +190,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
 
       {/* Quick Info Chat Popup */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 w-[92vw] sm:w-[420px] max-h-[82vh] h-[600px] bg-white rounded-3xl shadow-2xl border border-ink-100 z-50 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
+        <div className="fixed bottom-24 left-4 sm:left-6 w-[92vw] sm:w-[420px] max-h-[82vh] h-[600px] bg-white rounded-3xl shadow-2xl border border-ink-100 z-50 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-300">
           {/* Header */}
           <div className="bg-gradient-to-r from-primary-700 via-primary-600 to-primary-800 text-white p-4 sm:p-5 flex items-center justify-between shadow-md">
             <div className="flex items-center gap-3">

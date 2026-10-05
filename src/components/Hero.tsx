@@ -82,7 +82,7 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
               {/* Main image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-ink-900/20 ring-1 ring-ink-900/5">
                 <img
-                  src={imageUrl || 'https://images.pexels.com/photos/5311406/pexels-photo-5311406.jpeg?auto=compress&cs=tinysrgb&h=650&w=940'}
+                  src={imageUrl || '/hero-image.png'}
                   alt="Tutor helping a student study"
                   className="w-full h-[420px] lg:h-[500px] object-cover"
                 />
