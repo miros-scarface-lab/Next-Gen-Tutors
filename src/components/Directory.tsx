@@ -162,7 +162,8 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
             <div className="mt-14 text-center bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-primary-800/80">
               <h4 className="text-2xl sm:text-3xl font-extrabold">সকল টিউটরদের আলাদা পেজে দেখুন</h4>
               <p className="mt-3 text-primary-200 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেলসহ সমস্ত বিষয়ের সকল টিউটরদের প্রোফাইল দেখতে এবং লাইভ ফিল্টার করতে আলাদা টিউটর পেজে প্রবেশ করুন।
+                পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের মানসম্মত টিউটর খুঁজে পাওয়ার জন্য এটি একটি চমৎকার প্ল্যাটফর্ম। সার্ভিস অত্যন্ত দ্রুত ও আন্তরিক।
+
               </p>
               <a
                 href="/tutors"
