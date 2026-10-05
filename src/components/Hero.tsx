@@ -80,11 +80,11 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
           <div className="relative animate-slide-in-right">
             <div className="relative">
               {/* Main image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-ink-900/20 ring-1 ring-ink-900/5 bg-white flex items-center justify-center p-8">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-ink-900/20 ring-1 ring-ink-900/5">
                 <img
                   src={'/403894-PDWRJ0-862.jpg'}
                   alt="Tutor helping a student study"
-                  className="w-full h-auto max-h-[420px] lg:max-h-[500px] object-contain"
+                  className="w-full h-[420px] lg:h-[500px] object-cover"
                 />
               </div>
 
