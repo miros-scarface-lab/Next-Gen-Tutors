@@ -2,9 +2,11 @@ import { MapPin, Users, BookOpen, Award } from 'lucide-react';
 import { stats } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
 
+import type { SiteSettings } from '@/types/cms';
+
 const statIcons = [Users, BookOpen, Award, MapPin];
 
-export default function Stats() {
+export default function Stats({ settings }: { settings?: SiteSettings | null }) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -51,10 +53,10 @@ export default function Stats() {
                   <Icon className="w-7 h-7 text-white" strokeWidth={1.8} />
                 </div>
                 <div className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-                  {stat.value}
+                  {settings?.custom_texts?.[`stat_${i + 1}_val`] || stat.value}
                 </div>
                 <p className="mt-2 text-sm lg:text-base font-medium text-primary-200">
-                  {stat.label}
+                  {settings?.custom_texts?.[`stat_${i + 1}_label`] || stat.label}
                 </p>
               </div>
             );

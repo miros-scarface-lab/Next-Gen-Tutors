@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord } from '@/types/cms';
+import { siteSettingsSchema } from '@/lib/schema';
 
 type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials' | 'faqs';
 
@@ -958,7 +959,30 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-ink-100">
+            <div className="mt-8 border-t border-ink-200 pt-8">
+              <h2 className="text-xl font-bold text-ink-900 mb-6">Advanced Text Customizations</h2>
+              <div className="space-y-8">
+                {siteSettingsSchema.map((section, idx) => (
+                  <div key={section.category} className="bg-ink-50 p-6 rounded-2xl border border-ink-100">
+                    <h3 className="text-lg font-bold text-ink-900 mb-4">{11 + idx}. {section.category}</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {section.fields.map(f => (
+                        <Field key={f.key} label={f.label}>
+                          <input
+                            className="admin-input"
+                            value={settings.custom_texts?.[f.key] || ''}
+                            onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
+                            placeholder={f.default}
+                          />
+                        </Field>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-ink-100 mt-8">
               <button disabled={saving} className="admin-button" type="submit">
                 <Save className="w-5 h-5" /> {saving ? 'Saving Website Settings...' : 'Save All Website Settings'}
               </button>

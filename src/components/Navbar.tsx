@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navLinks } from '@/data/content';
 import { navigate } from '@/App';
+import type { SiteSettings } from '@/types/cms';
 
-export default function Navbar() {
+export default function Navbar({ settings }: { settings?: SiteSettings | null }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -32,38 +33,56 @@ export default function Navbar() {
       <nav className="container-max flex items-center justify-between py-4">
         <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3 group">
           <img
-            src="/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"
-            alt="Next Gen Tutors"
+            src={settings?.custom_texts?.nav_logo_url || "/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"}
+            alt={settings?.brand_name || "Next Gen Tutors"}
             className="w-12 h-12 object-contain group-hover:scale-105 transition-transform"
           />
           <span className="font-display text-xl font-bold tracking-tight text-ink-900">
-            Next Gen <span className="text-primary-600">Tutors</span>
+            {settings?.brand_name ? (
+              <>
+                {settings.brand_name.split(' ')[0]} <span className="text-primary-600">{settings.brand_name.split(' ').slice(1).join(' ')}</span>
+              </>
+            ) : (
+              <>
+                Next Gen <span className="text-primary-600">Tutors</span>
+              </>
+            )}
           </span>
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-sm font-semibold text-ink-600 hover:text-primary-600 transition-colors relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300" />
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            let label = link.label;
+            if (link.href === '#home') label = settings?.custom_texts?.nav_home || label;
+            if (link.href === '/tutors') label = settings?.custom_texts?.nav_find_tutor || label;
+            if (link.href === '#features') label = settings?.custom_texts?.nav_tutor_request || label;
+            if (link.href === '#how-it-works') label = settings?.custom_texts?.nav_how_it_works || label;
+            if (link.href === '#testimonials') label = settings?.custom_texts?.nav_testimonials || label;
+            if (link.href === '#about') label = settings?.custom_texts?.nav_contact || label;
+            
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-sm font-semibold text-ink-600 hover:text-primary-600 transition-colors relative group"
+                >
+                  {label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 group-hover:w-full transition-all duration-300" />
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://wa.me/8801318126412"
+            href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-bold text-white bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 px-5 py-2.5 rounded-full shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-600/40 transition-all hover:scale-105"
           >
-            দ্রুত যোগাযোগ (WhatsApp)
+            {settings?.custom_texts?.nav_whatsapp_btn || "দ্রুত যোগাযোগ (WhatsApp)"}
           </a>
         </div>
 
@@ -79,25 +98,35 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-ink-100 animate-fade-in">
           <ul className="container-max py-4 flex flex-col gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="block py-3 px-2 text-base font-semibold text-ink-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              let label = link.label;
+              if (link.href === '#home') label = settings?.custom_texts?.nav_home || label;
+              if (link.href === '/tutors') label = settings?.custom_texts?.nav_find_tutor || label;
+              if (link.href === '#features') label = settings?.custom_texts?.nav_tutor_request || label;
+              if (link.href === '#how-it-works') label = settings?.custom_texts?.nav_how_it_works || label;
+              if (link.href === '#testimonials') label = settings?.custom_texts?.nav_testimonials || label;
+              if (link.href === '#about') label = settings?.custom_texts?.nav_contact || label;
+              
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block py-3 px-2 text-base font-semibold text-ink-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+                  >
+                    {label}
+                  </a>
+                </li>
+              );
+            })}
             <li className="pt-3">
               <a
-                href="https://wa.me/8801318126412"
+                href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center text-sm font-bold text-white bg-emerald-600 px-4 py-2.5 rounded-full"
               >
-                দ্রুত যোগাযোগ (WhatsApp)
+                {settings?.custom_texts?.nav_whatsapp_btn || "দ্রুত যোগাযোগ (WhatsApp)"}
               </a>
             </li>
           </ul>

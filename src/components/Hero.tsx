@@ -1,14 +1,17 @@
 import { Search, Star, Users, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
 import { navigate } from '@/App';
 
+import type { SiteSettings } from '@/types/cms';
+
 type HeroProps = {
+  settings?: SiteSettings | null;
   title?: string;
   description?: string;
   badgeText?: string;
   imageUrl?: string;
 };
 
-export default function Hero({ title, description, badgeText, imageUrl }: HeroProps) {
+export default function Hero({ settings, title, description, badgeText, imageUrl }: HeroProps) {
   return (
     <section id="home" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
       {/* Background */}
@@ -36,12 +39,12 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
-                href="https://wa.me/8801318126412"
+                href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold px-7 py-3.5 rounded-full shadow-xl shadow-emerald-600/30 hover:shadow-2xl hover:shadow-emerald-600/40 transition-all hover:scale-105 group"
               >
-                দ্রুত যোগাযোগ (WhatsApp)
+                {settings?.custom_texts?.nav_whatsapp_btn || "দ্রুত যোগাযোগ (WhatsApp)"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -52,7 +55,7 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
                 }}
                 className="inline-flex items-center justify-center gap-2 bg-white border border-ink-200 hover:border-primary-300 text-ink-700 hover:text-primary-600 font-bold px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all"
               >
-                টিউটরবৃন্দ দেখুন
+                {settings?.custom_texts?.hero_btn_find_tutor || "টিউটরবৃন্দ দেখুন"}
               </a>
             </div>
 
@@ -60,15 +63,15 @@ export default function Hero({ title, description, badgeText, imageUrl }: HeroPr
             <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
               <div className="flex items-center gap-2 text-ink-600">
                 <ShieldCheck className="w-5 h-5 text-success-500" />
-                <span className="text-sm font-semibold">যাচাইকৃত টিউটর</span>
+                <span className="text-sm font-semibold">{settings?.custom_texts?.hero_stat_verified || "যাচাইকৃত টিউটর"}</span>
               </div>
               <div className="flex items-center gap-2 text-ink-600">
                 <Star className="w-5 h-5 text-warning-400 fill-warning-400" />
-                <span className="text-sm font-semibold">রেটিং ৪.৯/৫</span>
+                <span className="text-sm font-semibold">{settings?.custom_texts?.stat_3_label ? `${settings?.custom_texts?.stat_3_label} ${settings?.custom_texts?.stat_3_val}` : "রেটিং ৪.৯/৫"}</span>
               </div>
               <div className="flex items-center gap-2 text-ink-600">
                 <Users className="w-5 h-5 text-primary-500" />
-                <span className="text-sm font-semibold">৫০,০০০+ টিউটর</span>
+                <span className="text-sm font-semibold">{settings?.custom_texts?.hero_stat_students || "৫০,০০০+ টিউটর"}</span>
               </div>
             </div>
           </div>

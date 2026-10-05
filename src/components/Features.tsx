@@ -1,12 +1,15 @@
 import { features } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
 
+import type { SiteSettings } from '@/types/cms';
+
 type FeaturesProps = {
+  settings?: SiteSettings | null;
   title?: string;
   subtitle?: string;
 };
 
-export default function Features({ title, subtitle }: FeaturesProps) {
+export default function Features({ settings, title, subtitle }: FeaturesProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -51,10 +54,10 @@ export default function Features({ title, subtitle }: FeaturesProps) {
                 </div>
 
                 <h3 className="text-xl font-bold text-ink-900 mb-2.5">
-                  {feature.title}
+                  {settings?.custom_texts?.[`feat_${i + 1}_title`] || feature.title}
                 </h3>
                 <p className="text-ink-600 leading-relaxed text-[15px]">
-                  {feature.description}
+                  {settings?.custom_texts?.[`feat_${i + 1}_desc`] || feature.description}
                 </p>
 
                 {/* Decorative corner */}

@@ -3,13 +3,16 @@ import type { Tutor } from '@/types/cms';
 import { useReveal } from '@/hooks/useReveal';
 import { navigate } from '@/App';
 
+import type { SiteSettings, Tutor } from '@/types/cms';
+
 type DirectoryProps = {
+  settings?: SiteSettings | null;
   tutors: Tutor[];
   title?: string;
   subtitle?: string;
 };
 
-export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
+export default function Directory({ settings, tutors, title, subtitle }: DirectoryProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
   if (!tutors.length) return null;
 
@@ -45,7 +48,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                   }}
                   className="inline-flex items-center gap-1.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs px-4 py-2 rounded-full shadow transition-all hover:scale-105"
                 >
-                  <span>সকল টিউটর দেখুন</span>
+                  <span>{settings?.custom_texts?.dir_btn_view_all || 'সকল টিউটর দেখুন'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -89,7 +92,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         {tutor.is_verified && (
                           <div className="absolute top-4 right-4 bg-success-500 text-white px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 text-xs font-bold">
                             <ShieldCheck className="w-4 h-4" />
-                            <span>যাচাইকৃত</span>
+                            <span>{settings?.custom_texts?.hero_stat_verified || 'যাচাইকৃত'}</span>
                           </div>
                         )}
                       </div>
@@ -147,7 +150,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                         className="w-full inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/30 transition-all hover:scale-[1.02]"
                       >
                         <MessageCircle className="w-5 h-5" />
-                        <span>মেসেজ দিন (WhatsApp)</span>
+                        <span>{settings?.custom_texts?.tutor_modal_contact || 'মেসেজ দিন (WhatsApp)'}</span>
                       </a>
                     </div>
                   </article>
@@ -169,7 +172,7 @@ export default function Directory({ tutors, title, subtitle }: DirectoryProps) {
                 }}
                 className="mt-6 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
               >
-                <span>আলাদা টিউটর পেজে যান</span>
+                <span>{settings?.custom_texts?.dir_btn_view_all || 'আলাদা টিউটর পেজে যান'}</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>

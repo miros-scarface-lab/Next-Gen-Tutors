@@ -2,7 +2,10 @@ import { Facebook, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { navLinks } from '@/data/content';
 import { navigate } from '@/App';
 
+import type { SiteSettings } from '@/types/cms';
+
 type FooterProps = {
+  settings?: SiteSettings | null;
   brandName?: string;
   description?: string;
   email?: string;
@@ -10,7 +13,7 @@ type FooterProps = {
   location?: string;
 };
 
-export default function Footer({ brandName = 'Next Gen Tutors', description, email = 'nextgentutors247@gmail.com', phone = '01318126412', location = 'Pirojpur, Chittagong, Bangladesh' }: FooterProps) {
+export default function Footer({ settings, brandName = 'Next Gen Tutors', description, email = 'nextgentutors247@gmail.com', phone = '01318126412', location = 'Pirojpur, Chittagong, Bangladesh' }: FooterProps) {
   return (
     <footer className="bg-ink-950 text-ink-300 pt-16 pb-8">
       <div className="container-max">
@@ -77,7 +80,7 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
           {/* Quick Links */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">
-              দ্রুত লিঙ্কসমূহ
+              {settings?.custom_texts?.footer_quick_links || 'দ্রুত লিঙ্কসমূহ'}
             </h4>
             <ul className="space-y-3">
               {navLinks.map((link) => (
@@ -102,7 +105,7 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
           {/* Support */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">
-              সাহায্য ও সহায়তা
+              {settings?.custom_texts?.footer_social_title || 'আমাদের সাথে যুক্ত থাকুন'}
             </h4>
             <ul className="space-y-3">
               {['হেল্প সেন্টার', 'আমাদের সাথে যোগাযোগ', 'প্রাইভেসি পলিসি', 'ব্যবহারের শর্তাবলী', 'সাধারণ প্রশ্নাবলী (FAQ)'].map((item) => (
@@ -121,7 +124,7 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
           {/* Contact */}
           <div>
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">
-              যোগাযোগের ঠিকানা
+              {settings?.custom_texts?.footer_contact_title || 'যোগাযোগের ঠিকানা'}
             </h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
@@ -147,7 +150,7 @@ export default function Footer({ brandName = 'Next Gen Tutors', description, ema
         {/* Bottom bar */}
         <div className="border-t border-ink-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-ink-500">
-            &copy; 2026 Next Gen Tutors. সর্বস্বত্ব সংরক্ষিত।
+            {settings?.custom_texts?.footer_copyright || '© 2026 Next Gen Tutors. সর্বস্বত্ব সংরক্ষিত।'}
           </p>
           <p className="text-sm text-ink-500">
             শিক্ষার্থীদের সাফল্যের জন্য নিবেদিত।

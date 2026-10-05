@@ -1,13 +1,16 @@
 import { ArrowRight, CheckCircle2, Smartphone } from 'lucide-react';
 import { useReveal } from '@/hooks/useReveal';
 
+import type { SiteSettings } from '@/types/cms';
+
 type CTAProps = {
+  settings?: SiteSettings | null;
   title?: string;
   description?: string;
   badgeText?: string;
 };
 
-export default function CTA({ title, description, badgeText }: CTAProps) {
+export default function CTA({ settings, title, description, badgeText }: CTAProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -48,21 +51,21 @@ export default function CTA({ title, description, badgeText }: CTAProps) {
               </div>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://wa.me/8801318126412"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-7 py-3.5 rounded-full shadow-xl transition-all hover:scale-105 group"
-                >
-                  দ্রুত যোগাযোগ করুন (WhatsApp)
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a
-                  href="#features"
-                  className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold px-7 py-3.5 rounded-full transition-all"
-                >
-                  বিস্তারিত জানুন
-                </a>
+                  <a
+                    href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-7 py-3.5 rounded-full shadow-xl transition-all hover:scale-105 group"
+                  >
+                    {settings?.custom_texts?.cta_btn_primary || "দ্রুত যোগাযোগ করুন (WhatsApp)"}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a
+                    href="tel:01318126412"
+                    className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/20 hover:bg-white/20 text-white font-bold px-7 py-3.5 rounded-full transition-all"
+                  >
+                    {settings?.custom_texts?.cta_btn_secondary || "কল করুন: 01318126412"}
+                  </a>
               </div>
             </div>
 

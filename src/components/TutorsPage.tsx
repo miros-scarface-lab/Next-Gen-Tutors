@@ -66,16 +66,16 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
               className="inline-flex items-center gap-2 text-sm font-bold text-ink-700 hover:text-primary-600 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-full transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>হোমে ফিরে যান</span>
+              <span>{settings?.custom_texts?.tutors_back_home || 'হোমে ফিরে যান'}</span>
             </a>
             <a
-              href="https://wa.me/8801318126412"
+              href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded-full shadow-md transition-all hover:scale-105"
             >
               <MessageCircle className="w-4 h-4" />
-              <span>হোয়াটসঅ্যাপ যোগাযোগ</span>
+              <span>{settings?.custom_texts?.nav_whatsapp_btn || 'হোয়াটসঅ্যাপ যোগাযোগ'}</span>
             </a>
           </div>
         </div>
@@ -92,10 +92,10 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
               <span>{tutors.length} জন যাচাইকৃত টিউটর তালিকাভুক্ত</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-              আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ
+              {settings?.custom_texts?.tutors_page_title || 'আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ'}
             </h1>
             <p className="mt-4 text-base sm:text-lg text-primary-100 leading-relaxed">
-              বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেলসহ দেশের শীর্ষ প্রতিষ্ঠানের টিউটরদের সাথে কোনো কমিশন ছাড়াই সরাসরি যোগাযোগ করুন।
+              {settings?.custom_texts?.tutors_page_subtitle || 'বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেলসহ দেশের শীর্ষ প্রতিষ্ঠানের টিউটরদের সাথে কোনো কমিশন ছাড়াই সরাসরি যোগাযোগ করুন।'}
             </p>
 
           </div>
@@ -171,7 +171,7 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                         {tutor.is_verified && (
                           <div className="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 text-xs font-bold">
                             <ShieldCheck className="w-4 h-4" />
-                            <span>যাচাইকৃত</span>
+                            <span>{settings?.custom_texts?.hero_stat_verified || 'যাচাইকৃত'}</span>
                           </div>
                         )}
                       </div>
@@ -227,13 +227,13 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                         className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-md transition-all hover:scale-[1.01]"
                       >
                         <MessageCircle className="w-4 h-4" />
-                        <span>মেসেজ দিন (WhatsApp)</span>
+                        <span>{settings?.custom_texts?.tutor_modal_contact || 'মেসেজ দিন (WhatsApp)'}</span>
                       </a>
                       <button
                         onClick={() => setSelectedTutor(tutor)}
                         className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs py-2.5 px-4 rounded-xl transition-colors"
                       >
-                        <span>সম্পূর্ণ প্রোফাইল দেখুন</span>
+                        <span>{settings?.custom_texts?.dir_btn_view_profile || 'সম্পূর্ণ প্রোফাইল দেখুন'}</span>
                       </button>
                     </div>
                   </article>

@@ -1,0 +1,111 @@
+export const siteSettingsSchema = [
+  {
+    category: 'Navbar',
+    fields: [
+      { key: 'nav_logo_url', label: 'Logo Image URL', default: '/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png' },
+      { key: 'nav_whatsapp_btn', label: 'WhatsApp Button Text', default: 'দ্রুত যোগাযোগ (WhatsApp)' },
+      { key: 'nav_home', label: 'Home Link', default: 'হোম' },
+      { key: 'nav_find_tutor', label: 'Find Tutor Link', default: 'টিউটর খুঁজুন' },
+      { key: 'nav_tutor_request', label: 'Tutor Request Link', default: 'টিউটর রিকোয়েস্ট' },
+      { key: 'nav_contact', label: 'Contact Link', default: 'যোগাযোগ' },
+      { key: 'nav_login', label: 'Login Link', default: 'লগইন' },
+    ],
+  },
+  {
+    category: 'Hero Section',
+    fields: [
+      { key: 'hero_btn_find_tutor', label: 'Find Tutor Button', default: 'শিক্ষক খুঁজুন' },
+      { key: 'hero_btn_tuition_post', label: 'Tuition Post Button', default: 'টিউশন খুঁজছেন?' },
+      { key: 'hero_btn_how_it_works', label: 'How it Works Button', default: 'কিভাবে কাজ করে' },
+      { key: 'hero_stat_students', label: 'Students Count Text', default: '২০০+ শিক্ষার্থী' },
+      { key: 'hero_stat_verified', label: 'Verified Badge Text', default: 'যাচাইকৃত প্রোফাইল' },
+    ],
+  },
+  {
+    category: 'Features Section',
+    fields: [
+      { key: 'feat_1_title', label: 'Feature 1 Title', default: 'কমিশন মুক্ত' },
+      { key: 'feat_1_desc', label: 'Feature 1 Description', default: 'কোনো ধরনের লুকানো ফি বা কমিশন নেই।' },
+      { key: 'feat_2_title', label: 'Feature 2 Title', default: 'সরাসরি যোগাযোগ' },
+      { key: 'feat_2_desc', label: 'Feature 2 Description', default: 'অভিভাবক ও শিক্ষকের মাঝে সরাসরি যোগাযোগের সুবিধা।' },
+      { key: 'feat_3_title', label: 'Feature 3 Title', default: 'যাচাইকৃত প্রোফাইল' },
+      { key: 'feat_3_desc', label: 'Feature 3 Description', default: 'প্রতিটি টিউটরের ব্যাকগ্রাউন্ড ও দক্ষতা সতর্কতার সাথে যাচাই করা হয়।' },
+    ],
+  },
+  {
+    category: 'How It Works Section',
+    fields: [
+      { key: 'step_1_title', label: 'Step 1 Title', default: 'টিউটর খুঁজুন বা রিকোয়েস্ট দিন' },
+      { key: 'step_1_desc', label: 'Step 1 Desc', default: 'লোকেশন ও বিষয় অনুযায়ী আমাদের যাচাইকৃত টিউটরদের তালিকা থেকে খুঁজুন অথবা আপনার চাহিদা অনুযায়ী একটি রিকোয়েস্ট পোস্ট করুন।' },
+      { key: 'step_2_title', label: 'Step 2 Title', default: 'প্রোফাইল যাচাই করুন' },
+      { key: 'step_2_desc', label: 'Step 2 Desc', default: 'শিক্ষকদের প্রোফাইল, শিক্ষাগত যোগ্যতা, অভিজ্ঞতা এবং আগের রেটিং বিস্তারিতভাবে দেখুন ও মূল্যায়ন করুন।' },
+      { key: 'step_3_title', label: 'Step 3 Title', default: 'সরাসরি যোগাযোগ করুন' },
+      { key: 'step_3_desc', label: 'Step 3 Desc', default: 'পছন্দের টিউটরের সাথে সরাসরি WhatsApp বা ফোনে কথা বলে বিস্তারিত আলোচনা করে নিন।' },
+      { key: 'step_4_title', label: 'Step 4 Title', default: 'টিউশন শুরু করুন' },
+      { key: 'step_4_desc', label: 'Step 4 Desc', default: 'পারস্পরিক আলোচনার মাধ্যমে ফি ও সময়সূচি চূড়ান্ত করে সরাসরি টিউশন শুরু করুন কোনো মাধ্যম ছাড়াই।' },
+    ],
+  },
+  {
+    category: 'Stats Section',
+    fields: [
+      { key: 'stat_1_val', label: 'Stat 1 Value', default: '৪০০+' },
+      { key: 'stat_1_label', label: 'Stat 1 Label', default: 'দক্ষ টিউটর' },
+      { key: 'stat_2_val', label: 'Stat 2 Value', default: '১০০০+' },
+      { key: 'stat_2_label', label: 'Stat 2 Label', default: 'সফল শিক্ষার্থী' },
+      { key: 'stat_3_val', label: 'Stat 3 Value', default: '৯৮%' },
+      { key: 'stat_3_label', label: 'Stat 3 Label', default: 'সন্তুষ্টির হার' },
+      { key: 'stat_4_val', label: 'Stat 4 Value', default: '২৪/৭' },
+      { key: 'stat_4_label', label: 'Stat 4 Label', default: 'কাস্টমার সাপোর্ট' },
+    ],
+  },
+  {
+    category: 'Call to Action (CTA)',
+    fields: [
+      { key: 'cta_btn_primary', label: 'Primary Button', default: 'আমাদের মেসেজ দিন' },
+      { key: 'cta_btn_secondary', label: 'Secondary Button', default: 'কল করুন: 01318126412' },
+      { key: 'cta_placeholder_img', label: 'Placeholder Image', default: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
+    ],
+  },
+  {
+    category: 'Footer',
+    fields: [
+      { key: 'footer_quick_links', label: 'Quick Links Title', default: 'প্রয়োজনীয় লিংক' },
+      { key: 'footer_contact_title', label: 'Contact Title', default: 'যোগাযোগ' },
+      { key: 'footer_social_title', label: 'Social Title', default: 'আমাদের সাথে যুক্ত থাকুন' },
+      { key: 'footer_copyright', label: 'Copyright Text', default: '© 2026 Next Gen Tutors. All rights reserved.' },
+      { key: 'footer_fb_link', label: 'Facebook Link', default: 'https://facebook.com' },
+      { key: 'footer_insta_link', label: 'Instagram Link', default: 'https://instagram.com' },
+      { key: 'footer_wa_link', label: 'WhatsApp Link', default: 'https://wa.me/8801318126412' },
+      { key: 'footer_linkedin_link', label: 'LinkedIn Link', default: 'https://linkedin.com' },
+    ],
+  },
+  {
+    category: 'Tutors Directory & Details',
+    fields: [
+      { key: 'dir_btn_view_all', label: 'View All Tutors Button', default: 'সকল টিউটর দেখুন' },
+      { key: 'dir_btn_view_profile', label: 'View Profile Button', default: 'প্রোফাইল দেখুন' },
+      { key: 'tutors_back_home', label: 'Back to Home Link', default: 'হোম-এ ফিরে যান' },
+      { key: 'tutors_page_title', label: 'Page Title', default: 'আমাদের টিউটর প্যানেল' },
+      { key: 'tutors_page_subtitle', label: 'Page Subtitle', default: 'অভিজ্ঞ ও বাছাইকৃত টিউটরদের বিস্তারিত প্রোফাইল দেখুন' },
+      { key: 'tutor_modal_close', label: 'Close Profile', default: 'বন্ধ করুন' },
+      { key: 'tutor_modal_contact', label: 'Contact Tutor Button', default: 'যোগাযোগ করুন' },
+      { key: 'tutor_modal_contact_msg', label: 'Contact Message', default: 'হ্যালো! আমি আপনার প্রোফাইল Next Gen Tutors-এ দেখেছি এবং টিউশন সম্পর্কে বিস্তারিত জানতে চাই।' },
+      { key: 'tutor_modal_about', label: 'About Label', default: 'সম্পর্কে' },
+      { key: 'tutor_modal_info', label: 'General Info Label', default: 'সাধারণ তথ্য' },
+      { key: 'tutor_modal_subjects', label: 'Subjects Label', default: 'যে বিষয়গুলো পড়ান' },
+      { key: 'tutor_modal_location', label: 'Location Label', default: 'পড়ানোর এলাকা' },
+      { key: 'filter_all', label: 'Filter: All', default: 'সকল টিউটর' },
+      { key: 'filter_eng', label: 'Filter: Engineering', default: 'ইঞ্জিনিয়ারিং' },
+      { key: 'filter_math', label: 'Filter: Math', default: 'গণিত' },
+      { key: 'filter_psy', label: 'Filter: Psychology', default: 'মনোবিজ্ঞান' },
+      { key: 'filter_stat', label: 'Filter: Statistics', default: 'পরিসংখ্যান' },
+    ],
+  },
+  {
+    category: 'Quick Info Widget',
+    fields: [
+      { key: 'qi_trigger', label: 'Trigger Text', default: 'জরুরি তথ্য বা প্রশ্ন' },
+      { key: 'qi_welcome', label: 'Welcome Message', default: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:' },
+    ],
+  }
+];

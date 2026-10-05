@@ -38,34 +38,39 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <Navbar />
+      <Navbar settings={settings} />
       <main>
         <Hero
+          settings={settings}
           title={settings?.hero_title}
           description={settings?.hero_description}
           badgeText={settings?.hero_badge_text}
           imageUrl={settings?.hero_image_url}
         />
-        <Features title={settings?.features_title} subtitle={settings?.features_subtitle} />
-        <HowItWorks title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
+        <Features settings={settings} title={settings?.features_title} subtitle={settings?.features_subtitle} />
+        <HowItWorks settings={settings} title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
         <Directory
+          settings={settings}
           tutors={data.tutors}
           title={settings?.directory_title}
           subtitle={settings?.directory_subtitle}
         />
         <Testimonials
+          settings={settings}
           items={data.testimonials}
           title={settings?.testimonials_title}
           subtitle={settings?.testimonials_subtitle}
         />
-        <Stats />
+        <Stats settings={settings} />
         <CTA
+          settings={settings}
           title={settings?.cta_title}
           description={settings?.cta_description}
           badgeText={settings?.cta_badge_text}
         />
       </main>
       <Footer
+        settings={settings}
         brandName={settings?.brand_name}
         description={settings?.footer_description}
         email={settings?.contact_email}

@@ -8,12 +8,15 @@ const stepImages = [
   'https://images.pexels.com/photos/31290544/pexels-photo-31290544.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
 ];
 
+import type { SiteSettings } from '@/types/cms';
+
 type HowItWorksProps = {
+  settings?: SiteSettings | null;
   title?: string;
   subtitle?: string;
 };
 
-export default function HowItWorks({ title, subtitle }: HowItWorksProps) {
+export default function HowItWorks({ settings, title, subtitle }: HowItWorksProps) {
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
@@ -65,10 +68,10 @@ export default function HowItWorks({ title, subtitle }: HowItWorksProps) {
                 </div>
 
                 <h3 className="text-lg font-bold text-ink-900 mb-2">
-                  {step.title}
+                  {settings?.custom_texts?.[`step_${i + 1}_title`] || step.title}
                 </h3>
                 <p className="text-ink-600 text-sm leading-relaxed">
-                  {step.description}
+                  {settings?.custom_texts?.[`step_${i + 1}_desc`] || step.description}
                 </p>
               </div>
 
