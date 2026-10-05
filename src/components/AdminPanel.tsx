@@ -951,14 +951,14 @@ export default function AdminPanel() {
                             <textarea
                               className="admin-input min-h-20"
                               value={settings.custom_texts?.[f.key] || ''}
-                              onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
+                              onChange={(e) => setSettings(prev => ({ ...prev, custom_texts: { ...prev.custom_texts, [f.key]: e.target.value } }))}
                               placeholder={f.default}
                             />
                           ) : (
                             <input
                               className="admin-input"
                               value={settings.custom_texts?.[f.key] || ''}
-                              onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
+                              onChange={(e) => setSettings(prev => ({ ...prev, custom_texts: { ...prev.custom_texts, [f.key]: e.target.value } }))}
                               placeholder={f.default}
                             />
                           )}
