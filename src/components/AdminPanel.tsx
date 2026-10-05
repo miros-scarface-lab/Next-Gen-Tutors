@@ -700,12 +700,42 @@ export default function AdminPanel() {
 
         {/* SETTINGS TAB */}
         {tab === 'settings' && (
-          <form onSubmit={saveSettings} className="admin-card space-y-8">
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                1. Brand & General Contact Information
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+          <form onSubmit={saveSettings} className="flex flex-col lg:flex-row gap-6 items-start relative">
+            {/* Sidebar Navigation */}
+            <div className="w-full lg:w-72 shrink-0 bg-white p-5 rounded-3xl border border-ink-100 shadow-sm lg:sticky lg:top-24 max-h-[85vh] overflow-y-auto hidden md:block">
+              <h3 className="font-bold text-ink-900 mb-4 uppercase tracking-wider text-xs">Settings Categories</h3>
+              <nav className="flex flex-col gap-1">
+                <a href="#cat-1" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">1. Brand & Contact Info</a>
+                <a href="#cat-2" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">2. Hero Section</a>
+                <a href="#cat-3" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">3. Features</a>
+                <a href="#cat-4" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">4. How It Works</a>
+                <a href="#cat-5" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">5. Tutors Directory</a>
+                <a href="#cat-6" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">6. Testimonials</a>
+                <a href="#cat-7" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">7. CTA & Footer</a>
+                <a href="#cat-8" className="text-sm font-semibold text-ink-600 hover:bg-primary-50 hover:text-primary-600 px-3 py-2 rounded-xl transition-colors">8. Advanced Texts</a>
+              </nav>
+              <div className="mt-6 pt-6 border-t border-ink-100">
+                <button disabled={saving} className="admin-button w-full shadow-md justify-center" type="submit">
+                  <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Settings'}
+                </button>
+              </div>
+            </div>
+
+            {/* Main Form Content */}
+            <div className="flex-1 min-w-0 bg-white rounded-3xl border border-ink-100 p-6 sm:p-8 shadow-sm space-y-12">
+              <div className="flex items-center justify-between sm:hidden mb-2">
+                <h2 className="text-xl font-bold text-ink-900">Settings</h2>
+                <button disabled={saving} className="admin-button px-4 py-2 text-xs" type="submit">
+                  <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save'}
+                </button>
+              </div>
+
+              <div id="cat-1" className="scroll-mt-32">
+                <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">1</span>
+                  Brand & General Contact Information
+                </h3>
+                <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="Brand Name">
                   <input
                     className="admin-input"
@@ -738,11 +768,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                2. Hero Section
+            <div id="cat-2" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">2</span>
+                Hero Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="Hero Badge Text">
                   <input
                     className="admin-input"
@@ -775,11 +806,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                3. Features Section
+            <div id="cat-3" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">3</span>
+                Features Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="Features Title">
                   <input
                     className="admin-input"
@@ -797,11 +829,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                4. How It Works Section
+            <div id="cat-4" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">4</span>
+                How It Works Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="How It Works Title">
                   <input
                     className="admin-input"
@@ -819,11 +852,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                5. Tutors Directory Section
+            <div id="cat-5" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">5</span>
+                Tutors Directory Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="Directory Section Title">
                   <input
                     className="admin-input"
@@ -841,11 +875,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                6. Testimonials Section
+            <div id="cat-6" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">6</span>
+                Testimonials Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="Testimonials Title">
                   <input
                     className="admin-input"
@@ -863,11 +898,12 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                7. Call to Action (CTA) & Footer Section
+            <div id="cat-7" className="scroll-mt-32">
+              <h3 className="text-lg font-bold text-ink-900 mb-4 pb-2 border-b border-ink-100 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">7</span>
+                Call to Action (CTA) & Footer Section
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
                 <Field label="CTA Badge Text">
                   <input
                     className="admin-input"
@@ -899,81 +935,33 @@ export default function AdminPanel() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                8. Navigation Menu (Custom Texts)
+            <div id="cat-8" className="scroll-mt-32 pt-4">
+              <h3 className="text-xl font-bold text-ink-900 mb-6 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs">8</span>
+                Advanced Text Customizations
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
-                <Field label="Nav Home Link">
-                  <input className="admin-input" value={settings.custom_texts?.nav_home || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_home: e.target.value } })} placeholder="হোম" />
-                </Field>
-                <Field label="Nav Tutors Link">
-                  <input className="admin-input" value={settings.custom_texts?.nav_tutors || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_tutors: e.target.value } })} placeholder="টিউটরসমূহ" />
-                </Field>
-                <Field label="Nav Tuitions Link">
-                  <input className="admin-input" value={settings.custom_texts?.nav_tuitions || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_tuitions: e.target.value } })} placeholder="টিউশন খুঁজুন" />
-                </Field>
-                <Field label="Nav Admin Link">
-                  <input className="admin-input" value={settings.custom_texts?.nav_admin || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_admin: e.target.value } })} placeholder="অ্যাডমিন প্যানেল" />
-                </Field>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                9. Quick Info Assistant (Custom Texts)
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
-                <Field label="Floating Trigger Text">
-                  <input className="admin-input" value={settings.custom_texts?.qi_trigger || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_trigger: e.target.value } })} placeholder="জরুরি তথ্য বা প্রশ্ন" />
-                </Field>
-                <Field label="Disabled Input Notice">
-                  <input className="admin-input" value={settings.custom_texts?.qi_disabled || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_disabled: e.target.value } })} placeholder="কাস্টম টাইপিং নিষ্ক্রিয় করা আছে..." />
-                </Field>
-                <Field label="Welcome Message" className="md:col-span-2">
-                  <textarea className="admin-input min-h-20" value={settings.custom_texts?.qi_welcome || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_welcome: e.target.value } })} placeholder="আসসালামু আলাইকুম!..." />
-                </Field>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
-                10. Tutors Page Filters (Custom Texts)
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4 pt-3">
-                <Field label="All Tutors Filter">
-                  <input className="admin-input" value={settings.custom_texts?.filter_all || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_all: e.target.value } })} placeholder="সকল টিউটর" />
-                </Field>
-                <Field label="Engineering Filter">
-                  <input className="admin-input" value={settings.custom_texts?.filter_eng || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_eng: e.target.value } })} placeholder="ইঞ্জিনিয়ারিং" />
-                </Field>
-                <Field label="Math Filter">
-                  <input className="admin-input" value={settings.custom_texts?.filter_math || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_math: e.target.value } })} placeholder="গণিত" />
-                </Field>
-                <Field label="Psychology Filter">
-                  <input className="admin-input" value={settings.custom_texts?.filter_psy || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_psy: e.target.value } })} placeholder="মনোবিজ্ঞান" />
-                </Field>
-                <Field label="Stat Filter">
-                  <input className="admin-input" value={settings.custom_texts?.filter_stat || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_stat: e.target.value } })} placeholder="পরিসংখ্যান" />
-                </Field>
-              </div>
-            </div>
-
-            <div className="mt-8 border-t border-ink-200 pt-8">
-              <h2 className="text-xl font-bold text-ink-900 mb-6">Advanced Text Customizations</h2>
-              <div className="space-y-8">
+              <div className="space-y-10">
                 {siteSettingsSchema.map((section, idx) => (
-                  <div key={section.category} className="bg-ink-50 p-6 rounded-2xl border border-ink-100">
-                    <h3 className="text-lg font-bold text-ink-900 mb-4">{11 + idx}. {section.category}</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                  <div key={section.category} className="bg-ink-50 p-6 rounded-2xl border border-ink-100 shadow-sm">
+                    <h4 className="text-md font-bold text-ink-900 mb-4">{8 + idx}. {section.category}</h4>
+                    <div className="grid md:grid-cols-2 gap-5">
                       {section.fields.map(f => (
-                        <Field key={f.key} label={f.label}>
-                          <input
-                            className="admin-input"
-                            value={settings.custom_texts?.[f.key] || ''}
-                            onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
-                            placeholder={f.default}
-                          />
+                        <Field key={f.key} label={f.label} className={f.key.includes('desc') || f.key.includes('msg') ? "md:col-span-2" : ""}>
+                          {f.key.includes('desc') || f.key.includes('msg') ? (
+                            <textarea
+                              className="admin-input min-h-20"
+                              value={settings.custom_texts?.[f.key] || ''}
+                              onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
+                              placeholder={f.default}
+                            />
+                          ) : (
+                            <input
+                              className="admin-input"
+                              value={settings.custom_texts?.[f.key] || ''}
+                              onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, [f.key]: e.target.value } })}
+                              placeholder={f.default}
+                            />
+                          )}
                         </Field>
                       ))}
                     </div>
@@ -981,12 +969,14 @@ export default function AdminPanel() {
                 ))}
               </div>
             </div>
-
-            <div className="pt-4 border-t border-ink-100 mt-8">
-              <button disabled={saving} className="admin-button" type="submit">
-                <Save className="w-5 h-5" /> {saving ? 'Saving Website Settings...' : 'Save All Website Settings'}
+            
+            {/* Mobile Save Button (Desktop is in sidebar) */}
+            <div className="pt-4 border-t border-ink-100 mt-8 md:hidden">
+              <button disabled={saving} className="admin-button w-full justify-center" type="submit">
+                <Save className="w-5 h-5" /> {saving ? 'Saving...' : 'Save Settings'}
               </button>
             </div>
+          </div>
           </form>
         )}
 
