@@ -12,51 +12,36 @@ import {
   X,
   Filter,
 } from 'lucide-react';
-import type { Tutor } from '@/types/cms';
+import type { Tutor, SiteSettings } from '@/types/cms';
 
 type TutorsPageProps = {
   tutors: Tutor[];
   brandName?: string;
+  settings?: SiteSettings | null;
 };
 
-export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors' }: TutorsPageProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', settings }: TutorsPageProps) {
   const [selectedDept, setSelectedDept] = useState<string>('all');
   const [selectedTutor, setSelectedTutor] = useState<Tutor | null>(null);
 
   const departments = [
-    { id: 'all', label: 'সকল টিউটর' },
-    { id: 'buet', label: 'বুয়েট (BUET)' },
-    { id: 'du', label: 'ঢাকা বিশ্ববিদ্যালয় (DU)' },
-    { id: 'iut', label: 'আইইউটি (IUT)' },
-    { id: 'medical', label: 'মেডিকেল (DMC)' },
-    { id: 'engineering', label: 'ইঞ্জিনিয়ারিং' },
+    { id: 'all', label: settings?.custom_texts?.filter_all || 'সকল টিউটর' },
+    { id: 'engineering', label: settings?.custom_texts?.filter_eng || 'ইঞ্জিনিয়ারিং' },
+    { id: 'math', label: settings?.custom_texts?.filter_math || 'গণিত' },
+    { id: 'psychology', label: settings?.custom_texts?.filter_psy || 'মনোবিজ্ঞান' },
+    { id: 'stat', label: settings?.custom_texts?.filter_stat || 'পরিসংখ্যান' },
   ];
 
   const filteredTutors = tutors.filter((tutor) => {
-    const query = searchQuery.toLowerCase().trim();
     const dept = (tutor.department || '').toLowerCase();
-    const headline = (tutor.headline || '').toLowerCase();
-    const name = (tutor.name || '').toLowerCase();
-    const location = (tutor.location || '').toLowerCase();
-    const subjects = tutor.subjects.join(' ').toLowerCase();
-
-    const matchesSearch =
-      !query ||
-      name.includes(query) ||
-      dept.includes(query) ||
-      headline.includes(query) ||
-      location.includes(query) ||
-      subjects.includes(query);
 
     let matchesDept = true;
-    if (selectedDept === 'buet') matchesDept = dept.includes('buet') || dept.includes('বুয়েট');
-    else if (selectedDept === 'du') matchesDept = dept.includes('du') || dept.includes('ঢাকা বিশ্ববিদ্যালয়') || dept.includes('dhaka university');
-    else if (selectedDept === 'iut') matchesDept = dept.includes('iut') || dept.includes('আইইউটি');
-    else if (selectedDept === 'medical') matchesDept = dept.includes('medical') || dept.includes('dmc') || dept.includes('মেডিকেল');
-    else if (selectedDept === 'engineering') matchesDept = dept.includes('eee') || dept.includes('cse') || dept.includes('ce') || dept.includes('me') || dept.includes('eng');
+    if (selectedDept === 'engineering') matchesDept = dept.includes('engineering') || dept.includes('eng') || dept.includes('ইঞ্জিনিয়ারিং') || dept.includes('eee') || dept.includes('cse') || dept.includes('ce') || dept.includes('me');
+    else if (selectedDept === 'math') matchesDept = dept.includes('math') || dept.includes('গণিত');
+    else if (selectedDept === 'psychology') matchesDept = dept.includes('psychology') || dept.includes('মনোবিজ্ঞান');
+    else if (selectedDept === 'stat') matchesDept = dept.includes('stat') || dept.includes('statistics') || dept.includes('পরিসংখ্যান');
 
-    return matchesSearch && matchesDept;
+    return matchesDept;
   });
 
   return (
@@ -146,11 +131,10 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors' }: Tu
               <button
                 key={dept.id}
                 onClick={() => setSelectedDept(dept.id)}
-                className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-all ${
-                  selectedDept === dept.id
-                    ? 'bg-primary-600 text-white shadow-md shadow-primary-600/30'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                }`}
+                className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-all ${selectedDept === dept.id
+                  ? 'bg-primary-600 text-white shadow-md shadow-primary-600/30'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
               >
                 {dept.label}
               </button>
@@ -395,8 +379,8 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors' }: Tu
                     href={`https://wa.me/${(selectedTutor.whatsapp_number || '01318126412')
                       .replace(/\D/g, '')
                       .replace(/^0/, '880')}?text=${encodeURIComponent(
-                      `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${selectedTutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
-                    )}`}
+                        `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${selectedTutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
+                      )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-5 rounded-2xl shadow-lg shadow-emerald-600/20 transition-all hover:scale-[1.02]"

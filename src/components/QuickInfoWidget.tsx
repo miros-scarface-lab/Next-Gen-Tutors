@@ -17,6 +17,7 @@ import {
   BookOpen,
   Lock
 } from 'lucide-react';
+import type { SiteSettings } from '@/types/cms';
 
 interface QuickQuestion {
   id: string;
@@ -93,13 +94,13 @@ interface ChatMessage {
   time: string;
 }
 
-export default function QuickInfoWidget() {
+export default function QuickInfoWidget({ settings }: { settings?: SiteSettings | null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       sender: 'bot',
-      text: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+      text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -140,7 +141,7 @@ export default function QuickInfoWidget() {
       {
         id: 'welcome',
         sender: 'bot',
-        text: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+        text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -149,24 +150,24 @@ export default function QuickInfoWidget() {
   return (
     <>
       {/* Floating Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
         {!isOpen && (
-          <div className="mb-2 bg-ink-900 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-lg border border-ink-700 animate-bounce flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-warning-400" />
-            <span>জরুরি তথ্য বা প্রশ্ন</span>
+          <div className="bg-ink-900 text-white text-sm font-bold px-4 py-2.5 rounded-full shadow-xl border border-ink-700 animate-bounce flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-warning-400" />
+            <span>{settings?.custom_texts?.qi_trigger || 'জরুরি তথ্য বা প্রশ্ন'}</span>
           </div>
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 relative group"
+          className="w-16 h-16 rounded-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 relative group"
           aria-label="Toggle Quick Information Popup"
         >
           {isOpen ? (
-            <X className="w-6 h-6" />
+            <X className="w-7 h-7" />
           ) : (
             <>
-              <MessageSquare className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-              <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />
+              <MessageSquare className="w-7 h-7 group-hover:rotate-12 transition-transform" />
+              <span className="absolute top-0 right-0 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white" />
             </>
           )}
         </button>
@@ -298,7 +299,7 @@ export default function QuickInfoWidget() {
           <div className="bg-slate-100 p-2.5 text-center border-t border-ink-100 flex items-center justify-center gap-2">
             <Lock className="w-3.5 h-3.5 text-amber-600" />
             <span className="text-[11px] font-semibold text-ink-600">
-              কাস্টম টাইপিং নিষ্ক্রিয় করা আছে। উত্তর পেতে উপরের যেকোনো প্রশ্নে ট্যাপ করুন।
+              {settings?.custom_texts?.qi_disabled || 'কাস্টম টাইপিং নিষ্ক্রিয় করা আছে। উত্তর পেতে উপরের যেকোনো প্রশ্নে ট্যাপ করুন।'}
             </span>
           </div>
         </div>

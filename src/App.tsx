@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   if (currentPath === '/admin') return <AdminPanel />;
-  if (currentPath === '/tutors') return <TutorsPage tutors={data.tutors} brandName={data.settings?.brand_name} />;
+  if (currentPath === '/tutors') return <TutorsPage tutors={data.tutors} brandName={data.settings?.brand_name} settings={data.settings} />;
 
   const settings = data.settings;
 
@@ -72,7 +72,7 @@ function App() {
         phone={settings?.contact_phone}
         location={settings?.location}
       />
-      <QuickInfoWidget />
+      <QuickInfoWidget settings={data.settings} />
     </div>
   );
 }

@@ -872,6 +872,66 @@ export default function AdminPanel() {
               </div>
             </div>
 
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                8. Navigation Menu (Custom Texts)
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Nav Home Link">
+                  <input className="admin-input" value={settings.custom_texts?.nav_home || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_home: e.target.value } })} placeholder="হোম" />
+                </Field>
+                <Field label="Nav Tutors Link">
+                  <input className="admin-input" value={settings.custom_texts?.nav_tutors || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_tutors: e.target.value } })} placeholder="টিউটরসমূহ" />
+                </Field>
+                <Field label="Nav Tuitions Link">
+                  <input className="admin-input" value={settings.custom_texts?.nav_tuitions || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_tuitions: e.target.value } })} placeholder="টিউশন খুঁজুন" />
+                </Field>
+                <Field label="Nav Admin Link">
+                  <input className="admin-input" value={settings.custom_texts?.nav_admin || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, nav_admin: e.target.value } })} placeholder="অ্যাডমিন প্যানেল" />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                9. Quick Info Assistant (Custom Texts)
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="Floating Trigger Text">
+                  <input className="admin-input" value={settings.custom_texts?.qi_trigger || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_trigger: e.target.value } })} placeholder="জরুরি তথ্য বা প্রশ্ন" />
+                </Field>
+                <Field label="Disabled Input Notice">
+                  <input className="admin-input" value={settings.custom_texts?.qi_disabled || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_disabled: e.target.value } })} placeholder="কাস্টম টাইপিং নিষ্ক্রিয় করা আছে..." />
+                </Field>
+                <Field label="Welcome Message" className="md:col-span-2">
+                  <textarea className="admin-input min-h-20" value={settings.custom_texts?.qi_welcome || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, qi_welcome: e.target.value } })} placeholder="আসসালামু আলাইকুম!..." />
+                </Field>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-ink-900 mb-1 border-b border-ink-100 pb-2">
+                10. Tutors Page Filters (Custom Texts)
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4 pt-3">
+                <Field label="All Tutors Filter">
+                  <input className="admin-input" value={settings.custom_texts?.filter_all || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_all: e.target.value } })} placeholder="সকল টিউটর" />
+                </Field>
+                <Field label="Engineering Filter">
+                  <input className="admin-input" value={settings.custom_texts?.filter_eng || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_eng: e.target.value } })} placeholder="ইঞ্জিনিয়ারিং" />
+                </Field>
+                <Field label="Math Filter">
+                  <input className="admin-input" value={settings.custom_texts?.filter_math || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_math: e.target.value } })} placeholder="গণিত" />
+                </Field>
+                <Field label="Psychology Filter">
+                  <input className="admin-input" value={settings.custom_texts?.filter_psy || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_psy: e.target.value } })} placeholder="মনোবিজ্ঞান" />
+                </Field>
+                <Field label="Stat Filter">
+                  <input className="admin-input" value={settings.custom_texts?.filter_stat || ''} onChange={(e) => setSettings({ ...settings, custom_texts: { ...settings.custom_texts, filter_stat: e.target.value } })} placeholder="পরিসংখ্যান" />
+                </Field>
+              </div>
+            </div>
+
             <div className="pt-4 border-t border-ink-100">
               <button disabled={saving} className="admin-button" type="submit">
                 <Save className="w-5 h-5" /> {saving ? 'Saving Website Settings...' : 'Save All Website Settings'}
