@@ -25,23 +25,40 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
   const [selectedTutor, setSelectedTutor] = useState<Tutor | null>(null);
 
   const departments = [
-    { id: 'all', label: settings?.custom_texts?.filter_all || 'সকল টিউটর' },
-    { id: 'engineering', label: settings?.custom_texts?.filter_eng || 'ইঞ্জিনিয়ারিং' },
-    { id: 'math', label: settings?.custom_texts?.filter_math || 'গণিত' },
-    { id: 'psychology', label: settings?.custom_texts?.filter_psy || 'মনোবিজ্ঞান' },
-    { id: 'stat', label: settings?.custom_texts?.filter_stat || 'পরিসংখ্যান' },
+    { id: 'all', label: settings?.custom_texts?.filter_all || 'সকল টিউটর' }
   ];
 
+  const dynamicFilters = [
+    { id: 'filter_1', labelKey: 'filter_1_label', keywordKey: 'filter_1_keyword', defaultLabel: 'ইঞ্জিনিয়ারিং', defaultKeywords: ['engineering', 'eng', 'ইঞ্জিনিয়ারিং', 'eee', 'cse', 'ce', 'me'] },
+    { id: 'filter_2', labelKey: 'filter_2_label', keywordKey: 'filter_2_keyword', defaultLabel: 'গণিত', defaultKeywords: ['math', 'গণিত'] },
+    { id: 'filter_3', labelKey: 'filter_3_label', keywordKey: 'filter_3_keyword', defaultLabel: 'মনোবিজ্ঞান', defaultKeywords: ['psychology', 'মনোবিজ্ঞান'] },
+    { id: 'filter_4', labelKey: 'filter_4_label', keywordKey: 'filter_4_keyword', defaultLabel: 'পরিসংখ্যান', defaultKeywords: ['stat', 'statistics', 'পরিসংখ্যান'] },
+    { id: 'filter_5', labelKey: 'filter_5_label', keywordKey: 'filter_5_keyword' },
+    { id: 'filter_6', labelKey: 'filter_6_label', keywordKey: 'filter_6_keyword' },
+  ];
+
+  dynamicFilters.forEach(f => {
+    const label = settings?.custom_texts?.[f.labelKey] || f.defaultLabel;
+    if (label) {
+      departments.push({ id: f.id, label });
+    }
+  });
+
   const filteredTutors = tutors.filter((tutor) => {
+    if (selectedDept === 'all') return true;
+    
     const dept = (tutor.department || '').toLowerCase();
-
-    let matchesDept = true;
-    if (selectedDept === 'engineering') matchesDept = dept.includes('engineering') || dept.includes('eng') || dept.includes('ইঞ্জিনিয়ারিং') || dept.includes('eee') || dept.includes('cse') || dept.includes('ce') || dept.includes('me');
-    else if (selectedDept === 'math') matchesDept = dept.includes('math') || dept.includes('গণিত');
-    else if (selectedDept === 'psychology') matchesDept = dept.includes('psychology') || dept.includes('মনোবিজ্ঞান');
-    else if (selectedDept === 'stat') matchesDept = dept.includes('stat') || dept.includes('statistics') || dept.includes('পরিসংখ্যান');
-
-    return matchesDept;
+    const activeFilter = dynamicFilters.find(f => f.id === selectedDept);
+    
+    if (activeFilter) {
+      const keywordsStr = settings?.custom_texts?.[activeFilter.keywordKey];
+      const keywords = keywordsStr 
+        ? keywordsStr.split(',').map((k: string) => k.trim().toLowerCase()).filter(Boolean)
+        : (activeFilter.defaultKeywords || []);
+      
+      return keywords.some((k: string) => dept.includes(k));
+    }
+    return true;
   });
 
   return (
