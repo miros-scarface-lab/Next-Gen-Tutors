@@ -29,7 +29,7 @@ export default function HowItWorks({ settings, title, subtitle }: HowItWorksProp
         {/* Heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            সহজ প্রক্রিয়া
+            {settings?.custom_texts?.how_it_works_badge || 'সহজ প্রক্রিয়া'}
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
             {title || 'কীভাবে আপনার টিউটর খুঁজে পাবেন'}

@@ -28,10 +28,10 @@ export default function Stats({ settings }: { settings?: SiteSettings | null }) 
       <div className="container-max relative">
         <div ref={ref} className={`text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight text-balance">
-            বিশ্বস্ত টিউটর নেটওয়ার্ক
+            {settings?.custom_texts?.stats_title || 'বিশ্বস্ত টিউটর নেটওয়ার্ক'}
           </h2>
           <p className="mt-5 text-lg text-primary-100 leading-relaxed max-w-2xl mx-auto">
-            কোনো মিডিয়া বা তৃতীয় পক্ষ ছাড়াই দেশের শত শত দক্ষ ও অভিজ্ঞ শিক্ষকের সাথে যুক্ত হওয়ার নির্ভরযোগ্য মাধ্যম।
+            {settings?.custom_texts?.stats_subtitle || 'কোনো মিডিয়া বা তৃতীয় পক্ষ ছাড়াই দেশের শত শত দক্ষ ও অভিজ্ঞ শিক্ষকের সাথে যুক্ত হওয়ার নির্ভরযোগ্য মাধ্যম।'}
           </p>
         </div>
 
@@ -68,13 +68,17 @@ export default function Stats({ settings }: { settings?: SiteSettings | null }) 
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-                সারাদেশব্যাপী আমাদের সেবা
+                {settings?.custom_texts?.stats_map_title || 'সারাদেশব্যাপী আমাদের সেবা'}
               </h3>
               <p className="text-primary-100 leading-relaxed text-base lg:text-lg">
-                পিরোজপুর, চট্টগ্রামসহ বাংলাদেশের সকল জেলায় আমাদের যাচাইকৃত অভিজ্ঞ টিউটর সেবা রয়েছে। আপনি যেখানেই থাকুন না কেন, আপনার পছন্দের টিউটর খুঁজে পাওয়া এখন আরও সহজ।
+                {settings?.custom_texts?.stats_map_subtitle || 'পিরোজপুর, চট্টগ্রামসহ বাংলাদেশের সকল জেলায় আমাদের যাচাইকৃত অভিজ্ঞ টিউটর সেবা রয়েছে। আপনি যেখানেই থাকুন না কেন, আপনার পছন্দের টিউটর খুঁজে পাওয়া এখন আরও সহজ।'}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                {['ঢাকা', 'চট্টগ্রাম', 'রাজশাহী', 'খুলনা', 'সিলেট', 'বরিশাল', 'রংপুর', 'ময়মনসিংহ', 'পিরোজপুর'].map((city) => (
+                {(settings?.custom_texts?.stats_map_cities || 'ঢাকা, চট্টগ্রাম, রাজশাহী, খুলনা, সিলেট, বরিশাল, রংপুর, ময়মনসিংহ, পিরোজপুর')
+                  .split(',')
+                  .map((c) => c.trim())
+                  .filter(Boolean)
+                  .map((city) => (
                   <span
                     key={city}
                     className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full"

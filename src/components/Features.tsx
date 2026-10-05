@@ -18,7 +18,7 @@ export default function Features({ settings, title, subtitle }: FeaturesProps) {
         {/* Section heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            প্ল্যাটফর্মের বৈশিষ্ট্যসমূহ
+            {settings?.custom_texts?.feat_badge || 'প্ল্যাটফর্মের বৈশিষ্ট্যসমূহ'}
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
             {title || (

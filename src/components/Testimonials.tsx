@@ -1,15 +1,16 @@
 import { Quote, Star } from 'lucide-react';
 import { testimonials as fallbackTestimonials } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
-import type { TestimonialRecord } from '@/types/cms';
+import type { TestimonialRecord, SiteSettings } from '@/types/cms';
 
 type TestimonialsProps = {
+  settings?: SiteSettings | null;
   items?: TestimonialRecord[];
   title?: string;
   subtitle?: string;
 };
 
-export default function Testimonials({ items, title, subtitle }: TestimonialsProps) {
+export default function Testimonials({ settings, items, title, subtitle }: TestimonialsProps) {
   const displayedTestimonials = items?.length ? items : fallbackTestimonials.map((item, index) => ({ ...item, id: String(index), organization: item.org, sort_order: index, is_published: true, created_at: '', updated_at: '' }));
   const { ref, visible } = useReveal<HTMLDivElement>();
 
@@ -19,7 +20,7 @@ export default function Testimonials({ items, title, subtitle }: TestimonialsPro
         {/* Heading */}
         <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
           <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
-            অভিভাবক ও শিক্ষার্থীদের মতামত
+            {settings?.custom_texts?.testimonials_badge || 'অভিভাবক ও শিক্ষার্থীদের মতামত'}
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
             {title || 'আমাদের প্ল্যাটফর্ম সম্পর্কে অনুভূতি'}

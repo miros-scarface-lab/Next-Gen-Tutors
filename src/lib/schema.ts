@@ -24,6 +24,7 @@ export const siteSettingsSchema = [
   {
     category: 'Features Section',
     fields: [
+      { key: 'feat_badge', label: 'Section Badge Text', default: 'প্ল্যাটফর্মের বৈশিষ্ট্যসমূহ' },
       { key: 'feat_1_title', label: 'Feature 1 Title', default: 'কমিশন মুক্ত' },
       { key: 'feat_1_desc', label: 'Feature 1 Description', default: 'কোনো ধরনের লুকানো ফি বা কমিশন নেই।' },
       { key: 'feat_2_title', label: 'Feature 2 Title', default: 'সরাসরি যোগাযোগ' },
@@ -35,6 +36,7 @@ export const siteSettingsSchema = [
   {
     category: 'How It Works Section',
     fields: [
+      { key: 'how_it_works_badge', label: 'Section Badge Text', default: 'সহজ প্রক্রিয়া' },
       { key: 'step_1_title', label: 'Step 1 Title', default: 'টিউটর খুঁজুন বা রিকোয়েস্ট দিন' },
       { key: 'step_1_desc', label: 'Step 1 Desc', default: 'লোকেশন ও বিষয় অনুযায়ী আমাদের যাচাইকৃত টিউটরদের তালিকা থেকে খুঁজুন অথবা আপনার চাহিদা অনুযায়ী একটি রিকোয়েস্ট পোস্ট করুন।' },
       { key: 'step_2_title', label: 'Step 2 Title', default: 'প্রোফাইল যাচাই করুন' },
@@ -48,6 +50,11 @@ export const siteSettingsSchema = [
   {
     category: 'Stats Section',
     fields: [
+      { key: 'stats_title', label: 'Stats Main Title', default: 'বিশ্বস্ত টিউটর নেটওয়ার্ক' },
+      { key: 'stats_subtitle', label: 'Stats Subtitle', default: 'কোনো মিডিয়া বা তৃতীয় পক্ষ ছাড়াই দেশের শত শত দক্ষ ও অভিজ্ঞ শিক্ষকের সাথে যুক্ত হওয়ার নির্ভরযোগ্য মাধ্যম।' },
+      { key: 'stats_map_title', label: 'Map Area Title', default: 'সারাদেশব্যাপী আমাদের সেবা' },
+      { key: 'stats_map_subtitle', label: 'Map Area Subtitle', default: 'পিরোজপুর, চট্টগ্রামসহ বাংলাদেশের সকল জেলায় আমাদের যাচাইকৃত অভিজ্ঞ টিউটর সেবা রয়েছে। আপনি যেখানেই থাকুন না কেন, আপনার পছন্দের টিউটর খুঁজে পাওয়া এখন আরও সহজ।' },
+      { key: 'stats_map_cities', label: 'Cities List (Comma separated)', default: 'ঢাকা, চট্টগ্রাম, রাজশাহী, খুলনা, সিলেট, বরিশাল, রংপুর, ময়মনসিংহ, পিরোজপুর' },
       { key: 'stat_1_val', label: 'Stat 1 Value', default: '৪০০+' },
       { key: 'stat_1_label', label: 'Stat 1 Label', default: 'দক্ষ টিউটর' },
       { key: 'stat_2_val', label: 'Stat 2 Value', default: '১০০০+' },
@@ -61,6 +68,9 @@ export const siteSettingsSchema = [
   {
     category: 'Call to Action (CTA)',
     fields: [
+      { key: 'cta_bullet_1', label: 'Checkmark Bullet 1', default: 'কোনো মিডিয়া ফি বা হিডেন চার্জ নেই' },
+      { key: 'cta_bullet_2', label: 'Checkmark Bullet 2', default: 'টিউটরের সাথে সরাসরি যোগাযোগের সুবিধা' },
+      { key: 'cta_bullet_3', label: 'Checkmark Bullet 3', default: 'যাচাইকৃত ও ১০০% নির্ভরযোগ্য প্রোফাইল' },
       { key: 'cta_btn_primary', label: 'Primary Button', default: 'আমাদের মেসেজ দিন' },
       { key: 'cta_btn_secondary', label: 'Secondary Button', default: 'কল করুন: 01318126412' },
       { key: 'cta_placeholder_img', label: 'Placeholder Image', default: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' },
@@ -77,6 +87,12 @@ export const siteSettingsSchema = [
       { key: 'footer_insta_link', label: 'Instagram Link', default: 'https://instagram.com' },
       { key: 'footer_wa_link', label: 'WhatsApp Link', default: 'https://wa.me/8801318126412' },
       { key: 'footer_linkedin_link', label: 'LinkedIn Link', default: 'https://linkedin.com' },
+    ],
+  },
+  {
+    category: 'Testimonials Section (Custom Texts)',
+    fields: [
+      { key: 'testimonials_badge', label: 'Section Badge Text', default: 'অভিভাবক ও শিক্ষার্থীদের মতামত' },
     ],
   },
   {

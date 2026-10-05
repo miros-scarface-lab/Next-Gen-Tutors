@@ -20,18 +20,18 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
         {/* Ready to get started banner */}
         <div className="mb-14 text-center">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
-            আজই যোগাযোগ করুন!
+            {settings?.custom_texts?.footer_banner_title || 'আজই যোগাযোগ করুন!'}
           </h3>
           <p className="text-ink-400 max-w-xl mx-auto mb-6">
-            শিক্ষার্থী, অভিভাবক ও টিউটরদের একটি বিশ্বস্ত ও নিরাপদ লার্নিং প্ল্যাটফর্ম।
+            {settings?.custom_texts?.footer_banner_subtitle || 'শিক্ষার্থী, অভিভাবক ও টিউটরদের একটি বিশ্বস্ত ও নিরাপদ লার্নিং প্ল্যাটফর্ম।'}
           </p>
           <a
-            href="https://wa.me/8801318126412"
+            href={settings?.custom_texts?.footer_wa_link || "https://wa.me/8801318126412"}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold px-7 py-3.5 rounded-full shadow-lg shadow-emerald-600/30 transition-all hover:scale-105 group"
           >
-            দ্রুত যোগাযোগ করুন (WhatsApp)
+            {settings?.custom_texts?.cta_btn_primary || "দ্রুত যোগাযোগ করুন (WhatsApp)"}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
@@ -108,13 +108,13 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
               {settings?.custom_texts?.footer_social_title || 'আমাদের সাথে যুক্ত থাকুন'}
             </h4>
             <ul className="space-y-3">
-              {['হেল্প সেন্টার', 'আমাদের সাথে যোগাযোগ', 'প্রাইভেসি পলিসি', 'ব্যবহারের শর্তাবলী', 'সাধারণ প্রশ্নাবলী (FAQ)'].map((item) => (
-                <li key={item}>
+              {(settings?.custom_texts?.footer_support_links || 'হেল্প সেন্টার, আমাদের সাথে যোগাযোগ, প্রাইভেসি পলিসি, ব্যবহারের শর্তাবলী, সাধারণ প্রশ্নাবলী (FAQ)').split(',').map((item) => (
+                <li key={item.trim()}>
                   <a
                     href="#"
                     className="text-sm text-ink-400 hover:text-primary-400 transition-colors"
                   >
-                    {item}
+                    {item.trim()}
                   </a>
                 </li>
               ))}
@@ -153,7 +153,7 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
             {settings?.custom_texts?.footer_copyright || '© 2026 Next Gen Tutors. সর্বস্বত্ব সংরক্ষিত।'}
           </p>
           <p className="text-sm text-ink-500">
-            শিক্ষার্থীদের সাফল্যের জন্য নিবেদিত।
+            {settings?.custom_texts?.footer_bottom_text || 'শিক্ষার্থীদের সাফল্যের জন্য নিবেদিত।'}
           </p>
         </div>
       </div>

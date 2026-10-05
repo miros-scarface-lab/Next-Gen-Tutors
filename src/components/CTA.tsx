@@ -42,7 +42,11 @@ export default function CTA({ settings, title, description, badgeText }: CTAProp
               </p>
 
               <div className="mt-7 space-y-3">
-                {['কোনো মিডিয়া ফি বা হিডেন চার্জ নেই', 'টিউটরের সাথে সরাসরি যোগাযোগের সুবিধা', 'যাচাইকৃত ও ১০০% নির্ভরযোগ্য প্রোফাইল'].map((item) => (
+                {[
+                  settings?.custom_texts?.cta_bullet_1 || 'কোনো মিডিয়া ফি বা হিডেন চার্জ নেই',
+                  settings?.custom_texts?.cta_bullet_2 || 'টিউটরের সাথে সরাসরি যোগাযোগের সুবিধা',
+                  settings?.custom_texts?.cta_bullet_3 || 'যাচাইকৃত ও ১০০% নির্ভরযোগ্য প্রোফাইল'
+                ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-success-400 flex-shrink-0" />
                     <span className="text-white/90 font-medium text-[15px]">{item}</span>
