@@ -25,15 +25,19 @@ export function useCmsData() {
         supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
       ]);
 
-      if (!settingsResult.error && !tutorsResult.error && !tuitionResult.error && !testimonialsResult.error && !questionsResult.error) {
-        setData({
-          settings: settingsResult.data,
-          tutors: (tutorsResult.data ?? []) as Tutor[],
-          tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
-          testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
-          quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
-        });
-      }
+      if (settingsResult.error) console.error('Settings error:', settingsResult.error);
+      if (tutorsResult.error) console.error('Tutors error:', tutorsResult.error);
+      if (tuitionResult.error) console.error('Tuition error:', tuitionResult.error);
+      if (testimonialsResult.error) console.error('Testimonials error:', testimonialsResult.error);
+      if (questionsResult.error) console.error('Questions error:', questionsResult.error);
+
+      setData({
+        settings: settingsResult.data || null,
+        tutors: (tutorsResult.data ?? []) as Tutor[],
+        tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
+        testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
+        quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
+      });
     } catch (error) {
       console.error('Could not load public CMS content', error);
     } finally {
