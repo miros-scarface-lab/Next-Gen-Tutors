@@ -108,7 +108,7 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
               {settings?.custom_texts?.footer_social_title || 'আমাদের সাথে যুক্ত থাকুন'}
             </h4>
             <ul className="space-y-3">
-              {(settings?.custom_texts?.footer_support_links || 'হেল্প সেন্টার, আমাদের সাথে যোগাযোগ, প্রাইভেসি পলিসি, ব্যবহারের শর্তাবলী, সাধারণ প্রশ্নাবলী (FAQ)').split(',').map((item) => (
+              {(settings?.custom_texts?.footer_support_links || 'হেল্প সেন্টার, আমাদের সাথে যোগাযোগ, প্রাইভেসি পলিসি, ব্যবহারের শর্তাবলী, সাধারণ প্রশ্নাবলী (FAQ)').split(',').map((item: string) => (
                 <li key={item.trim()}>
                   <a
                     href="#"

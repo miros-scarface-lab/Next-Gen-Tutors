@@ -1,5 +1,4 @@
 import { MapPin, MessageCircle, GraduationCap, ShieldCheck, Star, ArrowRight } from 'lucide-react';
-import type { Tutor } from '@/types/cms';
 import { useReveal } from '@/hooks/useReveal';
 import { navigate } from '@/App';
 

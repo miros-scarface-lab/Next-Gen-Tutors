@@ -76,9 +76,9 @@ export default function Stats({ settings }: { settings?: SiteSettings | null }) 
               <div className="mt-6 flex flex-wrap gap-3">
                 {(settings?.custom_texts?.stats_map_cities || 'ঢাকা, চট্টগ্রাম, রাজশাহী, খুলনা, সিলেট, বরিশাল, রংপুর, ময়মনসিংহ, পিরোজপুর')
                   .split(',')
-                  .map((c) => c.trim())
+                  .map((c: string) => c.trim())
                   .filter(Boolean)
-                  .map((city) => (
+                  .map((city: string) => (
                   <span
                     key={city}
                     className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full"
