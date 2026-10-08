@@ -111,7 +111,7 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
               {settings?.custom_texts?.tutors_page_title || 'আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ'}
             </h1>
             <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed font-medium">
-              {settings?.custom_texts?.tutors_page_subtitle || 'পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের (PSTU) অভিজ্ঞ টিউটরদের সাথে কোনো কমিশন ছাড়াই সরাসরি যোগাযোগ করুন।'}
+              {settings?.custom_texts?.tutors_page_subtitle || 'পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের (PrSTU) অভিজ্ঞ টিউটরদের সাথে কোনো কমিশন ছাড়াই সরাসরি যোগাযোগ করুন।'}
             </p>
           </div>
         </section>
