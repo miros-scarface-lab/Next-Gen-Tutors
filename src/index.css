@@ -14,6 +14,18 @@
   }
 }
 
+@layer components {
+  .admin-input {
+    @apply w-full bg-slate-50 border border-slate-200 focus:border-indigo-500 rounded-xl p-3 text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all;
+  }
+  .admin-button {
+    @apply inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-5 rounded-xl shadow-md transition-all hover:-translate-y-0.5 cursor-pointer disabled:opacity-50;
+  }
+  .admin-secondary {
+    @apply inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs transition-colors border border-slate-200 cursor-pointer;
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

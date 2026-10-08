@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -20,6 +22,12 @@ export default {
           900: '#312e81',
           950: '#1e1b4b',
         },
+        ink: colors.slate,
+        primary: colors.indigo,
+        accent: colors.blue,
+        warning: colors.amber,
+        error: colors.red,
+        success: colors.emerald,
       },
       borderRadius: {
         'sharp': '8px',
