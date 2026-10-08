@@ -159,33 +159,33 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
 
   return (
     <>
-      {/* High-Visibility Floating Trigger Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+      {/* High-Visibility Floating Trigger Button (Left Aligned & Compact) */}
+      <div className="fixed bottom-5 left-5 z-50 flex items-center gap-2.5">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-xl shadow-indigo-600/30 ring-4 ring-white hover:scale-105 active:scale-95 transition-all duration-300 relative group cursor-pointer"
+          aria-label="Toggle Quick Information Popup"
+        >
+          {isOpen ? (
+            <X className="w-5 h-5 text-white" />
+          ) : (
+            <>
+              <MessageSquare className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-400/50 animate-pulse" />
+            </>
+          )}
+        </button>
         {!isOpen && (
-          <div className="hidden sm:flex bg-slate-900 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-lg border border-slate-700 items-center gap-2 animate-bounce">
+          <div className="hidden sm:flex bg-slate-900/90 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-md border border-slate-700/80 items-center gap-1.5 animate-bounce">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>{settings?.custom_texts?.qi_trigger || 'জরুরি তথ্য বা প্রশ্ন'}</span>
           </div>
         )}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-2xl shadow-indigo-600/40 ring-4 ring-white hover:scale-105 active:scale-95 transition-all duration-300 relative group cursor-pointer"
-          aria-label="Toggle Quick Information Popup"
-        >
-          {isOpen ? (
-            <X className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-          ) : (
-            <>
-              <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform" />
-              <span className="absolute top-0 right-0 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white ring-2 ring-emerald-400/50 animate-pulse" />
-            </>
-          )}
-        </button>
       </div>
 
-      {/* Quick Info Chat Popup */}
+      {/* Quick Info Chat Popup (Left Aligned & Compact) */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 w-[92vw] sm:w-[400px] max-h-[80vh] h-[580px] bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 flex flex-col overflow-hidden animate-fade-in">
+        <div className="fixed bottom-20 left-4 sm:left-5 w-[88vw] sm:w-[350px] max-h-[75vh] h-[480px] bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 flex flex-col overflow-hidden animate-fade-in">
           {/* Header */}
           <div className="bg-gradient-to-r from-indigo-900 via-indigo-850 to-slate-900 text-white p-4 flex items-center justify-between shadow-md border-b border-indigo-800/50">
             <div className="flex items-center gap-3">
