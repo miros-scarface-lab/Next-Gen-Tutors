@@ -21,7 +21,7 @@ export type SiteSettings = {
   location: string;
   footer_description: string;
   updated_at: string;
-  custom_texts: Record<string, any>;
+  custom_texts: Record<string, string>;
 };
 
 export type Tutor = {

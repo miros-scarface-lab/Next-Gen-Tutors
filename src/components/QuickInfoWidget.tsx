@@ -16,7 +16,6 @@ import {
   GraduationCap,
   BookOpen,
   Lock,
-  MessageCircle,
   HelpCircle
 } from 'lucide-react';
 import * as Icons from 'lucide-react';
@@ -112,8 +111,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
   const activeQuestions: QuickQuestion[] = questions && questions.length > 0
     ? questions.map((q) => ({
         id: q.id,
-        // @ts-ignore - dynamic access
-        icon: Icons[q.icon_name] || HelpCircle,
+        icon: ((Icons as Record<string, unknown>)[q.icon_name] as typeof HelpCircle) || HelpCircle,
         question: q.question,
         answer: q.answer,
         actionUrl: q.action_url,

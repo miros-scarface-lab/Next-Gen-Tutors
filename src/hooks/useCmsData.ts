@@ -31,17 +31,13 @@ export function useCmsData() {
       if (testimonialsResult.error) console.error('Testimonials error:', testimonialsResult.error);
       if (questionsResult.error) console.error('Questions error:', questionsResult.error);
 
-      let settingsData = settingsResult.data || null;
-      // Temporarily clear custom_texts to force the website to use local defaults from content.ts and schema.ts
-      if (settingsData && settingsData.custom_texts) {
-        settingsData.custom_texts = {};
-      }
+      const settingsData = settingsResult.data || null;
 
       setData({
         settings: settingsData,
         tutors: (tutorsResult.data ?? []) as Tutor[],
         tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
-        testimonials: [], // Force local testimonials from content.ts
+        testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
         quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
       });
     } catch (error) {

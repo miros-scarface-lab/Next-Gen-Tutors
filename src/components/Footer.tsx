@@ -1,6 +1,6 @@
-import { Facebook, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { navLinks } from '@/data/content';
-import { navigate } from '@/App';
+import { navigate } from '@/lib/navigation';
 
 import type { SiteSettings } from '@/types/cms';
 

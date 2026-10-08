@@ -3,8 +3,6 @@ import {
   ArrowLeft,
   Check,
   Download,
-  Eye,
-  Filter,
   GraduationCap,
   LogOut,
   Plus,
@@ -14,7 +12,6 @@ import {
   Shield,
   ShieldCheck,
   Star,
-  StarOff,
   Trash2,
   Users,
   X,
@@ -66,6 +63,7 @@ const defaultSettings: SiteSettings = {
   location: 'Pirojpur, Chittagong, Bangladesh',
   footer_description: 'অভিজ্ঞ ও দক্ষ টিউটরদের সাথে সরাসরি যোগাযোগ করে পড়াশোনায় সেরা সাফল্য অর্জন করুন। কোনো মিডিয়া ফি ছাড়াই শতভাগ বিশ্বস্ত সেবা।',
   updated_at: '',
+  custom_texts: {},
 };
 
 const avatarPresets = [
@@ -186,7 +184,7 @@ export default function AdminPanel() {
     }
   };
 
-  const save = async (action: () => PromiseLike<{ error: any }>, success: string) => {
+  const save = async (action: () => PromiseLike<{ error: { message?: string; details?: string } | null }>, success: string) => {
     setSaving(true);
     const result = await action();
     setSaving(false);
@@ -287,8 +285,9 @@ export default function AdminPanel() {
         setEditingId(null);
         setTutorForm(emptyTutor);
       }
-    } catch (err: any) {
-      showNotification(`Error deleting tutor: ${err.message || err}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showNotification(`Error deleting tutor: ${msg}`);
     } finally {
       setSaving(false);
     }
@@ -350,8 +349,9 @@ export default function AdminPanel() {
         };
         reader.readAsDataURL(file);
       }
-    } catch (err: any) {
-      showNotification(`Upload error: ${err.message || err}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      showNotification(`Upload error: ${msg}`);
     } finally {
       setUploadingImage(false);
       event.target.value = '';
@@ -1601,9 +1601,9 @@ export default function AdminPanel() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children, className = '' }: { label: string; children: React.ReactNode; className?: string }) {
   return (
-    <label className="block space-y-2">
+    <label className={`block space-y-2 ${className}`}>
       <span className="text-xs font-bold uppercase tracking-wider text-ink-700">{label}</span>
       {children}
     </label>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navLinks } from '@/data/content';
-import { navigate } from '@/App';
+import { navigate } from '@/lib/navigation';
 import type { SiteSettings } from '@/types/cms';
 
 export default function Navbar({ settings }: { settings?: SiteSettings | null }) {

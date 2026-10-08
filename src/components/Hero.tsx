@@ -1,5 +1,5 @@
 import { Search, Star, Users, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
-import { navigate } from '@/App';
+import { navigate } from '@/lib/navigation';
 
 import type { SiteSettings } from '@/types/cms';
 
@@ -82,7 +82,7 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
               {/* Main image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-ink-900/20 ring-1 ring-ink-900/5">
                 <img
-                  src={'/403894-PDWRJ0-862.jpg'}
+                  src={imageUrl || settings?.hero_image_url || '/403894-PDWRJ0-862.jpg'}
                   alt="Tutor helping a student study"
                   className="w-full h-[420px] lg:h-[500px] object-cover"
                 />

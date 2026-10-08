@@ -13,11 +13,6 @@ import TutorsPage from '@/components/TutorsPage';
 import QuickInfoWidget from '@/components/QuickInfoWidget';
 import { useCmsData } from '@/hooks/useCmsData';
 
-export function navigate(url: string) {
-  window.history.pushState({}, '', url);
-  window.dispatchEvent(new Event('popstate'));
-}
-
 function App() {
   const { data } = useCmsData();
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
