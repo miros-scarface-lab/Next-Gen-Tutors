@@ -16,27 +16,30 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
   if (!tutors.length) return null;
 
   return (
-    <section id="tutors" className="py-20 lg:py-28 bg-ink-50">
-      <div className="container-max">
-        <div ref={ref} className={`max-w-2xl mx-auto text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
-          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">পছন্দের টিউটর খুঁজুন</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight">
+    <section id="tutors" className="py-16 lg:py-20 bg-dark-600 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
+      <div className="absolute -top-40 right-0 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]" />
+
+      <div className="container-max relative">
+        <div ref={ref} className={`max-w-2xl mx-auto text-center mb-10 reveal ${visible ? 'visible' : ''}`}>
+          <span className="text-sm font-bold text-primary-400 uppercase tracking-wider">পছন্দের টিউটর খুঁজুন</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             {title || 'আমাদের যাচাইকৃত সেরা টিউটরবৃন্দ'}
           </h2>
-          <p className="mt-5 text-lg text-ink-600 leading-relaxed">
+          <p className="mt-4 text-lg text-gray-400 leading-relaxed">
             {subtitle || 'Next Gen Tutors-এর সেরা ও অভিজ্ঞ যাচাইকৃত টিউটরদের সাথে সরাসরি যোগাযোগ করুন।'}
           </p>
         </div>
 
         {tutors.length > 0 && (
           <div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h3 className="text-2xl font-bold text-ink-900">ফিচার্ড টিউটরবৃন্দ</h3>
-                <p className="text-sm text-ink-500 mt-1">সেরা ভেরিফাইড টিউটরদের সাথে সরাসরি যোগাযোগ করুন</p>
+                <h3 className="text-xl font-bold text-white">ফিচার্ড টিউটরবৃন্দ</h3>
+                <p className="text-sm text-gray-500 mt-0.5">সেরা ভেরিফাইড টিউটরদের সাথে সরাসরি যোগাযোগ করুন</p>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold bg-primary-50 text-primary-700 px-3 py-1.5 rounded-full">
+                <span className="text-xs font-bold glass text-primary-300 px-3 py-1.5 rounded-full">
                   {tutors.length} জন উপলব্ধ
                 </span>
                 <a
@@ -45,7 +48,7 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
                     e.preventDefault();
                     navigate('/tutors');
                   }}
-                  className="inline-flex items-center gap-1.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs px-4 py-2 rounded-full shadow transition-all hover:scale-105"
+                  className="inline-flex items-center gap-1.5 bg-gradient-to-r from-primary-600 to-violet-600 hover:from-primary-500 hover:to-violet-500 text-white font-bold text-xs px-4 py-2 rounded-full shadow-lg shadow-primary-500/20 transition-all hover:scale-105"
                 >
                   <span>{settings?.custom_texts?.dir_btn_view_all || 'সকল টিউটর দেখুন'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -53,78 +56,68 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {tutors.map((tutor) => {
                 const rawPhone = tutor.whatsapp_number || '01318126412';
                 const cleanPhone = rawPhone.replace(/\D/g, '').replace(/^0/, '880');
                 const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-                  `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
+                  `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
                 )}`;
 
                 return (
                   <article
                     key={tutor.id}
-                    className="bg-white rounded-3xl border border-ink-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-1 transition-all flex flex-col justify-between"
+                    className="card-shine bg-dark-200 rounded-2xl border border-white/5 overflow-hidden hover:border-primary-500/30 hover:shadow-glow transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between group"
                   >
                     <div>
                       {/* Large Picture Container */}
-                      <div className="relative h-64 sm:h-72 w-full bg-ink-100 overflow-hidden group">
+                      <div className="relative h-60 sm:h-68 w-full bg-dark-300 overflow-hidden">
                         {tutor.avatar_url ? (
                           <img
                             src={tutor.avatar_url}
                             alt={tutor.name}
-                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                           />
                         ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary-500 to-primary-700 text-white flex items-center justify-center text-6xl font-bold">
+                          <div className="w-full h-full bg-gradient-to-br from-primary-600 to-violet-700 text-white flex items-center justify-center text-6xl font-bold">
                             {tutor.name.charAt(0)}
                           </div>
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-dark-200 via-transparent to-transparent opacity-60" />
 
                         {/* Rating Badge */}
-                        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 text-xs font-bold text-ink-900">
-                          <Star className="w-3.5 h-3.5 fill-warning-500 text-warning-500" />
+                        <div className="absolute top-3 left-3 glass-white px-3 py-1.5 rounded-full flex items-center gap-1 text-xs font-bold text-gray-900 shadow-md">
+                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                           <span>{(tutor.rating || 5.0).toFixed(1)}</span>
                         </div>
 
                         {/* Verified Badge */}
                         {tutor.is_verified && (
-                          <div className="absolute top-4 right-4 bg-success-500 text-white px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 text-xs font-bold">
-                            <ShieldCheck className="w-4 h-4" />
+                          <div className="absolute top-3 right-3 bg-emerald-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 text-xs font-bold shadow-md">
+                            <ShieldCheck className="w-3.5 h-3.5" />
                             <span>{settings?.custom_texts?.hero_stat_verified || 'যাচাইকৃত'}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Content Below Picture */}
-                      <div className="p-6">
-                        {/* Name */}
-                        <h4 className="text-xl font-bold text-ink-900">{tutor.name}</h4>
+                      <div className="p-5">
+                        <h4 className="text-lg font-bold text-white">{tutor.name}</h4>
 
-                        {/* Department / Institution */}
-                        <p className="text-sm font-bold text-primary-600 mt-1 flex items-center gap-1.5">
+                        <p className="text-sm font-semibold text-primary-400 mt-1 flex items-center gap-1.5">
                           <GraduationCap className="w-4 h-4" />
                           {tutor.department || tutor.headline || 'সাধারণ ইনস্ট্রাক্টর'}
                         </p>
 
-                        {/* Student / Level */}
-                        {tutor.student_level && (
-                          <p className="text-xs font-semibold text-ink-500 mt-1">
-                            শিক্ষার্থীর অবস্থান: {tutor.student_level}
-                          </p>
-                        )}
+                        {tutor.bio && <p className="mt-2.5 text-sm text-gray-400 line-clamp-2 leading-relaxed">{tutor.bio}</p>}
 
-                        {/* Bio / Description */}
-                        {tutor.bio && <p className="mt-3 text-sm text-ink-600 line-clamp-2 leading-relaxed">{tutor.bio}</p>}
-
-                        {/* Services Offered / Subjects */}
-                        <div className="mt-4">
-                          <p className="text-xs font-bold text-ink-400 uppercase tracking-wider mb-2">যেসব বিষয়ে পড়ানো হয়:</p>
+                        {/* Subjects */}
+                        <div className="mt-3">
                           <div className="flex flex-wrap gap-1.5">
                             {tutor.subjects.map((subject) => (
                               <span
                                 key={subject}
-                                className="px-3 py-1 rounded-lg bg-primary-50 text-primary-700 text-xs font-semibold border border-primary-100"
+                                className="px-2.5 py-0.5 rounded-full bg-primary-500/10 text-primary-300 text-xs font-semibold border border-primary-500/15"
                               >
                                 {subject}
                               </span>
@@ -133,20 +126,20 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
                         </div>
 
                         {/* Location */}
-                        <div className="mt-4 pt-4 border-t border-ink-100 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
-                          <MapPin className="w-4 h-4 text-primary-500" />
+                        <div className="mt-3 pt-3 border-t border-white/5 flex items-center gap-1.5 text-xs font-semibold text-gray-500">
+                          <MapPin className="w-3.5 h-3.5 text-primary-400" />
                           <span>{tutor.location || 'ঢাকা, বাংলাদেশ'}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Send Message Button (WhatsApp) */}
-                    <div className="p-6 pt-0">
+                    {/* WhatsApp Button */}
+                    <div className="p-5 pt-0">
                       <a
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:shadow-emerald-600/30 transition-all hover:scale-[1.02]"
+                        className="w-full inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all hover:scale-[1.02]"
                       >
                         <MessageCircle className="w-5 h-5" />
                         <span>{settings?.custom_texts?.tutor_modal_contact || 'মেসেজ দিন (WhatsApp)'}</span>
@@ -157,12 +150,11 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
               })}
             </div>
 
-            {/* Bottom Banner to Separate Tutors Page */}
-            <div className="mt-14 text-center bg-gradient-to-r from-primary-900 via-primary-800 to-primary-950 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-primary-800/80">
+            {/* Bottom Banner */}
+            <div className="mt-12 text-center bg-gradient-to-r from-primary-900/50 via-violet-900/50 to-primary-900/50 glass text-white rounded-2xl p-8 sm:p-10">
               <h4 className="text-2xl sm:text-3xl font-extrabold">সকল টিউটরদের আলাদা পেজে দেখুন</h4>
-              <p className="mt-3 text-primary-200 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের মানসম্মত টিউটর খুঁজে পাওয়ার জন্য এটি একটি চমৎকার প্ল্যাটফর্ম। সার্ভিস অত্যন্ত দ্রুত ও আন্তরিক।
-
+              <p className="mt-3 text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের মানসম্মত টিউটর খুঁজে পাওয়ার জন্য এটি একটি চমৎকার প্ল্যাটফর্ম। সার্ভিস অত্যন্ত দ্রুত ও আন্তরিক।
               </p>
               <a
                 href="/tutors"
@@ -170,7 +162,7 @@ export default function Directory({ settings, tutors, title, subtitle }: Directo
                   e.preventDefault();
                   navigate('/tutors');
                 }}
-                className="mt-6 inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
+                className="mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-emerald-500/25 transition-all hover:scale-105"
               >
                 <span>{settings?.custom_texts?.dir_btn_view_all || 'আলাদা টিউটর পেজে যান'}</span>
                 <ArrowRight className="w-4 h-4" />

@@ -32,7 +32,7 @@ function App() {
   const settings = data.settings;
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-dark-700 overflow-x-hidden">
       <Navbar settings={settings} />
       <main>
         <Hero
