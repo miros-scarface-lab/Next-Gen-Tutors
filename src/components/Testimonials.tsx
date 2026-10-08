@@ -15,55 +15,54 @@ export default function Testimonials({ settings, items, title, subtitle }: Testi
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
-    <section id="testimonials" className="py-20 lg:py-28 bg-white relative overflow-hidden">
+    <section id="testimonials" className="py-16 lg:py-24 bg-slate-50 border-t border-slate-200/80 relative">
       <div className="container-max">
-        {/* Heading */}
-        <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
-          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
+        {/* Section Heading */}
+        <div ref={ref} className={`max-w-3xl mx-auto text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
+          <span className="inline-block text-xs sm:text-sm font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 border border-indigo-200/80 px-3.5 py-1 rounded-full mb-3">
             {settings?.custom_texts?.testimonials_badge || 'অভিভাবক ও শিক্ষার্থীদের মতামত'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">
             {title || 'আমাদের প্ল্যাটফর্ম সম্পর্কে অনুভূতি'}
           </h2>
-          <p className="mt-5 text-lg text-ink-600 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
             {subtitle || 'Next Gen Tutors ব্যবহারকারী সম্মানিত অভিভাবক, শিক্ষার্থী ও শিক্ষকদের অভিজ্ঞতা ও মতামত জেনে নিন।'}
           </p>
         </div>
 
-        {/* Testimonials grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Testimonials Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayedTestimonials.map((t, i) => (
             <div
               key={i}
-              className="relative bg-gradient-to-br from-ink-50 to-white border border-ink-100 rounded-2xl p-7 hover:shadow-xl hover:shadow-ink-900/5 transition-all duration-300 hover:-translate-y-1 group"
+              className="bg-white border border-slate-200 hover:border-indigo-300 rounded-xl p-7 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/5 hover:-translate-y-1 flex flex-col justify-between"
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(30px)',
-                transition: `all 0.6s ease-out ${i * 0.1}s`,
+                transform: visible ? 'translateY(0)' : 'translateY(24px)',
+                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
               }}
             >
-              {/* Quote icon */}
-              <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center mb-5 group-hover:bg-primary-600 transition-all duration-300">
-                <Quote className="w-5 h-5 text-primary-500 group-hover:text-white transition-colors" />
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-200/60 flex items-center justify-center">
+                    <Quote className="w-4 h-4 text-indigo-600" />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, idx) => (
+                      <Star key={idx} className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-slate-700 leading-relaxed text-sm font-medium mb-6">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
               </div>
 
-              {/* Stars */}
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, idx) => (
-                  <Star key={idx} className="w-4 h-4 text-warning-400 fill-warning-400" />
-                ))}
-              </div>
-
-              {/* Quote */}
-              <p className="text-ink-700 leading-relaxed text-[15px] mb-6 line-clamp-6">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              {/* Author */}
-              <div className="pt-5 border-t border-ink-100">
-                <p className="font-bold text-ink-900 text-[15px]">{t.name}</p>
-                <p className="text-sm text-ink-500 mt-0.5">{t.title}</p>
-                <p className="text-sm text-primary-600 font-semibold mt-0.5">{t.organization}</p>
+              <div className="pt-4 border-t border-slate-100">
+                <p className="font-bold text-slate-900 text-sm">{t.name}</p>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">{t.title}</p>
+                <p className="text-xs text-indigo-600 font-semibold mt-0.5">{t.organization}</p>
               </div>
             </div>
           ))}

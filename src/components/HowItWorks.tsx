@@ -1,5 +1,6 @@
 import { steps } from '@/data/content';
 import { useReveal } from '@/hooks/useReveal';
+import type { SiteSettings } from '@/types/cms';
 
 const stepImages = [
   'https://images.pexels.com/photos/265076/pexels-photo-265076.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
@@ -7,8 +8,6 @@ const stepImages = [
   'https://images.pexels.com/photos/5212350/pexels-photo-5212350.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
   'https://images.pexels.com/photos/31290544/pexels-photo-31290544.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
 ];
-
-import type { SiteSettings } from '@/types/cms';
 
 type HowItWorksProps = {
   settings?: SiteSettings | null;
@@ -20,69 +19,53 @@ export default function HowItWorks({ settings, title, subtitle }: HowItWorksProp
   const { ref, visible } = useReveal<HTMLDivElement>();
 
   return (
-    <section id="how-it-works" className="py-20 lg:py-28 bg-ink-50 relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent" />
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-100/50 rounded-full blur-3xl" />
-
-      <div className="container-max relative">
-        {/* Heading */}
-        <div ref={ref} className={`max-w-2xl mx-auto text-center mb-16 reveal ${visible ? 'visible' : ''}`}>
-          <span className="text-sm font-bold text-primary-600 uppercase tracking-wider">
+    <section id="how-it-works" className="py-16 lg:py-24 bg-slate-50 border-y border-slate-200/80 relative overflow-hidden">
+      <div className="container-max relative z-10">
+        {/* Section Heading */}
+        <div ref={ref} className={`max-w-3xl mx-auto text-center mb-14 reveal ${visible ? 'visible' : ''}`}>
+          <span className="inline-block text-xs sm:text-sm font-bold text-indigo-700 uppercase tracking-wider bg-indigo-50 border border-indigo-200/80 px-3.5 py-1 rounded-full mb-3">
             {settings?.custom_texts?.how_it_works_badge || 'সহজ প্রক্রিয়া'}
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-900 tracking-tight text-balance">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight text-balance">
             {title || 'কীভাবে আপনার টিউটর খুঁজে পাবেন'}
           </h2>
-          <p className="mt-5 text-lg text-ink-600 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
             {subtitle || 'টিউটর খোঁজা এখন অত্যন্ত সহজ। মাত্র ৪টি সহজ ধাপ অনুসরণ করে আপনার পছন্দের টিউটরের সাথে যুক্ত হন।'}
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-6">
+        {/* Steps Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, i) => (
             <div
               key={step.number}
-              className="relative group"
+              className="relative group bg-white border border-slate-200 hover:border-indigo-300 rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/5 hover:-translate-y-1 h-full flex flex-col justify-between"
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(30px)',
-                transition: `all 0.6s ease-out ${i * 0.15}s`,
+                transform: visible ? 'translateY(0)' : 'translateY(24px)',
+                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.12}s`,
               }}
             >
-              {/* Card */}
-              <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 border border-ink-100 hover:border-primary-200 h-full">
+              <div>
                 {/* Image */}
-                <div className="relative w-20 h-20 rounded-2xl overflow-hidden mb-5 ring-4 ring-ink-50 group-hover:ring-primary-100 transition-all">
+                <div className="relative w-full h-36 rounded-lg overflow-hidden mb-5 border border-slate-200/80">
                   <img
                     src={stepImages[i]}
                     alt={step.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-2 left-2 bg-indigo-600 text-white font-extrabold text-xs px-2.5 py-1 rounded-md shadow">
+                    ধাপ {step.number}
+                  </div>
                 </div>
 
-                {/* Number */}
-                <div className="text-3xl font-extrabold gradient-text mb-3">
-                  {step.number}
-                </div>
-
-                <h3 className="text-lg font-bold text-ink-900 mb-2">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
                   {settings?.custom_texts?.[`step_${i + 1}_title`] || step.title}
                 </h3>
-                <p className="text-ink-600 text-sm leading-relaxed">
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">
                   {settings?.custom_texts?.[`step_${i + 1}_desc`] || step.description}
                 </p>
               </div>
-
-              {/* Connecting arrow (desktop) */}
-              {i < steps.length - 1 && (
-                <div className="hidden lg:flex absolute top-1/2 -right-3 -translate-y-1/2 z-10">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary-300">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              )}
             </div>
           ))}
         </div>
