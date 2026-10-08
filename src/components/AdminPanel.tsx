@@ -147,7 +147,23 @@ export default function AdminPanel() {
     if (tuitionResult.data) setTuitionPosts(tuitionResult.data as TuitionPost[]);
     if (testimonialsResult.data) setTestimonials(testimonialsResult.data as TestimonialRecord[]);
     if (questionsResult.data) setQuickQuestions(questionsResult.data as QuickQuestionRecord[]);
-    if (requestsResult.data) setTuitionRequests(requestsResult.data as TuitionRequest[]);
+
+    let requestsList: TuitionRequest[] = (requestsResult.data ?? []) as TuitionRequest[];
+    try {
+      const localStr = localStorage.getItem('ngt_all_tuition_requests');
+      if (localStr) {
+        const localRequests: TuitionRequest[] = JSON.parse(localStr);
+        const map = new Map<string, TuitionRequest>();
+        requestsList.forEach((r) => map.set(r.id, r));
+        localRequests.forEach((r) => {
+          if (!map.has(r.id)) map.set(r.id, r);
+        });
+        requestsList = Array.from(map.values());
+      }
+    } catch {
+      // Ignore parse errors
+    }
+    setTuitionRequests(requestsList);
   }, []);
 
   const checkSession = useCallback(async () => {
@@ -255,6 +271,23 @@ export default function AdminPanel() {
   };
 
   const updateRequestStatus = async (id: string, status: 'pending' | 'contacted' | 'assigned' | 'cancelled') => {
+    // Update local state immediately
+    setTuitionRequests((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, status } : r))
+    );
+
+    // Update localStorage
+    try {
+      const localStr = localStorage.getItem('ngt_all_tuition_requests');
+      if (localStr) {
+        const localRequests: TuitionRequest[] = JSON.parse(localStr);
+        const updated = localRequests.map((r) => (r.id === id ? { ...r, status } : r));
+        localStorage.setItem('ngt_all_tuition_requests', JSON.stringify(updated));
+      }
+    } catch {
+      // Ignore
+    }
+
     await save(
       () => supabase.from('tuition_requests').update({ status }).eq('id', id),
       'Guardian request status updated.'
@@ -263,6 +296,19 @@ export default function AdminPanel() {
 
   const remove = async (table: string, id: string) => {
     if (!window.confirm('Are you sure you want to delete this record?')) return;
+    if (table === 'tuition_requests') {
+      setTuitionRequests((prev) => prev.filter((r) => r.id !== id));
+      try {
+        const localStr = localStorage.getItem('ngt_all_tuition_requests');
+        if (localStr) {
+          const localRequests: TuitionRequest[] = JSON.parse(localStr);
+          const updated = localRequests.filter((r) => r.id !== id);
+          localStorage.setItem('ngt_all_tuition_requests', JSON.stringify(updated));
+        }
+      } catch {
+        // Ignore
+      }
+    }
     await save(() => supabase.from(table).delete().eq('id', id), 'Record removed successfully.');
   };
 

@@ -32,7 +32,7 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
             </h1>
 
             <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-              {description ?? 'বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি সহ শীর্ষ বিশ্ববিদ্যালয়ের অভিজ্ঞ ও বিশ্বস্ত টিউটরদের সাথে সরাসরি যোগাযোগ করুন। কোনো মধ্যস্বত্বভোগী বা কমিশন ছাড়াই।'}
+              {description ?? 'পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের (PrSTU) অভিজ্ঞ ও বিশ্বস্ত টিউটরদের সাথে সরাসরি যোগাযোগ করুন। কোনো মধ্যস্বত্বভোগী বা কমিশন ছাড়াই।'}
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -75,7 +75,7 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
                 <div className="w-7 h-7 rounded-lg bg-indigo-100 flex items-center justify-center">
                   <Users className="w-4 h-4 text-indigo-600" />
                 </div>
-                <span className="text-xs sm:text-sm font-bold">{settings?.custom_texts?.hero_stat_students || "৫০,০০০+ টিউটর"}</span>
+                <span className="text-xs sm:text-sm font-bold">{settings?.custom_texts?.hero_stat_students || "৫০+ টিউটর"}</span>
               </div>
             </div>
           </div>

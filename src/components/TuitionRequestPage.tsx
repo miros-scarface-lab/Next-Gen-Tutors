@@ -173,8 +173,14 @@ export default function TuitionRequestPage({ settings, brandName = 'Next Gen Tut
     if (!guardian?.phone) return;
     const existing = localStorage.getItem(`ngt_requests_${guardian.phone}`);
     const list: TuitionRequest[] = existing ? JSON.parse(existing) : [];
-    const updated = [req, ...list];
+    const updated = [req, ...list.filter((r) => r.id !== req.id)];
     localStorage.setItem(`ngt_requests_${guardian.phone}`, JSON.stringify(updated));
+
+    // Also save to global master list for Admin Panel
+    const globalExisting = localStorage.getItem('ngt_all_tuition_requests');
+    const globalList: TuitionRequest[] = globalExisting ? JSON.parse(globalExisting) : [];
+    const globalUpdated = [req, ...globalList.filter((r) => r.id !== req.id)];
+    localStorage.setItem('ngt_all_tuition_requests', JSON.stringify(globalUpdated));
   };
 
   return (
