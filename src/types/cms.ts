@@ -80,11 +80,31 @@ export type QuickQuestionRecord = {
   updated_at: string;
 };
 
+export type TuitionRequest = {
+  id: string;
+  guardian_name: string;
+  guardian_phone: string;
+  guardian_email?: string;
+  student_class: string;
+  subjects: string;
+  preferred_gender?: string;
+  preferred_university?: string;
+  salary_budget: string;
+  days_per_week?: string;
+  location: string;
+  notes?: string;
+  status: 'pending' | 'contacted' | 'assigned' | 'cancelled';
+  created_at?: string;
+  updated_at?: string;
+};
+
 export type CmsData = {
   settings: SiteSettings | null;
   tutors: Tutor[];
   tuitionPosts: TuitionPost[];
   testimonials: TestimonialRecord[];
   quickQuestions: QuickQuestionRecord[];
+  tuitionRequests?: TuitionRequest[];
 };
+
 

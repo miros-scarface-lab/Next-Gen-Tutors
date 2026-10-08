@@ -55,7 +55,8 @@ export default function Navbar({ settings }: { settings?: SiteSettings | null })
             let label = link.label;
             if (link.href === '#home') label = settings?.custom_texts?.nav_home || label;
             if (link.href === '/tutors') label = settings?.custom_texts?.nav_find_tutor || label;
-            if (link.href === '#features') label = settings?.custom_texts?.nav_tutor_request || label;
+            if (link.href === '/request-tuition') label = settings?.custom_texts?.nav_tutor_request || label;
+            if (link.href === '#features') label = settings?.custom_texts?.nav_features || label;
             if (link.href === '#how-it-works') label = settings?.custom_texts?.nav_how_it_works || label;
             if (link.href === '#testimonials') label = settings?.custom_texts?.nav_testimonials || label;
             if (link.href === '#about') label = settings?.custom_texts?.nav_contact || label;

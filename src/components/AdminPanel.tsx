@@ -20,10 +20,10 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord } from '@/types/cms';
+import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord, TuitionRequest } from '@/types/cms';
 import { siteSettingsSchema } from '@/lib/schema';
 
-type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials' | 'faqs';
+type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials' | 'faqs' | 'requests';
 
 type TutorForm = Omit<Tutor, 'id' | 'created_at' | 'updated_at'>;
 type TuitionForm = Omit<TuitionPost, 'id' | 'created_at' | 'updated_at'>;
@@ -120,6 +120,7 @@ export default function AdminPanel() {
   const [tuitionPosts, setTuitionPosts] = useState<TuitionPost[]>([]);
   const [testimonials, setTestimonials] = useState<TestimonialRecord[]>([]);
   const [quickQuestions, setQuickQuestions] = useState<QuickQuestionRecord[]>([]);
+  const [tuitionRequests, setTuitionRequests] = useState<TuitionRequest[]>([]);
 
   const [tutorForm, setTutorForm] = useState<TutorForm>(emptyTutor);
   const [tuitionForm, setTuitionForm] = useState<TuitionForm>(emptyTuition);
@@ -133,18 +134,20 @@ export default function AdminPanel() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadCms = useCallback(async () => {
-    const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult] = await Promise.all([
+    const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult, requestsResult] = await Promise.all([
       supabase.from('site_settings').select('*').maybeSingle(),
       supabase.from('tutors').select('*').order('created_at', { ascending: false }),
       supabase.from('tuition_posts').select('*').order('created_at', { ascending: false }),
       supabase.from('testimonials').select('*').order('sort_order', { ascending: true }),
       supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
+      supabase.from('tuition_requests').select('*').order('created_at', { ascending: false }),
     ]);
     if (settingsResult.data) setSettings(settingsResult.data as SiteSettings);
     if (tutorsResult.data) setTutors(tutorsResult.data as Tutor[]);
     if (tuitionResult.data) setTuitionPosts(tuitionResult.data as TuitionPost[]);
     if (testimonialsResult.data) setTestimonials(testimonialsResult.data as TestimonialRecord[]);
     if (questionsResult.data) setQuickQuestions(questionsResult.data as QuickQuestionRecord[]);
+    if (requestsResult.data) setTuitionRequests(requestsResult.data as TuitionRequest[]);
   }, []);
 
   const checkSession = useCallback(async () => {
@@ -249,6 +252,13 @@ export default function AdminPanel() {
       setQuestionForm(emptyQuickQuestion);
       setEditingId(null);
     }
+  };
+
+  const updateRequestStatus = async (id: string, status: 'pending' | 'contacted' | 'assigned' | 'cancelled') => {
+    await save(
+      () => supabase.from('tuition_requests').update({ status }).eq('id', id),
+      'Guardian request status updated.'
+    );
   };
 
   const remove = async (table: string, id: string) => {
@@ -491,6 +501,7 @@ export default function AdminPanel() {
 
   const tabItems: { id: AdminTab; label: string; badge?: number }[] = [
     { id: 'dashboard', label: 'Dashboard Overview' },
+    { id: 'requests', label: 'Guardian Requests', badge: tuitionRequests.length },
     { id: 'settings', label: 'Website Settings' },
     { id: 'tutors', label: 'Tutors', badge: tutors.length },
     { id: 'tuition', label: 'Tuition Posts', badge: tuitionPosts.length },
@@ -599,6 +610,89 @@ export default function AdminPanel() {
             <button onClick={() => setNotice('')} className={`${notice.startsWith('Error') ? 'text-error-600 hover:text-error-900' : 'text-success-600 hover:text-success-900'}`}>
               <X className="w-4 h-4" />
             </button>
+          </div>
+        )}
+
+        {/* GUARDIAN REQUESTS TAB */}
+        {tab === 'requests' && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900">অভিভাবক টিউশন রিকোয়েস্টসমূহ</h2>
+                <p className="text-xs text-slate-500 mt-1">অভিভাবকদের জমাকৃত টিউশন চাহিদা পর্যবেক্ষণ, ফিল্টার ও স্ট্যাটাস আপডেট করুন</p>
+              </div>
+              <div className="text-xs font-bold bg-indigo-50 border border-indigo-200 text-indigo-700 px-3 py-1.5 rounded-lg">
+                মোট রিকোয়েস্ট: {tuitionRequests.length} টি
+              </div>
+            </div>
+
+            {tuitionRequests.length > 0 ? (
+              <div className="grid gap-4">
+                {tuitionRequests.map((req) => (
+                  <div key={req.id} className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900 text-base">{req.guardian_name}</span>
+                          <span className="text-xs font-semibold text-slate-500">({req.guardian_phone})</span>
+                        </div>
+                        <p className="text-xs text-indigo-600 font-semibold mt-0.5">
+                          শ্রেণি: {req.student_class} | বিষয়: {req.subjects}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <select
+                          value={req.status}
+                          onChange={(e) => updateRequestStatus(req.id, e.target.value as any)}
+                          className="text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-300 bg-slate-50 focus:outline-none"
+                        >
+                          <option value="pending">পেন্ডিং (Pending)</option>
+                          <option value="contacted">যোগাযোগ করা হয়েছে (Contacted)</option>
+                          <option value="assigned">টিউটর অ্যাসাইনড (Assigned)</option>
+                          <option value="cancelled">বাতিল (Cancelled)</option>
+                        </select>
+
+                        <a
+                          href={`https://wa.me/${req.guardian_phone.replace(/\D/g, '').replace(/^0/, '880')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg flex items-center gap-1"
+                        >
+                          WhatsApp
+                        </a>
+
+                        <button
+                          onClick={() => remove('tuition_requests', req.id)}
+                          className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg"
+                        >
+                          মুছুন
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-3 gap-3 text-xs text-slate-600 font-medium">
+                      <div><strong className="text-slate-900">এলাকা:</strong> {req.location}</div>
+                      <div><strong className="text-slate-900">সম্মানী বাজেট:</strong> {req.salary_budget}</div>
+                      <div><strong className="text-slate-900">দিন:</strong> {req.days_per_week || 'সপ্তাহে ৩ দিন'}</div>
+                      <div><strong className="text-slate-900">শিক্ষক জেন্ডার:</strong> {req.preferred_gender === 'Male' ? 'পুরুষ' : req.preferred_gender === 'Female' ? 'নারী' : 'যেকোনো'}</div>
+                      <div><strong className="text-slate-900">বিশ্ববিদ্যালয়:</strong> {req.preferred_university || 'যেকোনো'}</div>
+                      <div><strong className="text-slate-900">তারিখ:</strong> {req.created_at ? new Date(req.created_at).toLocaleDateString() : 'আজ'}</div>
+                    </div>
+
+                    {req.notes && (
+                      <div className="bg-slate-50 p-2.5 rounded-lg text-xs text-slate-700 font-medium border border-slate-200/80">
+                        <strong>অতিরিক্ত নোট:</strong> {req.notes}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white border border-slate-200 rounded-xl p-10 text-center text-slate-500 font-medium">
+                এখনো কোনো অভিভাবক টিউশন রিকোয়েস্ট জমা দেননি।
+              </div>
+            )}
           </div>
         )}
 
