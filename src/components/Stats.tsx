@@ -65,17 +65,17 @@ export default function Stats({ settings }: { settings?: SiteSettings | null }) 
               <div className="mt-6 flex flex-wrap gap-2.5">
                 {(settings?.custom_texts?.stats_map_cities || 'পিরোজপুর')
                   .split(',')
-                  .map((c: string) => c.trim())
+                  .map((c) => c.trim())
                   .filter(Boolean)
                   .map((city: string) => (
-                  <span
-                    key={city}
-                    className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-indigo-400" />
-                    {city}
-                  </span>
-                ))}
+                    <span
+                      key={city}
+                      className="inline-flex items-center gap-1.5 bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold px-3.5 py-1.5 rounded-lg"
+                    >
+                      <MapPin className="w-3.5 h-3.5 text-indigo-400" />
+                      {city}
+                    </span>
+                  ))}
               </div>
             </div>
 

@@ -4,14 +4,14 @@ import {
   GraduationCap,
   MapPin,
   MessageCircle,
-  Phone,
   Search,
   ShieldCheck,
   Star,
   Users,
-  X,
   Filter,
+  Briefcase,
 } from 'lucide-react';
+import TutorProfileModal from '@/components/TutorProfileModal';
 import type { Tutor, SiteSettings } from '@/types/cms';
 
 type TutorsPageProps = {
@@ -163,7 +163,11 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                   >
                     <div>
                       {/* Image Container */}
-                      <div className="relative h-60 w-full bg-slate-100 overflow-hidden group border-b border-slate-200/80">
+                      <div
+                        onClick={() => setSelectedTutor(tutor)}
+                        className="relative h-64 sm:h-72 w-full bg-slate-100 overflow-hidden group cursor-pointer"
+                        title="সম্পূর্ণ প্রোফাইল ও প্রজেক্ট দেখতে ক্লিক করুন"
+                      >
                         {tutor.avatar_url ? (
                           <img
                             src={tutor.avatar_url}
@@ -189,20 +193,35 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                             <span>{settings?.custom_texts?.hero_stat_verified || 'যাচাইকৃত'}</span>
                           </div>
                         )}
+
+                        {/* Projects Pill if available */}
+                        {tutor.projects && tutor.projects.length > 0 && (
+                          <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded-full shadow-md flex items-center gap-1.5 text-[11px] font-bold">
+                            <Briefcase className="w-3.5 h-3.5 text-amber-400" />
+                            <span>{tutor.projects.length}টি প্রজেক্ট</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Content Section */}
-                      <div className="p-5">
-                        <h3 className="text-lg font-bold text-slate-900">{tutor.name}</h3>
+                      <div className="p-6">
+                        <h3
+                          onClick={() => setSelectedTutor(tutor)}
+                          className="text-xl font-bold text-slate-900 hover:text-indigo-600 cursor-pointer transition-colors"
+                        >
+                          {tutor.name}
+                        </h3>
 
                         <p className="text-xs sm:text-sm font-semibold text-indigo-600 mt-1 flex items-center gap-1.5">
                           <GraduationCap className="w-4 h-4 shrink-0" />
-                          <span>{tutor.university || tutor.department}</span>
+                          <span>{tutor.department || (tutor as any).university || tutor.headline || 'সাধারণ ইনস্ট্রাক্টর'}</span>
                         </p>
 
-                        <p className="text-xs text-slate-500 mt-0.5 font-medium">
-                          {tutor.department}
-                        </p>
+                        {tutor.student_level && (
+                          <p className="text-xs font-semibold text-slate-500 mt-1">
+                            শিক্ষার্থীর অবস্থান: {tutor.student_level}
+                          </p>
+                        )}
 
                         {tutor.bio && (
                           <p className="mt-3 text-xs sm:text-sm text-slate-600 line-clamp-2 leading-relaxed font-medium">{tutor.bio}</p>
@@ -244,9 +263,10 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
                       </a>
                       <button
                         onClick={() => setSelectedTutor(tutor)}
-                        className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs py-2 px-4 rounded-lg transition-colors"
+                        className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-800 font-bold text-xs py-2.5 px-4 rounded-xl border border-slate-200 hover:border-indigo-200 transition-colors"
                       >
-                        <span>{settings?.custom_texts?.dir_btn_view_profile || 'সম্পূর্ণ প্রোফাইল দেখুন'}</span>
+                        <Briefcase className="w-3.5 h-3.5 text-indigo-600" />
+                        <span>{settings?.custom_texts?.dir_btn_view_profile || 'সম্পূর্ণ প্রোফাইল ও প্রজেক্ট দেখুন'}</span>
                       </button>
                     </div>
                   </article>
@@ -276,89 +296,11 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
       </main>
 
       {/* Tutor Detail Modal */}
-      {selectedTutor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white rounded-xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 p-6 relative">
-            <button
-              onClick={() => setSelectedTutor(null)}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-start gap-4 mb-6 pr-8">
-              <img
-                src={selectedTutor.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'}
-                alt={selectedTutor.name}
-                className="w-20 h-20 rounded-xl object-cover border border-slate-200"
-              />
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">{selectedTutor.name}</h3>
-                <p className="text-sm font-semibold text-indigo-600 mt-0.5">{selectedTutor.university}</p>
-                <p className="text-xs text-slate-500 font-medium">{selectedTutor.department}</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs font-bold bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-md border border-emerald-200/60">
-                    সম্মানী: {selectedTutor.salary}
-                  </span>
-                  <span className="text-xs font-semibold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-md">
-                    অভিজ্ঞতা: {selectedTutor.experience || '২+ বছর'}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {selectedTutor.bio && (
-              <div className="mb-6">
-                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">সম্পর্কে</h4>
-                <p className="text-sm text-slate-700 leading-relaxed font-medium bg-slate-50 p-4 rounded-xl border border-slate-200/80">
-                  {selectedTutor.bio}
-                </p>
-              </div>
-            )}
-
-            <div className="mb-6">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">যে বিষয়গুলো পড়ান</h4>
-              <div className="flex flex-wrap gap-2">
-                {selectedTutor.subjects?.map((sub) => (
-                  <span key={sub} className="text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60 px-3 py-1 rounded-lg">
-                    {sub}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">পড়ানোর এলাকা</h4>
-              <p className="text-sm text-slate-700 font-medium flex items-center gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                <MapPin className="w-4 h-4 text-indigo-600" />
-                {selectedTutor.location}
-              </p>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-              <button
-                onClick={() => setSelectedTutor(null)}
-                className="px-5 py-2.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 rounded-lg transition-colors"
-              >
-                বন্ধ করুন
-              </button>
-              <a
-                href={`https://wa.me/${(selectedTutor.whatsapp_number || '01318126412')
-                  .replace(/\D/g, '')
-                  .replace(/^0/, '880')}?text=${encodeURIComponent(
-                    `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${selectedTutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
-                  )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors shadow-sm"
-              >
-                <MessageCircle className="w-4 h-4" />
-                সরাসরি WhatsApp-এ কথা বলুন
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      <TutorProfileModal
+        tutor={selectedTutor}
+        onClose={() => setSelectedTutor(null)}
+        settings={settings}
+      />
 
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-center text-xs font-medium">

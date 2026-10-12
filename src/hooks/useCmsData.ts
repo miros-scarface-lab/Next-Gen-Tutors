@@ -32,10 +32,18 @@ export function useCmsData() {
       if (questionsResult.error) console.error('Questions error:', questionsResult.error);
 
       const settingsData = settingsResult.data || null;
+      const rawCustomTexts = settingsResult.data?.custom_texts || {};
+
+      const tutorsList = (tutorsResult.data ?? []).map((tutor: any) => ({
+        ...tutor,
+        projects: (Array.isArray(tutor.projects) && tutor.projects.length > 0)
+          ? tutor.projects
+          : (rawCustomTexts[`tutor_projects_${tutor.id}`] || tutor.projects || []),
+      })) as Tutor[];
 
       setData({
         settings: settingsData,
-        tutors: (tutorsResult.data ?? []) as Tutor[],
+        tutors: tutorsList,
         tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
         testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
         quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
@@ -53,4 +61,3 @@ export function useCmsData() {
 
   return { data, loading, reload: load };
 }
-

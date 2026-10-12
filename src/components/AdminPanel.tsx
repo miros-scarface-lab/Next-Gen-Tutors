@@ -18,9 +18,12 @@ import {
   Zap,
   Upload,
   Image as ImageIcon,
+  Briefcase,
+  Link as LinkIcon,
+  ExternalLink,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord, TuitionRequest } from '@/types/cms';
+import type { SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord, TuitionRequest, TutorProject } from '@/types/cms';
 import { siteSettingsSchema } from '@/lib/schema';
 
 type AdminTab = 'dashboard' | 'settings' | 'tutors' | 'tuition' | 'testimonials' | 'faqs' | 'requests';
@@ -87,6 +90,7 @@ const emptyTutor: TutorForm = {
   rating: 5,
   is_verified: false,
   is_featured: false,
+  projects: [],
 };
 const emptyTuition: TuitionForm = {
   title: '',
@@ -131,7 +135,15 @@ export default function AdminPanel() {
   const [notice, setNotice] = useState('');
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingProjectImage, setUploadingProjectImage] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [projectForm, setProjectForm] = useState<TutorProject>({
+    title: '',
+    description: '',
+    image_url: '',
+    link_url: '',
+  });
 
   const loadCms = useCallback(async () => {
     const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult, requestsResult] = await Promise.all([
@@ -142,8 +154,18 @@ export default function AdminPanel() {
       supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
       supabase.from('tuition_requests').select('*').order('created_at', { ascending: false }),
     ]);
-    if (settingsResult.data) setSettings(settingsResult.data as SiteSettings);
-    if (tutorsResult.data) setTutors(tutorsResult.data as Tutor[]);
+    const rawSettings = (settingsResult.data as SiteSettings) || defaultSettings;
+    if (settingsResult.data) setSettings(rawSettings);
+    if (tutorsResult.data) {
+      const customTexts = rawSettings.custom_texts || {};
+      const mappedTutors = (tutorsResult.data as Tutor[]).map((t) => ({
+        ...t,
+        projects: (t.projects && Array.isArray(t.projects) && t.projects.length > 0)
+          ? t.projects
+          : (customTexts[`tutor_projects_${t.id}`] || t.projects || []),
+      }));
+      setTutors(mappedTutors);
+    }
     if (tuitionResult.data) setTuitionPosts(tuitionResult.data as TuitionPost[]);
     if (testimonialsResult.data) setTestimonials(testimonialsResult.data as TestimonialRecord[]);
     if (questionsResult.data) setQuickQuestions(questionsResult.data as QuickQuestionRecord[]);
@@ -227,13 +249,74 @@ export default function AdminPanel() {
 
   const saveTutor = async (event: FormEvent) => {
     event.preventDefault();
-    const payload = { ...tutorForm, subjects: tutorForm.subjects.filter(Boolean) };
-    const result = editingId
-      ? await save(() => supabase.from('tutors').update(payload).eq('id', editingId), 'Tutor updated.')
-      : await save(() => supabase.from('tutors').insert(payload), 'New tutor added.');
-    if (result) {
+    const currentProjects = tutorForm.projects || [];
+    const payload = {
+      ...tutorForm,
+      subjects: tutorForm.subjects.filter(Boolean),
+      projects: currentProjects,
+    };
+
+    setSaving(true);
+    let success = false;
+
+    if (editingId) {
+      const updateRes = await supabase.from('tutors').update(payload).eq('id', editingId);
+      if (!updateRes.error) {
+        success = true;
+      } else {
+        const errMsg = updateRes.error.message || '';
+        if (errMsg.includes('projects') || updateRes.error.code === 'PGRST204') {
+          const { projects: _, ...cleanPayload } = payload;
+          const fallbackRes = await supabase.from('tutors').update(cleanPayload).eq('id', editingId);
+          if (!fallbackRes.error) {
+            const updatedTexts = {
+              ...(settings.custom_texts || {}),
+              [`tutor_projects_${editingId}`]: currentProjects,
+            };
+            await supabase.from('site_settings').update({ custom_texts: updatedTexts }).eq('singleton', true);
+            setSettings((prev) => ({ ...prev, custom_texts: updatedTexts }));
+            success = true;
+          } else {
+            showNotification(`Error: ${fallbackRes.error.message}`);
+          }
+        } else {
+          showNotification(`Error: ${updateRes.error.message}`);
+        }
+      }
+    } else {
+      const insertRes = await supabase.from('tutors').insert(payload).select().single();
+      if (!insertRes.error) {
+        success = true;
+      } else {
+        const errMsg = insertRes.error.message || '';
+        if (errMsg.includes('projects') || insertRes.error.code === 'PGRST204') {
+          const { projects: _, ...cleanPayload } = payload;
+          const fallbackRes = await supabase.from('tutors').insert(cleanPayload).select().single();
+          if (!fallbackRes.error && fallbackRes.data) {
+            const newId = fallbackRes.data.id;
+            const updatedTexts = {
+              ...(settings.custom_texts || {}),
+              [`tutor_projects_${newId}`]: currentProjects,
+            };
+            await supabase.from('site_settings').update({ custom_texts: updatedTexts }).eq('singleton', true);
+            setSettings((prev) => ({ ...prev, custom_texts: updatedTexts }));
+            success = true;
+          } else if (fallbackRes.error) {
+            showNotification(`Error: ${fallbackRes.error.message}`);
+          }
+        } else {
+          showNotification(`Error: ${insertRes.error.message}`);
+        }
+      }
+    }
+
+    setSaving(false);
+    if (success) {
+      showNotification(editingId ? 'Tutor profile updated.' : 'New tutor added.');
       setTutorForm(emptyTutor);
       setEditingId(null);
+      setProjectForm({ title: '', description: '', image_url: '', link_url: '' });
+      await loadCms();
     }
   };
 
@@ -414,6 +497,100 @@ export default function AdminPanel() {
     }
   };
 
+  const handleProjectFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingProjectImage(true);
+    try {
+      const fileExt = file.name.split('.').pop() || 'jpg';
+      const fileName = `project_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+
+      const { data, error } = await supabase.storage.from('tutor-avatars').upload(fileName, file, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+
+      if (!error && data) {
+        const { data: publicUrlData } = supabase.storage.from('tutor-avatars').getPublicUrl(fileName);
+        setProjectForm((prev) => ({ ...prev, image_url: publicUrlData.publicUrl }));
+        showNotification('Project image uploaded successfully!');
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target?.result as string;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 800;
+            const MAX_HEIGHT = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+            setProjectForm((prev) => ({ ...prev, image_url: dataUrl }));
+            showNotification('Project image processed successfully!');
+          };
+        };
+        reader.readAsDataURL(file);
+      }
+    } catch (err: any) {
+      showNotification(`Upload error: ${err.message || err}`);
+    } finally {
+      setUploadingProjectImage(false);
+      event.target.value = '';
+    }
+  };
+
+  const addProjectToTutor = () => {
+    if (!projectForm.title.trim()) {
+      showNotification('Please provide a project or work title.');
+      return;
+    }
+    const newProj: TutorProject = {
+      id: `proj_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      title: projectForm.title.trim(),
+      description: projectForm.description.trim(),
+      image_url: projectForm.image_url.trim(),
+      link_url: projectForm.link_url?.trim() || '',
+    };
+    setTutorForm((prev) => ({
+      ...prev,
+      projects: [...(prev.projects || []), newProj],
+    }));
+    setProjectForm({
+      title: '',
+      description: '',
+      image_url: '',
+      link_url: '',
+    });
+    showNotification('Project / Work item added to list!');
+  };
+
+  const removeProjectFromTutor = (index: number) => {
+    setTutorForm((prev) => ({
+      ...prev,
+      projects: (prev.projects || []).filter((_, i) => i !== index),
+    }));
+    showNotification('Project item removed.');
+  };
+
   // Instant inline quick-toggles
   const toggleTutorVerified = async (tutor: Tutor) => {
     await save(
@@ -469,6 +646,13 @@ export default function AdminPanel() {
       rating: item.rating,
       is_verified: item.is_verified,
       is_featured: item.is_featured,
+      projects: item.projects || (settings.custom_texts?.[`tutor_projects_${item.id}`] as TutorProject[]) || [],
+    });
+    setProjectForm({
+      title: '',
+      description: '',
+      image_url: '',
+      link_url: '',
     });
   };
 
@@ -1306,6 +1490,184 @@ export default function AdminPanel() {
                     />
                   </Field>
                 </div>
+
+                {/* EXTENDED SECTION: TUTOR PROJECTS & WORK PORTFOLIO */}
+                <div className="md:col-span-2 mt-2 pt-6 border-t border-ink-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <div>
+                      <h4 className="text-base font-bold text-ink-900 flex items-center gap-2">
+                        <Briefcase className="w-5 h-5 text-primary-600" />
+                        <span>Extended Section: Projects & Work Portfolio (প্রজেক্ট ও কাজের বিবরণী)</span>
+                      </h4>
+                      <p className="text-xs text-ink-500 mt-0.5">
+                        Add project pictures, article links, and descriptions to showcase this tutor's works.
+                      </p>
+                    </div>
+                    <span className="text-xs font-bold bg-primary-100 text-primary-800 px-3 py-1 rounded-full self-start sm:self-auto">
+                      {(tutorForm.projects || []).length} Items Added
+                    </span>
+                  </div>
+
+                  {/* Existing Projects List */}
+                  {tutorForm.projects && tutorForm.projects.length > 0 && (
+                    <div className="space-y-3 mb-6">
+                      {tutorForm.projects.map((proj, idx) => (
+                        <div
+                          key={proj.id || idx}
+                          className="bg-white p-4 rounded-2xl border border-ink-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                        >
+                          <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
+                            {proj.image_url ? (
+                              <img
+                                src={proj.image_url}
+                                alt={proj.title}
+                                className="w-16 h-16 rounded-xl object-cover shrink-0 border border-ink-200"
+                              />
+                            ) : (
+                              <div className="w-16 h-16 rounded-xl bg-ink-100 text-ink-400 flex items-center justify-center shrink-0">
+                                <ImageIcon className="w-6 h-6" />
+                              </div>
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-primary-600">#{idx + 1}</span>
+                                <h5 className="text-sm font-bold text-ink-900 truncate">{proj.title}</h5>
+                              </div>
+                              {proj.description && (
+                                <p className="text-xs text-ink-600 mt-1 line-clamp-2 leading-relaxed">
+                                  {proj.description}
+                                </p>
+                              )}
+                              {proj.link_url && (
+                                <a
+                                  href={proj.link_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 hover:underline mt-1"
+                                >
+                                  <LinkIcon className="w-3 h-3" />
+                                  <span className="truncate max-w-xs">{proj.link_url}</span>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => removeProjectFromTutor(idx)}
+                            className="text-error-600 hover:text-error-700 bg-error-50 hover:bg-error-100 p-2.5 rounded-xl transition-colors shrink-0"
+                            title="Remove Project"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Add New Project Card */}
+                  <div className="bg-ink-50/80 p-5 rounded-2xl border border-dashed border-ink-300 space-y-4">
+                    <h5 className="text-xs font-bold text-ink-700 uppercase tracking-wider flex items-center gap-1.5">
+                      <Plus className="w-4 h-4 text-primary-600" />
+                      <span>নতুন প্রজেক্ট বা কাজের লিংক যুক্ত করুন (Add New Project / Work)</span>
+                    </h5>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-ink-700 mb-1.5">Project / Work Title *</label>
+                        <input
+                          className="admin-input text-xs"
+                          value={projectForm.title}
+                          onChange={(e) => setProjectForm({ ...projectForm, title: e.target.value })}
+                          placeholder="e.g. IoT Smart Home Automation / HSC Physics Article"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-ink-700 mb-1.5">Article or Project Link (URL)</label>
+                        <input
+                          className="admin-input text-xs"
+                          value={projectForm.link_url || ''}
+                          onChange={(e) => setProjectForm({ ...projectForm, link_url: e.target.value })}
+                          placeholder="e.g. https://medium.com/... or https://github.com/..."
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-ink-700 mb-1.5">
+                          Work / Project Picture (Image Upload or URL)
+                        </label>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                          {projectForm.image_url ? (
+                            <img
+                              src={projectForm.image_url}
+                              alt="Project Preview"
+                              className="w-16 h-16 rounded-xl object-cover shrink-0 border border-ink-200"
+                            />
+                          ) : (
+                            <div className="w-16 h-16 rounded-xl bg-white border border-ink-200 text-ink-400 flex items-center justify-center shrink-0">
+                              <ImageIcon className="w-6 h-6" />
+                            </div>
+                          )}
+
+                          <div className="flex-1 space-y-2 w-full">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <label className="cursor-pointer inline-flex items-center gap-1.5 bg-ink-200 hover:bg-ink-300 text-ink-800 font-bold text-xs px-3.5 py-2 rounded-xl transition-colors">
+                                <Upload className="w-3.5 h-3.5" />
+                                <span>{uploadingProjectImage ? 'Uploading...' : 'Upload Picture from Device'}</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={handleProjectFileUpload}
+                                  disabled={uploadingProjectImage}
+                                  className="hidden"
+                                />
+                              </label>
+
+                              {projectForm.image_url && (
+                                <button
+                                  type="button"
+                                  onClick={() => setProjectForm((prev) => ({ ...prev, image_url: '' }))}
+                                  className="text-xs text-error-600 hover:underline font-bold"
+                                >
+                                  Remove Picture
+                                </button>
+                              )}
+                            </div>
+
+                            <input
+                              className="admin-input text-xs"
+                              value={projectForm.image_url}
+                              onChange={(e) => setProjectForm({ ...projectForm, image_url: e.target.value })}
+                              placeholder="Or paste direct image URL (https://...)"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-ink-700 mb-1.5">Description / Article Text</label>
+                        <textarea
+                          className="admin-input min-h-20 text-xs"
+                          value={projectForm.description}
+                          onChange={(e) => setProjectForm({ ...projectForm, description: e.target.value })}
+                          placeholder="Brief description about the work, research paper, course, or project methodology..."
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="button"
+                        onClick={addProjectToTutor}
+                        className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-95"
+                      >
+                        <Plus className="w-4 h-4" />
+                        <span>প্রজেক্ট তালিকায় যোগ করুন (Add to Projects List)</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             }
             list={filteredTutors.map((item) => (
@@ -1319,12 +1681,17 @@ export default function AdminPanel() {
                     </div>
                   )}
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <p className="font-bold text-ink-900 truncate">{item.name}</p>
                       {item.is_verified && <ShieldCheck className="w-4 h-4 text-success-500" />}
                       {item.is_featured && (
                         <span className="text-[10px] uppercase tracking-wider font-extrabold bg-warning-100 text-warning-800 px-2 py-0.5 rounded-full">
                           Featured
+                        </span>
+                      )}
+                      {(item.projects?.length || 0) > 0 && (
+                        <span className="text-[10px] font-bold bg-primary-50 text-primary-700 border border-primary-200 px-2 py-0.5 rounded-full">
+                          {item.projects?.length} Projects
                         </span>
                       )}
                     </div>

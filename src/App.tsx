@@ -66,14 +66,14 @@ function App() {
             badgeText={settings?.hero_badge_text}
             imageUrl={settings?.hero_image_url}
           />
-          <Features settings={settings} title={settings?.features_title} subtitle={settings?.features_subtitle} />
-          <HowItWorks settings={settings} title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
           <Directory
             settings={settings}
             tutors={data.tutors}
             title={settings?.directory_title}
             subtitle={settings?.directory_subtitle}
           />
+          <Features settings={settings} title={settings?.features_title} subtitle={settings?.features_subtitle} />
+          <HowItWorks settings={settings} title={settings?.how_it_works_title} subtitle={settings?.how_it_works_subtitle} />
           <Testimonials
             settings={settings}
             items={data.testimonials}

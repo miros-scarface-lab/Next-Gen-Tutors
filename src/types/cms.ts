@@ -24,6 +24,14 @@ export type SiteSettings = {
   custom_texts: Record<string, string>;
 };
 
+export type TutorProject = {
+  id?: string;
+  title: string;
+  description: string;
+  image_url: string;
+  link_url?: string;
+};
+
 export type Tutor = {
   id: string;
   name: string;
@@ -38,6 +46,7 @@ export type Tutor = {
   rating: number;
   is_verified: boolean;
   is_featured: boolean;
+  projects?: TutorProject[];
   created_at: string;
   updated_at: string;
 };
