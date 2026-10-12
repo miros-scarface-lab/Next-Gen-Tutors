@@ -69,6 +69,7 @@ function App() {
           <Directory
             settings={settings}
             tutors={data.tutors}
+            loading={loading}
             title={settings?.directory_title}
             subtitle={settings?.directory_subtitle}
           />

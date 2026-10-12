@@ -19,7 +19,7 @@ export function useCmsData() {
     try {
       const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult] = await Promise.all([
         supabase.from('site_settings').select('*').maybeSingle<SiteSettings>(),
-        supabase.from('tutors').select('*').order('is_featured', { ascending: false }).order('created_at', { ascending: false }),
+        supabase.from('tutors').select('*').order('created_at', { ascending: false }),
         supabase.from('tuition_posts').select('*').eq('is_active', true).order('created_at', { ascending: false }),
         supabase.from('testimonials').select('*').eq('is_published', true).order('sort_order', { ascending: true }),
         supabase.from('quick_questions').select('*').order('sort_order', { ascending: true }),
@@ -40,6 +40,9 @@ export function useCmsData() {
           ? tutor.projects
           : (rawCustomTexts[`tutor_projects_${tutor.id}`] || tutor.projects || []),
       })) as Tutor[];
+
+      // Sort featured tutors first
+      tutorsList.sort((a, b) => (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0));
 
       setData({
         settings: settingsData,
