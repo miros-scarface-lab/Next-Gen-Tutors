@@ -83,7 +83,7 @@ function App() {
           <Directory
             settings={settings}
             tutors={data.tutors}
-            loading={loading}
+            loading={loading && data.tutors.length === 0}
             title={settings?.directory_title}
             subtitle={settings?.directory_subtitle}
           />

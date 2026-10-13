@@ -24,6 +24,32 @@ export type SiteSettings = {
   custom_texts: Record<string, any>;
 };
 
+export const defaultSiteSettings: SiteSettings = {
+  singleton: true,
+  brand_name: 'Mentorio Pirojpur',
+  hero_title: 'আপনার সন্তানের জন্য সেরা ও অভিজ্ঞ টিউটর খুঁজুন',
+  hero_description: 'পিরোজপুর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের (PrSTU) অভিজ্ঞ ও বিশ্বস্ত টিউটরদের সাথে সরাসরি যোগাযোগ করুন। কোনো মধ্যস্বত্বভোগী বা কমিশন ছাড়াই।',
+  hero_badge_text: '১০০% কমিশন-মুক্ত প্ল্যাটফর্ম',
+  hero_image_url: '/hero-image.png',
+  features_title: 'আমাদের প্ল্যাটফর্মের বিশেষ সুবিধাসমূহ',
+  features_subtitle: 'অভিভাবক ও শিক্ষকদের মধ্যে সরাসরি যোগাযোগের সুবিধাজনক সিস্টেম।',
+  how_it_works_title: 'কীভাবে আপনার টিউটর খুঁজে পাবেন',
+  how_it_works_subtitle: 'মাত্র ৪টি সহজ ধাপ অনুসরণ করে যুক্ত হন আপনার পছন্দের টিউটরের সাথে।',
+  directory_title: 'আমাদের যাচাইকৃত সেরা টিউটরবৃন্দ',
+  directory_subtitle: 'Mentorio Pirojpur-এর সেরা ও অভিজ্ঞ টিউটরদের সাথে সরাসরি যোগাযোগ করুন।',
+  testimonials_title: 'অভিভাবক ও শিক্ষকদের অনুভূতি',
+  testimonials_subtitle: 'আমাদের ব্যবহারকারী সম্মানিত অভিভাবক ও টিউটরদের বাস্তব অভিজ্ঞতা।',
+  cta_title: 'কয়েক মিনিটেই আপনার পছন্দের টিউটর খুঁজে নিন',
+  cta_description: 'সরাসরি টিউটরের সাথে কথা বলুন — দ্রুত, সহজ এবং ১০০% কমিশন মুক্ত। Mentorio Pirojpur-এর সাথেই যুক্ত থাকুন।',
+  cta_badge_text: 'ওয়েব ও মোবাইলে সহজলভ্য',
+  contact_email: 'nextgentutors247@gmail.com',
+  contact_phone: '01318126412',
+  location: 'Pirojpur, Barishal, Bangladesh',
+  footer_description: 'অভিজ্ঞ ও দক্ষ টিউটরদের সাথে সরাসরি যোগাযোগ করে পড়াশোনায় সেরা সাফল্য অর্জন করুন। কোনো মিডিয়া ফি ছাড়াই শতভাগ বিশ্বস্ত সেবা।',
+  updated_at: '',
+  custom_texts: {},
+};
+
 export type TutorProject = {
   id?: string;
   title: string;

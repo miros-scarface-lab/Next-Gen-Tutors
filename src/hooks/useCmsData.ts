@@ -1,21 +1,45 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { defaultSiteSettings } from '@/types/cms';
 import type { CmsData, SiteSettings, TestimonialRecord, TuitionPost, Tutor, QuickQuestionRecord } from '@/types/cms';
 
-const emptyData: CmsData = {
-  settings: null,
-  tutors: [],
-  tuitionPosts: [],
-  testimonials: [],
-  quickQuestions: [],
-};
+export const CMS_CACHE_KEY = 'mentorio_cms_data_cache_v2';
+
+function getInitialData(): CmsData {
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem(CMS_CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && typeof parsed === 'object') {
+          return {
+            settings: { ...defaultSiteSettings, ...(parsed.settings || {}) },
+            tutors: Array.isArray(parsed.tutors) ? parsed.tutors : [],
+            tuitionPosts: Array.isArray(parsed.tuitionPosts) ? parsed.tuitionPosts : [],
+            testimonials: Array.isArray(parsed.testimonials) ? parsed.testimonials : [],
+            quickQuestions: Array.isArray(parsed.quickQuestions) ? parsed.quickQuestions : [],
+          };
+        }
+      }
+    } catch {
+      // ignore JSON parse error
+    }
+  }
+
+  return {
+    settings: defaultSiteSettings,
+    tutors: [],
+    tuitionPosts: [],
+    testimonials: [],
+    quickQuestions: [],
+  };
+}
 
 export function useCmsData() {
-  const [data, setData] = useState<CmsData>(emptyData);
+  const [data, setData] = useState<CmsData>(getInitialData);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
-    setLoading(true);
     try {
       const [settingsResult, tutorsResult, tuitionResult, testimonialsResult, questionsResult] = await Promise.all([
         supabase.from('site_settings').select('*').maybeSingle<SiteSettings>(),
@@ -31,8 +55,8 @@ export function useCmsData() {
       if (testimonialsResult.error) console.error('Testimonials error:', testimonialsResult.error);
       if (questionsResult.error) console.error('Questions error:', questionsResult.error);
 
-      const settingsData = settingsResult.data || null;
-      const rawCustomTexts = settingsResult.data?.custom_texts || {};
+      const settingsData = settingsResult.data ? { ...defaultSiteSettings, ...settingsResult.data } : defaultSiteSettings;
+      const rawCustomTexts = settingsData.custom_texts || {};
 
       const tutorsList = (tutorsResult.data ?? []).map((tutor: any) => ({
         ...tutor,
@@ -44,13 +68,21 @@ export function useCmsData() {
       // Sort featured tutors first
       tutorsList.sort((a, b) => (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0));
 
-      setData({
+      const freshData: CmsData = {
         settings: settingsData,
         tutors: tutorsList,
         tuitionPosts: (tuitionResult.data ?? []) as TuitionPost[],
         testimonials: (testimonialsResult.data ?? []) as TestimonialRecord[],
         quickQuestions: (questionsResult.data ?? []) as QuickQuestionRecord[],
-      });
+      };
+
+      setData(freshData);
+
+      try {
+        localStorage.setItem(CMS_CACHE_KEY, JSON.stringify(freshData));
+      } catch {
+        // ignore quota errors
+      }
     } catch (error) {
       console.error('Could not load public CMS content', error);
     } finally {
@@ -60,6 +92,17 @@ export function useCmsData() {
 
   useEffect(() => {
     void load();
+
+    const handleSync = () => {
+      setData(getInitialData());
+    };
+    window.addEventListener('mentorio_cms_updated', handleSync);
+    window.addEventListener('storage', handleSync);
+
+    return () => {
+      window.removeEventListener('mentorio_cms_updated', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
   }, [load]);
 
   return { data, loading, reload: load };

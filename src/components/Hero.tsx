@@ -28,7 +28,18 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold text-slate-900 leading-[1.15] tracking-tight text-balance">
-              {title ? title : <>আপনার সন্তানের জন্য সেরা ও অভিজ্ঞ <span className="gradient-text-indigo">টিউটর খুঁজুন</span></>}
+              {title ? (
+                title.includes('টিউটর খুঁজুন') ? (
+                  <>
+                    {title.replace('টিউটর খুঁজুন', '').trim()}{' '}
+                    <span className="gradient-text-indigo">টিউটর খুঁজুন</span>
+                  </>
+                ) : (
+                  title
+                )
+              ) : (
+                <>আপনার সন্তানের জন্য সেরা ও অভিজ্ঞ <span className="gradient-text-indigo">টিউটর খুঁজুন</span></>
+              )}
             </h1>
 
             <p className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">

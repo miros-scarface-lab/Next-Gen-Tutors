@@ -249,10 +249,16 @@ export default function AdminPanel() {
 
   const saveSettings = async (event: FormEvent) => {
     event.preventDefault();
-    await save(
+    const ok = await save(
       () => supabase.from('site_settings').upsert(settings, { onConflict: 'singleton' }),
       'Website settings saved successfully.'
     );
+    if (ok) {
+      try {
+        localStorage.removeItem('mentorio_cms_data_cache_v2');
+      } catch {}
+      window.dispatchEvent(new Event('mentorio_cms_updated'));
+    }
   };
 
   const saveTutor = async (event: FormEvent) => {
