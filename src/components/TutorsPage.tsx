@@ -105,7 +105,7 @@ export default function TutorsPage({ tutors, brandName = 'Next Gen Tutors', sett
           <div className="container-max relative z-10 text-center max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
               <Users className="w-4 h-4 text-indigo-400" />
-              <span>{tutors.length} জন যাচাইকৃত টিউটর তালিকাভুক্ত</span>
+              <span>Next Gen Tutors/tutors • {tutors.length} জন যাচাইকৃত টিউটর</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
               {settings?.custom_texts?.tutors_page_title || 'আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ'}
