@@ -157,12 +157,12 @@ export default function AdminPanel() {
     const rawSettings = (settingsResult.data as SiteSettings) || defaultSettings;
     if (settingsResult.data) setSettings(rawSettings);
     if (tutorsResult.data) {
-      const customTexts = rawSettings.custom_texts || {};
-      const mappedTutors = (tutorsResult.data as Tutor[]).map((t) => ({
+      const customTexts = (rawSettings.custom_texts || {}) as Record<string, any>;
+      const mappedTutors: Tutor[] = (tutorsResult.data as Tutor[]).map((t) => ({
         ...t,
         projects: (t.projects && Array.isArray(t.projects) && t.projects.length > 0)
           ? t.projects
-          : (customTexts[`tutor_projects_${t.id}`] || t.projects || []),
+          : ((customTexts[`tutor_projects_${t.id}`] as unknown as TutorProject[]) || t.projects || []),
       }));
       setTutors(mappedTutors);
     }
@@ -646,7 +646,7 @@ export default function AdminPanel() {
       rating: item.rating,
       is_verified: item.is_verified,
       is_featured: item.is_featured,
-      projects: item.projects || (settings.custom_texts?.[`tutor_projects_${item.id}`] as TutorProject[]) || [],
+      projects: item.projects || (settings.custom_texts?.[`tutor_projects_${item.id}`] as unknown as TutorProject[]) || [],
     });
     setProjectForm({
       title: '',

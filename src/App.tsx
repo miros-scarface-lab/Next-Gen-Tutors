@@ -13,6 +13,7 @@ import TutorsPage from '@/components/TutorsPage';
 import TuitionRequestPage from '@/components/TuitionRequestPage';
 import QuickInfoWidget from '@/components/QuickInfoWidget';
 import { useCmsData } from '@/hooks/useCmsData';
+export { navigate } from '@/lib/navigation';
 
 function App() {
   const { data, loading } = useCmsData();
