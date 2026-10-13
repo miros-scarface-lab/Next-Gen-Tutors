@@ -87,7 +87,7 @@ export default function Hero({ settings, title, description, badgeText, imageUrl
               <div className="relative rounded-2xl overflow-hidden bg-white p-2 border border-slate-200 shadow-xl shadow-indigo-950/5">
                 <img
                   src={imageUrl || settings?.hero_image_url || '/hero-image.png'}
-                  alt="Next Gen Tutors Hero"
+                  alt="Mentorio Pirojpur Hero"
                   className="w-full h-[400px] lg:h-[480px] object-cover rounded-xl"
                 />
               </div>

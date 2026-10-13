@@ -26,7 +26,7 @@ export default function Testimonials({ settings, items, title, subtitle }: Testi
             {title || 'আমাদের প্ল্যাটফর্ম সম্পর্কে অনুভূতি'}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
-            {subtitle || 'Next Gen Tutors ব্যবহারকারী সম্মানিত অভিভাবক, শিক্ষার্থী ও শিক্ষকদের অভিজ্ঞতা ও মতামত জেনে নিন।'}
+            {subtitle || 'Mentorio Pirojpur ব্যবহারকারী সম্মানিত অভিভাবক, শিক্ষার্থী ও শিক্ষকদের অভিজ্ঞতা ও মতামত জেনে নিন।'}
           </p>
         </div>
 

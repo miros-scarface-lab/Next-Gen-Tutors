@@ -1,6 +1,6 @@
-# Next Gen Tutors
+# Mentorio Pirojpur
 
-Next Gen Tutors is a modern tutoring marketplace and informational website designed to connect students and parents with qualified tutors. The app presents a polished marketing site, searchable tutor listings, tuition request workflows, and a lightweight admin/content management experience backed by Supabase.
+Mentorio Pirojpur is a modern tutoring marketplace and informational website designed to connect students and parents with qualified tutors. The app presents a polished marketing site, searchable tutor listings, tuition request workflows, and a lightweight admin/content management experience backed by Supabase.
 
 ## Live demo
 

@@ -145,7 +145,7 @@ WHERE (SELECT count(*) FROM public.tuition_posts) = 2;
 INSERT INTO public.testimonials (id, quote, name, title, organization, sort_order, is_published)
 SELECT 
   gen_random_uuid(),
-  'Complete free media fee and good salary payment from guardian. Almost 1 year tuition with Next Gen Tutors, got students, Alhamdulillah. Highly trusted media.',
+  'Complete free media fee and good salary payment from guardian. Almost 1 year tuition with Mentorio Pirojpur, got students, Alhamdulillah. Highly trusted media.',
   'Istiak Rahman Shourov',
   '4th Year, EEE',
   'Islamic University of Technology (IUT)',
@@ -155,7 +155,7 @@ WHERE NOT EXISTS (SELECT 1 FROM public.testimonials);
 
 INSERT INTO public.testimonials (quote, name, title, organization, sort_order, is_published)
 SELECT 
-  'Next Gen Tutors is doing excellent work in finding qualified tutors from BUET or other prestigious institutes. They are responding very fast and ensuring helpful attitude to students.',
+  'Mentorio Pirojpur is doing excellent work in finding qualified tutors from BUET or other prestigious institutes. They are responding very fast and ensuring helpful attitude to students.',
   'Ataur Rahman',
   'FCPS, FRCP, FACP',
   'Associate Professor (Medicine)',

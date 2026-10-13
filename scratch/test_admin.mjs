@@ -94,7 +94,7 @@ async function main() {
     },
     body: JSON.stringify({
       singleton: true,
-      brand_name: 'Next Gen Tutors',
+      brand_name: 'Mentorio Pirojpur',
       hero_title: 'Find Your Perfect Tutor Anytime, Anywhere',
     }),
   });

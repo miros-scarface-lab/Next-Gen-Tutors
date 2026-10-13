@@ -26,7 +26,7 @@ async function debugAll() {
   console.log('\n3. Testing site_settings upsert...');
   const settingsRes = await supabase.from('site_settings').upsert({
     singleton: true,
-    brand_name: 'Next Gen Tutors Test',
+    brand_name: 'Mentorio Pirojpur Test',
     hero_title: 'Test Title',
     hero_description: 'Test Desc',
     contact_email: 'hello@nextgentutors.com',

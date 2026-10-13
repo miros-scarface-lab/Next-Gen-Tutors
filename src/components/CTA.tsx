@@ -33,7 +33,7 @@ export default function CTA({ settings, title, description, badgeText }: CTAProp
             </h2>
 
             <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed font-medium max-w-2xl mx-auto">
-              {description || 'সরাসরি টিউটরের সাথে কথা বলুন — দ্রুত, সহজ এবং ১০০% কমিশন মুক্ত। Next Gen Tutors-এর সাথেই যুক্ত থাকুন।'}
+              {description || 'সরাসরি টিউটরের সাথে কথা বলুন — দ্রুত, সহজ এবং ১০০% কমিশন মুক্ত। Mentorio Pirojpur-এর সাথেই যুক্ত থাকুন।'}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6">

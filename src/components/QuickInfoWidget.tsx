@@ -35,7 +35,7 @@ const defaultQuestions: QuickQuestion[] = [
     id: '1',
     icon: Building2,
     question: 'আপনারদের প্রতিষ্ঠানের নাম কী?',
-    answer: 'Next Gen Tutors',
+    answer: 'Mentorio Pirojpur',
   },
   {
     id: '2',
@@ -101,7 +101,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
     {
       id: 'welcome',
       sender: 'bot',
-      text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+      text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Mentorio Pirojpur-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -151,7 +151,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
       {
         id: 'welcome',
         sender: 'bot',
-        text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
+        text: settings?.custom_texts?.qi_welcome || 'আসসালামু আলাইকুম! Mentorio Pirojpur-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -193,7 +193,7 @@ export default function QuickInfoWidget({ settings, questions }: { settings?: Si
                 <Bot className="w-5 h-5 text-indigo-200" />
               </div>
               <div>
-                <h3 className="font-bold text-sm sm:text-base leading-tight">Next Gen কুইক ইনফো</h3>
+                <h3 className="font-bold text-sm sm:text-base leading-tight">Mentorio Pirojpur কুইক ইনফো</h3>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-xs text-slate-300 font-medium">অটো রিপ্লাই অ্যাসিস্ট্যান্ট</span>

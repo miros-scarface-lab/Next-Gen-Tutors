@@ -31,13 +31,13 @@ function App() {
   // Dynamic SEO page title update for Google Search
   useEffect(() => {
     if (currentPath === '/tutors') {
-      document.title = 'Next Gen Tutors/tutors | আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ';
+      document.title = 'Mentorio Pirojpur | আমাদের সকল অভিজ্ঞ ও যাচাইকৃত টিউটরবৃন্দ';
     } else if (currentPath === '/request-tuition') {
-      document.title = 'Next Gen Tutors | অভিভাবক টিউটর রিকোয়েস্ট ও টিউশন চাহিদা ফরম';
+      document.title = 'Mentorio Pirojpur | অভিভাবক টিউটর রিকোয়েস্ট ও টিউশন চাহিদা ফরম';
     } else if (currentPath === '/admin') {
-      document.title = 'Next Gen Tutors | Admin Panel';
+      document.title = 'Mentorio Pirojpur | Admin Panel';
     } else {
-      document.title = 'Next Gen Tutors | পিরোজপুর ও সারা দেশের সেরা টিউটর প্ল্যাটফর্ম | ১০০% কমিশন-মুক্ত';
+      document.title = 'Mentorio Pirojpur | পিরোজপুর ও সারা দেশের সেরা টিউটর প্ল্যাটফর্ম | ১০০% কমিশন-মুক্ত';
     }
   }, [currentPath]);
 

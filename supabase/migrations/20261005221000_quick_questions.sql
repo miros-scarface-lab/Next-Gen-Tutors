@@ -22,7 +22,7 @@ CREATE POLICY "Allow admin all access on quick_questions"
 
 -- Seed default questions
 INSERT INTO public.quick_questions (icon_name, question, answer, action_url, action_text, sort_order) VALUES
-('Building2', 'আপনারদের প্রতিষ্ঠানের নাম কী?', 'Next Gen Tutors', NULL, NULL, 1),
+('Building2', 'আপনারদের প্রতিষ্ঠানের নাম কী?', 'Mentorio Pirojpur', NULL, NULL, 1),
 ('MapPin', 'আপনারদের ঠিকানা কোথায়?', 'Pirojpur, Chittagong, Bangladesh', NULL, NULL, 2),
 ('PhoneCall', 'আপনারদের সাথে যোগাযোগের মাধ্যমগুলো কী কী?', 'আমাদের সাথে যোগাযোগের মাধ্যমসমূহ:
 • WhatsApp: 01318126412

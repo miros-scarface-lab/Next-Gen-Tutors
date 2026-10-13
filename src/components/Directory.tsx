@@ -84,7 +84,7 @@ export default function Directory({ settings, tutors = [], loading = false, titl
               const waNumber = (tutor as any).contact_whatsapp || tutor.whatsapp_number || '01318126412';
               const cleanPhone = waNumber.replace(/\D/g, '').replace(/^0/, '880');
               const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-                `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
+                `হ্যালো! আমি Mentorio Pirojpur ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
               )}`;
 
               return (

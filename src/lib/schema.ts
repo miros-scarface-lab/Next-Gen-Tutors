@@ -82,7 +82,7 @@ export const siteSettingsSchema = [
       { key: 'footer_quick_links', label: 'Quick Links Title', default: 'প্রয়োজনীয় লিংক' },
       { key: 'footer_contact_title', label: 'Contact Title', default: 'যোগাযোগ' },
       { key: 'footer_social_title', label: 'Social Title', default: 'আমাদের সাথে যুক্ত থাকুন' },
-      { key: 'footer_copyright', label: 'Copyright Text', default: '© 2026 Next Gen Tutors. All rights reserved.' },
+      { key: 'footer_copyright', label: 'Copyright Text', default: '© 2026 Mentorio Pirojpur. All rights reserved.' },
       { key: 'footer_fb_link', label: 'Facebook Link', default: 'https://facebook.com' },
       { key: 'footer_insta_link', label: 'Instagram Link', default: 'https://instagram.com' },
       { key: 'footer_wa_link', label: 'WhatsApp Link', default: 'https://wa.me/8801318126412' },
@@ -105,7 +105,7 @@ export const siteSettingsSchema = [
       { key: 'tutors_page_subtitle', label: 'Page Subtitle', default: 'অভিজ্ঞ ও বাছাইকৃত টিউটরদের বিস্তারিত প্রোফাইল দেখুন' },
       { key: 'tutor_modal_close', label: 'Close Profile', default: 'বন্ধ করুন' },
       { key: 'tutor_modal_contact', label: 'Contact Tutor Button', default: 'যোগাযোগ করুন' },
-      { key: 'tutor_modal_contact_msg', label: 'Contact Message', default: 'হ্যালো! আমি আপনার প্রোফাইল Next Gen Tutors-এ দেখেছি এবং টিউশন সম্পর্কে বিস্তারিত জানতে চাই।' },
+      { key: 'tutor_modal_contact_msg', label: 'Contact Message', default: 'হ্যালো! আমি আপনার প্রোফাইল Mentorio Pirojpur-এ দেখেছি এবং টিউশন সম্পর্কে বিস্তারিত জানতে চাই।' },
       { key: 'tutor_modal_about', label: 'About Label', default: 'সম্পর্কে' },
       { key: 'tutor_modal_info', label: 'General Info Label', default: 'সাধারণ তথ্য' },
       { key: 'tutor_modal_subjects', label: 'Subjects Label', default: 'যে বিষয়গুলো পড়ান' },
@@ -134,7 +134,7 @@ export const siteSettingsSchema = [
     category: 'Quick Info Widget',
     fields: [
       { key: 'qi_trigger', label: 'Trigger Text', default: 'জরুরি তথ্য বা প্রশ্ন' },
-      { key: 'qi_welcome', label: 'Welcome Message', default: 'আসসালামু আলাইকুম! Next Gen Tutors-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:' },
+      { key: 'qi_welcome', label: 'Welcome Message', default: 'আসসালামু আলাইকুম! Mentorio Pirojpur-এর কুইক ইনফরমেশন অ্যাসিস্ট্যান্টে আপনাকে স্বাগতম। নিচে প্রদত্ত যেকোনো প্রশ্ন নির্বাচন করে তাৎক্ষণিক উত্তর জেনে নিন:' },
     ],
   }
 ];

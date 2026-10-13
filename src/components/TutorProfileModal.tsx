@@ -248,7 +248,7 @@ export default function TutorProfileModal({ tutor, onClose, settings }: TutorPro
   const rawPhone = tutor.whatsapp_number || '01318126412';
   const cleanPhone = rawPhone.replace(/\D/g, '').replace(/^0/, '880');
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `হ্যালো! আমি Next Gen Tutors ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
+    `হ্যালো! আমি Mentorio Pirojpur ওয়েবসাইটে ${tutor.name}-এর প্রোফাইল দেখে যোগাযোগ করছি।`
   )}`;
 
   const projects = tutor.projects || [];

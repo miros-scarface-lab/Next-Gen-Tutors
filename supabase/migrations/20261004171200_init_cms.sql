@@ -1,5 +1,5 @@
 /*
-  # Initial Next Gen Tutors CMS Setup
+  # Initial Mentorio Pirojpur CMS Setup
 
   1. New Tables
     - `site_settings`: Single row table storing website title, hero, contact info, footer copy.
@@ -17,7 +17,7 @@
 
 CREATE TABLE IF NOT EXISTS public.site_settings (
   singleton boolean PRIMARY KEY DEFAULT true CHECK (singleton = true),
-  brand_name text NOT NULL DEFAULT 'Next Gen Tutors',
+  brand_name text NOT NULL DEFAULT 'Mentorio Pirojpur',
   hero_title text NOT NULL DEFAULT 'Find Your Perfect Tutor Anytime, Anywhere',
   hero_description text NOT NULL DEFAULT 'Find the right tutor with confidence. Connect with verified, experienced tutors and start learning with purpose.',
   contact_email text NOT NULL DEFAULT 'hello@nextgentutors.com',

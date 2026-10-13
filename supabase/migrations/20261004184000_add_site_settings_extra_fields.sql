@@ -20,9 +20,9 @@
 ALTER TABLE public.site_settings 
   ADD COLUMN IF NOT EXISTS hero_badge_text text DEFAULT '100% Commission-Free Platform',
   ADD COLUMN IF NOT EXISTS hero_image_url text DEFAULT 'https://images.pexels.com/photos/5311406/pexels-photo-5311406.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  ADD COLUMN IF NOT EXISTS features_title text DEFAULT 'Why Choose Next Gen Tutors',
+  ADD COLUMN IF NOT EXISTS features_title text DEFAULT 'Why Choose Mentorio Pirojpur',
   ADD COLUMN IF NOT EXISTS features_subtitle text DEFAULT 'Built to connect students and qualified tutors seamlessly.',
-  ADD COLUMN IF NOT EXISTS how_it_works_title text DEFAULT 'How Next Gen Tutors Works',
+  ADD COLUMN IF NOT EXISTS how_it_works_title text DEFAULT 'How Mentorio Pirojpur Works',
   ADD COLUMN IF NOT EXISTS how_it_works_subtitle text DEFAULT 'Four simple steps to get started.',
   ADD COLUMN IF NOT EXISTS directory_title text DEFAULT 'Tutors and tuition opportunities',
   ADD COLUMN IF NOT EXISTS directory_subtitle text DEFAULT 'Explore verified expert tutors and current learning opportunities.',

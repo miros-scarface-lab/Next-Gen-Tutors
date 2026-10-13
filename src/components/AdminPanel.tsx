@@ -44,7 +44,7 @@ const emptyQuickQuestion: QuickQuestionForm = {
 
 const defaultSettings: SiteSettings = {
   singleton: true,
-  brand_name: 'Next Gen Tutors',
+  brand_name: 'Mentorio Pirojpur',
   hero_title: 'আপনার সন্তানের জন্য সেরা ও অভিজ্ঞ টিউটর খুঁজুন',
   hero_description:
     'বুয়েট, ঢাকা বিশ্ববিদ্যালয়, আইইউটি ও মেডিকেল সহ শীর্ষ বিশ্ববিদ্যালয়ের অভিজ্ঞ ও বিশ্বস্ত টিউটরদের সাথে সরাসরি যোগাযোগ করুন। কোনো মধ্যস্বত্বভোগী বা কমিশন ছাড়াই।',
@@ -55,7 +55,7 @@ const defaultSettings: SiteSettings = {
   how_it_works_title: 'কীভাবে আপনার টিউটর খুঁজে পাবেন',
   how_it_works_subtitle: 'মাত্র ৪টি সহজ ধাপ অনুসরণ করে যুক্ত হন আপনার পছন্দের টিউটরের সাথে।',
   directory_title: 'আমাদের যাচাইকৃত সেরা টিউটরবৃন্দ',
-  directory_subtitle: 'Next Gen Tutors-এর সেরা ও অভিজ্ঞ টিউটরদের সাথে সরাসরি যোগাযোগ করুন।',
+  directory_subtitle: 'Mentorio Pirojpur-এর সেরা ও অভিজ্ঞ টিউটরদের সাথে সরাসরি যোগাযোগ করুন।',
   testimonials_title: 'অভিভাবক ও শিক্ষকদের অনুভূতি',
   testimonials_subtitle: 'আমাদের ব্যবহারকারী সম্মানিত অভিভাবক ও টিউটরদের বাস্তব অভিজ্ঞতা।',
   cta_title: 'কয়েক মিনিটেই আপনার পছন্দের টিউটর খুঁজে নিন',
@@ -217,8 +217,16 @@ export default function AdminPanel() {
     event.preventDefault();
     setAuthError('');
     const inputVal = username.trim();
-    const loginEmail = inputVal.includes('@') ? inputVal : `${inputVal}@nextgentutors.com`;
-    const result = await supabase.auth.signInWithPassword({ email: loginEmail, password });
+    const loginEmail = inputVal.includes('@')
+      ? inputVal
+      : (inputVal.toLowerCase() === 'admins' ? 'admins@nextgentutors.com' : `${inputVal}@mentoriopirojpur.com`);
+    let result = await supabase.auth.signInWithPassword({ email: loginEmail, password });
+    if (result.error && !inputVal.includes('@')) {
+      const altEmail = loginEmail.includes('nextgentutors.com')
+        ? `${inputVal}@mentoriopirojpur.com`
+        : 'admins@nextgentutors.com';
+      result = await supabase.auth.signInWithPassword({ email: altEmail, password });
+    }
     if (result.error) {
       setAuthError('Invalid username or password.');
       return;
@@ -626,7 +634,7 @@ export default function AdminPanel() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `nextgen-tutors-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `mentorio-pirojpur-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     showNotification('Backup downloaded successfully!');
   };
@@ -767,10 +775,10 @@ export default function AdminPanel() {
         <div className="container-max py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-primary-600 text-white flex items-center justify-center font-bold text-lg">
-              NT
+              MP
             </div>
             <div>
-              <p className="text-xs font-bold text-primary-600 uppercase tracking-wider">Next Gen Tutors</p>
+              <p className="text-xs font-bold text-primary-600 uppercase tracking-wider">Mentorio Pirojpur</p>
               <h1 className="text-xl font-bold text-ink-900">Admin Control Center</h1>
             </div>
           </div>

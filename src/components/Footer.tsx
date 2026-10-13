@@ -13,7 +13,7 @@ type FooterProps = {
   location?: string;
 };
 
-export default function Footer({ settings, brandName = 'Next Gen Tutors', description, email = 'nextgentutors247@gmail.com', phone = '01318126412', location = 'Pirojpur, Chittagong, Bangladesh' }: FooterProps) {
+export default function Footer({ settings, brandName = 'Mentorio Pirojpur', description, email = 'nextgentutors247@gmail.com', phone = '01318126412', location = 'Pirojpur, Chittagong, Bangladesh' }: FooterProps) {
   return (
     <footer className="bg-slate-900 text-slate-400 pt-16 pb-8 border-t border-slate-800">
       <div className="container-max">
@@ -43,7 +43,7 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
             <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="flex items-center gap-3 mb-4">
               <img
                 src="/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"
-                alt="Next Gen Tutors"
+                alt="Mentorio Pirojpur"
                 className="w-12 h-12 object-contain rounded-xl bg-white p-1"
               />
               <span className="font-display text-lg font-bold text-white">
@@ -143,7 +143,7 @@ export default function Footer({ settings, brandName = 'Next Gen Tutors', descri
         {/* Bottom bar */}
         <div className="border-t border-slate-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
           <p>
-            {settings?.custom_texts?.footer_copyright || '© 2026 Next Gen Tutors. সর্বস্বত্ব সংরক্ষিত।'}
+            {settings?.custom_texts?.footer_copyright || '© 2026 Mentorio Pirojpur. সর্বস্বত্ব সংরক্ষিত।'}
           </p>
           <p>
             {settings?.custom_texts?.footer_bottom_text || 'শিক্ষার্থীদের সাফল্যের জন্য নিবেদিত।'}

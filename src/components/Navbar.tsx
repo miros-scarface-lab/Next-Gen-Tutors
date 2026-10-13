@@ -34,7 +34,7 @@ export default function Navbar({ settings }: { settings?: SiteSettings | null })
         <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3 group">
           <img
             src={settings?.custom_texts?.nav_logo_url || "/Blue_and_Yellow_Modern_Next_Generation_Academy_Logo.png"}
-            alt={settings?.brand_name || "Next Gen Tutors"}
+            alt={settings?.brand_name || "Mentorio Pirojpur"}
             className="w-12 h-12 object-contain group-hover:scale-105 transition-transform"
           />
           <span className="font-display text-xl font-bold tracking-tight text-ink-900">
@@ -44,7 +44,7 @@ export default function Navbar({ settings }: { settings?: SiteSettings | null })
               </>
             ) : (
               <>
-                Next Gen <span className="text-primary-600">Tutors</span>
+                Mentorio <span className="text-primary-600">Pirojpur</span>
               </>
             )}
           </span>

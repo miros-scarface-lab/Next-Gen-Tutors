@@ -63,9 +63,9 @@ export default function Stats({ settings }: { settings?: SiteSettings | null }) 
                 {settings?.custom_texts?.stats_map_subtitle || 'পিরোজপুর সহ বাংলাদেশের বিভিন্ন এলাকায় আমাদের যাচাইকৃত অভিজ্ঞ টিউটর সেবা রয়েছে। আপনি যেখানেই থাকুন না কেন, আপনার পছন্দের টিউটর খুঁজে পাওয়া এখন সহজ।'}
               </p>
               <div className="mt-6 flex flex-wrap gap-2.5">
-                {(settings?.custom_texts?.stats_map_cities || 'পিরোজপুর')
+                {String(settings?.custom_texts?.stats_map_cities || 'পিরোজপুর')
                   .split(',')
-                  .map((c) => c.trim())
+                  .map((c: string) => c.trim())
                   .filter(Boolean)
                   .map((city: string) => (
                     <span

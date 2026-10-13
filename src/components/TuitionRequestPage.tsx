@@ -76,7 +76,7 @@ const initialDemoRequests: TuitionRequest[] = [
   }
 ];
 
-export default function TuitionRequestPage({ settings, brandName = 'Next Gen Tutors' }: TuitionRequestPageProps) {
+export default function TuitionRequestPage({ settings, brandName = 'Mentorio Pirojpur' }: TuitionRequestPageProps) {
   // Active Tab: 'form' (নতুন রিকোয়েস্ট) or 'live' (চলমান টিউশন রিকোয়েস্টসমূহ)
   const [activeTab, setActiveTab] = useState<'form' | 'live'>('form');
 
@@ -640,7 +640,7 @@ export default function TuitionRequestPage({ settings, brandName = 'Next Gen Tut
               {/* Feed Grid */}
               <div className="grid md:grid-cols-2 gap-5">
                 {filteredLiveRequests.map((req) => {
-                  const applyWaMsg = `আসসালামু আলাইকুম! Next Gen Tutors ওয়েবসাইটে রিকোয়েস্ট (${req.student_class} - ${req.subjects}, এলাকা: ${req.location}) দেখে আমি এই টিউশনে পড়াতে আগ্রহী।`;
+                  const applyWaMsg = `আসসালামু আলাইকুম! Mentorio Pirojpur ওয়েবসাইটে রিকোয়েস্ট (${req.student_class} - ${req.subjects}, এলাকা: ${req.location}) দেখে আমি এই টিউশনে পড়াতে আগ্রহী।`;
                   const applyUrl = `https://wa.me/8801318126412?text=${encodeURIComponent(applyWaMsg)}`;
 
                   return (
@@ -735,7 +735,7 @@ export default function TuitionRequestPage({ settings, brandName = 'Next Gen Tut
             <div className="mt-6 pt-4 border-t border-slate-100 space-y-3">
               <a
                 href={`https://wa.me/8801318126412?text=${encodeURIComponent(
-                  `আসসালামু আলাইকুম, আমি Next Gen Tutors ওয়েবসাইটে একটি টিউশন রিকোয়েস্ট জমা দিয়েছি:\n- অভিভাবক: ${submittedSuccess.guardian_name}\n- মোবাইল: ${submittedSuccess.guardian_phone}\n- শ্রেণি: ${submittedSuccess.student_class}\n- বিষয়: ${submittedSuccess.subjects}\n- এলাকা: ${submittedSuccess.location}\n- বাজেট: ${submittedSuccess.salary_budget}`
+                  `আসসালামু আলাইকুম, আমি Mentorio Pirojpur ওয়েবসাইটে একটি টিউশন রিকোয়েস্ট জমা দিয়েছি:\n- অভিভাবক: ${submittedSuccess.guardian_name}\n- মোবাইল: ${submittedSuccess.guardian_phone}\n- শ্রেণি: ${submittedSuccess.student_class}\n- বিষয়: ${submittedSuccess.subjects}\n- এলাকা: ${submittedSuccess.location}\n- বাজেট: ${submittedSuccess.salary_budget}`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
