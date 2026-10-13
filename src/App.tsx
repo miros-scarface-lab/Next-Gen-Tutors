@@ -15,7 +15,7 @@ import QuickInfoWidget from '@/components/QuickInfoWidget';
 import { useCmsData } from '@/hooks/useCmsData';
 
 function App() {
-  const { data } = useCmsData();
+  const { data, loading } = useCmsData();
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   useEffect(() => {
